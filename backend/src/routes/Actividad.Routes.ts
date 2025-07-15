@@ -4,6 +4,8 @@ import {ActividadControllers} from '../controllers/ActividadController';
 import {handleInputErrors} from '../middleware/validation'
 import {validateActividadBody,validateIdActividad, validateIdActividadYaExiste, } from '../middleware/Actividad';
 import { upload } from '../Uploads/Upload';
+
+
 const router = Router();
 
 // Obtener todas las actividades
