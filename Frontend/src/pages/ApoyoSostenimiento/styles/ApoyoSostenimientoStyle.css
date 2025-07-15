@@ -108,7 +108,7 @@ body {
 
 /* Hero Section */
 .hero-apoyo {
-  padding: 80px 0;
+  padding: 120px 0;
   text-align: center;
   background: radial-gradient(circle at center, rgba(74, 222, 128, 0.1) 0%, transparent 70%);
 }
