@@ -65,6 +65,8 @@ router.post(
   FeedbackController.crearFeedbackActividad
 );
 
-
+router.post("/solicitud", FeedbackController.crearFeedbackSolicitud);
+router.get("/solicitud/:IdSolicitud", FeedbackController.obtenerPorSolicitud);
+router.get('/estadisticas/promedio-tipo-ayuda', FeedbackController.getPromedioPorTipoAyuda);
 
 export default router;

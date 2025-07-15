@@ -1,5 +1,7 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo ,HasMany} from 'sequelize-typescript';
 import { Usuario } from './Usuario';
+
+import { Feedback } from './Feedback';
 
 @Table({ tableName: 'SolicitudApoyo' })
 export class SolicitudApoyo extends Model {
@@ -24,4 +26,7 @@ export class SolicitudApoyo extends Model {
 
   @BelongsTo(() => Usuario)
   declare usuario: Usuario;
+
+  @HasMany(() => Feedback)
+  declare feedbacks: Feedback[];
 }

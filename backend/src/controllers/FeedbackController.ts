@@ -3,20 +3,37 @@ import { Feedback } from "../models/Feedback";
 import { Usuario } from "../models/Usuario";
 import { Aprendiz } from "../models/Aprendiz";
 import { Actividad } from "../models/Actividad";
+import { SolicitudApoyo } from "../models/SolicitudApoyo";
 //usuarips que han cmentado el feddback del evento x , ya sea por id o por nombre
 export class FeedbackController {
 
-    static getAllFeedbacks = async (req: Request, res: Response) => {
-        try {
-            const feedbacks = await Feedback.findAll({
-                order: [['FechaEnvio', 'ASC']],
-            });
-            res.json(feedbacks);
-        } catch (error) {
-            console.error('Error al obtener feedbacks:', error);
-            res.status(500).json({ error: 'Hubo un error al obtener los feedbacks' });
-        }
-    };
+ static getAllFeedbacks = async (req: Request, res: Response) => {
+  try {
+    const feedbacks = await Feedback.findAll({
+      include: [
+        {
+          model: Usuario,
+          attributes: ['Nombre', 'Apellido', 'Correo'],
+        },
+        {
+          model: Actividad,
+          attributes: ['NombreActi'],
+        },
+        {
+          model: SolicitudApoyo,
+          attributes: ['TipoAyuda'],
+        },
+      ],
+      order: [['FechaEnvio', 'DESC']],
+    });
+
+    res.json(feedbacks);
+  } catch (error) {
+    console.error('Error al obtener feedbacks:', error);
+    res.status(500).json({ error: 'Hubo un error al obtener los feedbacks' });
+  }
+};
+
 
     static getFeedbackById = async (req: Request, res: Response) => {
         try {
@@ -167,5 +184,62 @@ static getFeedbacksDeMisActividades = async (req: Request, res: Response) => {
         console.error('❌ Error obteniendo "mis feedbacks":', error);
         res.status(500).json({ error: 'Error al obtener feedbacks de tus actividades' });
     }
+};
+ // Crear feedback
+  static async crearFeedbackSolicitud(req: Request, res: Response) {
+    try {
+      const { Comentario, Calificacion, IdUsuario, IdSolicitud } = req.body;
+
+      const nuevoFeedback = await Feedback.create({
+        ComentarioFeedback: Comentario,
+        Calificacion,
+        IdUsuario,
+        IdSolicitud,
+        FechaEnvio: new Date()
+      });
+
+      res.status(201).json(nuevoFeedback);
+    } catch (error) {
+      console.error("Error al crear feedback:", error);
+      res.status(500).json({ error: "Error al crear el feedback" });
+    }
+  }
+
+  // Obtener feedback por IdSolicitud
+  static async obtenerPorSolicitud(req: Request, res: Response) {
+    try {
+      const { IdSolicitud } = req.params;
+
+      const feedback = await Feedback.findOne({
+        where: { IdSolicitud: IdSolicitud },
+        include: [Usuario]
+      });
+
+      if (!feedback) {
+       res.status(404).json({ message: "No hay feedback para esta solicitud" });
+       return;
+      }
+
+      res.json(feedback);
+    } catch (error) {
+      console.error("Error al obtener feedback:", error);
+      res.status(500).json({ error: "Error al obtener feedback" });
+    }
+  }
+static getPromedioPorTipoAyuda = async (req: Request, res: Response) => {
+  try {
+    const [results] = await Feedback.sequelize?.query(`
+      SELECT sa.TipoAyuda, ROUND(AVG(f.Calificacion), 2) AS Promedio
+      FROM Feedback f
+      JOIN SolicitudApoyo sa ON f.IdSolicitud = sa.IdSolicitud
+      WHERE f.IdSolicitud IS NOT NULL
+      GROUP BY sa.TipoAyuda
+    `) || [];
+
+    res.json(results);
+  } catch (error) {
+    console.error("Error en promedio por tipo de ayuda:", error);
+    res.status(500).json({ error: "Error al obtener promedios" });
+  }
 };
 }
