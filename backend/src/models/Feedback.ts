@@ -10,7 +10,7 @@ import {
 import { Evento } from './Evento';
 import { Actividad } from './Actividad';
 import { Usuario } from './Usuario';
-
+import { SolicitudApoyo } from './SolicitudApoyo';
 @Table({ tableName: 'Feedback' })
 export class Feedback extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
@@ -42,7 +42,12 @@ export class Feedback extends Model {
   @ForeignKey(() => Usuario)
   @Column({ type: DataType.INTEGER, allowNull: false })
   declare IdUsuario: number;
+@ForeignKey(() => SolicitudApoyo)
+@Column({ type: DataType.INTEGER, allowNull: true })
+declare IdSolicitud: number;
 
+@BelongsTo(() => SolicitudApoyo)
+declare solicitud: SolicitudApoyo;
   @BelongsTo(() => Usuario)
   declare usuario: Usuario;
 }

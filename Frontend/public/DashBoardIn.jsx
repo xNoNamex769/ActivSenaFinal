@@ -24,7 +24,8 @@ import MisLudicas from "../src/pages/RegistroLudicas/MisLudicas";
 import MisEventos from "../src/pages/Aplicacion/Instructor/MisEventos"
 import AsistenciasActividad from "../src/pages/Asistencia/Instructor/AsistenciasActividad";
 import Instructor from "../src/pages/SolicitudApoyo/Instructor";
-
+import PanelFeedback from "../src/pages/Feedback/instructor/PanelFeedback";
+import GraficosPromediosAyuda from "../src/pages/Graficos/GraficosPromediosAyuda";
 import "../src/styles/BotHp.css";
 import "../src/styles/ColaViento.css";
 import "../src/styles/Resposive.css";
@@ -94,6 +95,8 @@ export default function DashBoard() {
         {contenidoActual === "misactividades" && <MisActividades />}
         {contenidoActual === "misludicas" && <MisLudicas />}
         {contenidoActual === "miseventos" && <MisEventos />}
+         {contenidoActual === "graficopromediofeedback" && <GraficosPromediosAyuda />}
+         {contenidoActual === "panelfeedback" && <PanelFeedback />}
        {contenidoActual === "config" && (
   <ConfigViewIn
     setContenidoActual={handleSetContenido}

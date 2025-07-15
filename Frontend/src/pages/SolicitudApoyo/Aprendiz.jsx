@@ -77,6 +77,8 @@ const solicitudDelUsuario = solicitudesActivas[0]; // solo la más reciente
       axios.post('http://localhost:3001/api/solicitudapoyo', datosSolicitud)
         .then((res) => {
           setSolicitud(res.data);
+          //Llamamos a la función de notificación
+           notificarEncargados(datosSolicitud.TipoAyuda, res.data.IdSolicitud);
         })
         .catch((err) => console.error("Error al crear solicitud:", err));
     }
@@ -117,15 +119,19 @@ const solicitudDelUsuario = solicitudesActivas[0]; // solo la más reciente
       alert("El comentario no puede estar vacío.");
       return;
     }
+    if (!solicitud?.IdSolicitud) {
+    alert("No se puede enviar feedback. La solicitud aún no está disponible.");
+    return;
+  }
 
     const datos = {
-      IdSolicitud: solicitud.IdSolicitud,
+      IdSolicitud: solicitud?.IdSolicitud,
       IdUsuario: IdAprendiz,
       Comentario: comentarioFeedback,
       Calificacion: calificacion
     };
 
-    axios.post(`http://localhost:3001/api/feedback`, datos)
+    axios.post(`http://localhost:3001/api/feedback/solicitud`, datos)
       .then(() => {
         alert("¡Gracias por tu opinión!");
         setMostrarFeedback(false);
@@ -139,6 +145,34 @@ const solicitudDelUsuario = solicitudesActivas[0]; // solo la más reciente
       })
       .catch((err) => console.error("Error al enviar feedback:", err));
   };
+const notificarEncargados = async (tipoAyuda, solicitudId) => {
+  try {
+    // 1. Buscar encargados según el tipo de ayuda
+    const res = await axios.get(`http://localhost:3001/api/solicitudapoyo/encargados/${tipoAyuda}`);
+    const encargados = res.data;
+
+    if (encargados.length === 0) {
+      console.warn("No hay encargados para esta área");
+      return;
+    }
+
+    // 2. Por cada encargado, enviar notificación (esto se puede ajustar)
+    for (const encargado of encargados) {
+      await axios.post('http://localhost:3001/api/notificaciones', {
+        IdUsuario: encargado.usuario.IdUsuario,
+        Titulo: `Nueva solicitud de ${tipoAyuda}`,
+        Descripcion: `Un aprendiz ha solicitado ayuda en el área de ${tipoAyuda}.`,
+        Tipo: 'Solicitud',
+        Visto: false,
+        Link: `/panel-instructor/solicitudes/${solicitudId}`
+      });
+    }
+
+    console.log("Notificaciones enviadas a encargados");
+  } catch (error) {
+    console.error("Error al notificar encargados:", error);
+  }
+};
 
   return (
     <div className="panel">
@@ -152,9 +186,9 @@ const solicitudDelUsuario = solicitudesActivas[0]; // solo la más reciente
             Tipo de Ayuda:
             <select value={TipoAyuda} onChange={(e) => setTipoAyuda(e.target.value)} required>
               <option value="">-- Seleccionar --</option>
-              <option value="Psicológica">Psicológica</option>
-              <option value="Emocional">Emocional</option>
-              <option value="Económica">Económica</option>
+              <option value="Psicologica">Psicológica</option>
+<option value="Emocional">Emocional</option>
+<option value="Economica">Económica</option>
             </select>
             {TipoAyuda && (
   <div className="info-ayuda">

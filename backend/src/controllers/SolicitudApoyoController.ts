@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { SolicitudApoyo } from "../models/SolicitudApoyo";
 import { Usuario } from "../models/Usuario";
 import { RolUsuario } from "../models/RolUsuario";
-
+import { PerfilInstructor } from "../models/PerfilInstructor";
 export class SolicitudApoyoController {
   static getAllSolicitudApoyo = async (req: Request, res: Response) => {
     try {
@@ -109,4 +109,53 @@ res.json(solicitudDelApoyo); // devuelve el objeto actualizado
       res.status(500).json({ error: "Hubo un error al eliminar la solicitud de apoyo" });
     }
   };
+// Obtener instructores encargados de un área específica
+// static async obtenerEncargadosPorTipoAyuda eliminado. Usar solo getEncargadosPorTipoAyuda
+// GET /api/solicitudapoyo/encargados/:tipoAyuda
+static async getEncargadosPorTipoAyuda(req: Request, res: Response) {
+  const { tipoAyuda } = req.params;
+
+  const tiposValidos = ['psicologica', 'emocional', 'economica'];
+
+  if (!tiposValidos.includes(tipoAyuda.toLowerCase())) {
+    res.status(400).json({ message: 'Tipo de ayuda inválido' });
+    return;
+  }
+
+  try {
+    const perfiles = await PerfilInstructor.findAll({
+      include: [
+        {
+          model: Usuario,
+          as: 'usuario',
+          attributes: ['IdUsuario', 'Nombre', 'Telefono', 'Correo']
+        }
+      ]
+    });
+
+    const encargados = perfiles.filter(p => {
+      if (!p.profesion) return false;
+
+      const profesion = p.profesion.toLowerCase();
+      const tipo = tipoAyuda.toLowerCase();
+
+      if (tipo === 'psicologica') {
+        return profesion === 'psicologica' || profesion.includes('psico');
+      } else if (tipo === 'emocional') {
+        return profesion === 'emocional' || profesion.includes('orientador') || profesion.includes('social');
+      } else if (tipo === 'economica') {
+        return profesion.includes('economica') || profesion.includes('finan') || profesion.includes('bienestar');
+      }
+
+      return false;
+    });
+
+    // ✅ Solo una vez se responde
+    res.json(encargados);
+
+  } catch (error) {
+    console.error("Error al buscar encargados:", error);
+    res.status(500).json({ message: "Error al obtener encargados" });
+  }
+}
 }
