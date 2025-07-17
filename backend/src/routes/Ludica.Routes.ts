@@ -13,6 +13,7 @@ router.post("/", upload.single("Imagen"), LudicaController.crearLudica);
 router.get("/mis-ludicas", verificarToken, LudicaController.getLudicasDelInstructor);
 router.get("/asistentes/:id", verificarToken, LudicaController.getAsistentesPorLudica);
 router.get("/horas/:idUsuario", LudicaController.getHorasLudicasPorUsuario);
+router.get("/admin/resumen-ludicas", LudicaController.getResumenInteresPorLudica);
 
 
 export default router;

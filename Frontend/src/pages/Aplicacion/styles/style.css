@@ -586,3 +586,50 @@ body {
   padding: 1rem;
   border-radius: 8px;
 }
+.estado-reaccion {
+  margin-top: 6px;
+  font-weight: 500;
+  color: #2e7d32; /* verde fuerte para 'Te gustó' */
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.estado-reaccion span {
+  background-color: #e0f2f1;
+  padding: 4px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  color: #004d40;
+  font-size: 13.5px;
+}
+.estado-feedback {
+  margin-top: 6px;
+  background-color: #f3f4f6;
+  padding: 6px 10px;
+  border-left: 4px solid #00796b;
+  border-radius: 8px;
+  color: #333;
+  font-size: 13.5px;
+  font-style: italic;
+}
+
+.estado-feedback p {
+  margin: 2px 0;
+}
+.estado-feedback {
+  margin-top: 8px;
+  background-color: #f3f4f6;
+  padding: 8px 12px;
+  border-left: 4px solid #00796b;
+  border-radius: 8px;
+  color: #333;
+  font-size: 13.5px;
+  font-style: italic;
+  transition: all 0.3s ease;
+}
+
+.estado-feedback p {
+  margin: 4px 0;
+}

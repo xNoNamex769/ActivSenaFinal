@@ -177,6 +177,9 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
                <button onClick={() => setContenidoActual("planificareventosadmin")} className="opciondash">
                 <FaAddressBook className="iconodash" /> AprobarEventos
               </button>
+                 <button onClick={() => setContenidoActual("adminludicas")} className="opciondash">
+                <FaChartBar className="iconodash" /> Ludicas Aprendices
+              </button>
             </>
           )}
         </div>

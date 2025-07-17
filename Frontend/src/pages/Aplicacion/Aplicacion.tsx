@@ -57,6 +57,7 @@ const Aplicacion = () => {
   const [miReaccion, setMiReaccion] = useState<Record<number, "like" | "dislike" | null>>({});
   const [eventoSeleccionado, setEventoSeleccionado] = useState<number | null>(null);
   const [feedbacksModal, setFeedbacksModal] = useState<any[]>([]);
+  
 
 
   const [detallesReacciones, setDetallesReacciones] = useState<
@@ -281,9 +282,34 @@ const irAFeedback = () => {
 >
   📝 Feedback
 </button>
+  {miReaccion[evento.IdEvento] && (
+    <div className="estado-reaccion">
+      {miReaccion[evento.IdEvento] === "like" && (
+        <span title="Ya marcaste que te gustó">💚 Te gustó</span>
+      )}
+      {miReaccion[evento.IdEvento] === "dislike" && (
+        <span title="Ya marcaste que no te gustó">💔 No te gustó</span>
+      )}
+    </div>
+    
+  )}
+
 
 
                   </div>
+                  {feedbacksModal && evento.IdEvento === eventoSeleccionado && (
+  <div className="estado-feedback">
+    {feedbacksModal
+      .filter((fb) => fb.usuario?.IdUsuario === idUsuario)
+      .map((fb, i) => (
+        <div key={i}>
+          <p>📝 Ya comentaste: "{fb.ComentarioFeedback}"</p>
+          <p>{"⭐".repeat(fb.Calificacion || 0)}</p>
+        </div>
+      ))}
+  </div>
+)}
+
                 </div>
               ))}
             </div>

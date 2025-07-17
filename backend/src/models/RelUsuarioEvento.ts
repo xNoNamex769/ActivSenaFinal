@@ -13,7 +13,14 @@ import { Evento } from './Evento';
   tableName: 'RelUsuarioEvento',
   timestamps: true,
 })
-export class RelUsuarioEvento extends Model<RelUsuarioEvento> {
+export class RelUsuarioEvento extends Model<RelUsuarioEvento, {
+  IdUsuario: number;
+  IdEvento: number;
+  ConfirmoAsistencia?: boolean;
+  Asistio?: boolean;
+  Penalizacion?: number;
+}>
+{
   @ForeignKey(() => Usuario)
   @Column({ type: DataType.INTEGER, allowNull: false, primaryKey: true })
   declare IdUsuario: number;
@@ -21,10 +28,22 @@ export class RelUsuarioEvento extends Model<RelUsuarioEvento> {
   @ForeignKey(() => Evento)
   @Column({ type: DataType.INTEGER, allowNull: false, primaryKey: true })
   declare IdEvento: number;
+  // El usuario confirmó que asistiría
+  @Column({ type: DataType.BOOLEAN, defaultValue: false })
+  declare ConfirmoAsistencia: boolean;
 
-  @BelongsTo(() => Usuario, { foreignKey: 'IdUsuario' })
-  declare usuario: Usuario;
+  // El usuario asistió efectivamente
+  @Column({ type: DataType.BOOLEAN, defaultValue: false })
+  declare Asistio: boolean;
 
-  @BelongsTo(() => Evento, { foreignKey: 'IdEvento' })
-  declare evento: Evento;
+  // Penalización por no asistir (esto lo puedes usar para lógica adicional)
+  @Column({ type: DataType.INTEGER, defaultValue: 0 })
+  declare Penalizacion: number;
+
+  @BelongsTo(() => Usuario, { foreignKey: 'IdUsuario', as: 'Usuario' })
+declare Usuario: Usuario;
+
+@BelongsTo(() => Evento, { foreignKey: 'IdEvento', as: 'Evento' })
+declare Evento: Evento;
+
 }

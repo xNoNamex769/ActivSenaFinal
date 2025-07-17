@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./styles/Actividades.css";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
 
 const formatearFecha = (fechaStr) => {
   if (!fechaStr) return "";
@@ -51,6 +53,8 @@ export default function Actividades() {
   const [calificacion, setCalificacion] = useState(0);
   const [feedbacksActividad, setFeedbacksActividad] = useState([]);
   const navigate = useNavigate();
+  const [filtro, setFiltro] = useState("");
+
 
   const obtenerIdUsuario = () => {
     const token = localStorage.getItem("token");
@@ -132,7 +136,13 @@ export default function Actividades() {
     return (suma / feedbacksActividad.length).toFixed(1);
   };
 
-  const actividadesConImagen = actividades.filter((a) => a.Imagen);
+const actividadesConImagen = actividades
+  .filter((a) => a.Imagen)
+  .filter((a) =>
+    a.NombreActi.toLowerCase().includes(filtro.toLowerCase()) ||
+    a.Ubicacion.toLowerCase().includes(filtro.toLowerCase())
+  );
+
   const { lunes, domingo } = obtenerLimitesSemanaActual();
 
   const puedeComentar =
@@ -153,6 +163,15 @@ export default function Actividades() {
     <div className="actividades-contenedor">
       <header className="actividades-cabecera">
         <h1 className="actividades-titulo">Actividades - SENA</h1>
+        <div className="actividades-busqueda">
+  <input
+    type="text"
+    placeholder="🔍 Buscar por nombre o ubicación..."
+    value={filtro}
+    onChange={(e) => setFiltro(e.target.value)}
+  />
+</div>
+
         <p className="actividades-descripcion">
           Explora las actividades semanales pensadas para tu bienestar y
           formación integral.
@@ -186,14 +205,29 @@ export default function Actividades() {
       )}
 
       <main className="actividades-galeria">
-        {actividadesConImagen.map((actividad) => (
-          <article key={actividad.IdActividad} className="actividades-card">
+        {actividadesConImagen.length === 0 ? (
+        <p className="actividades-vacio">
+      😕 No se encontraron actividades con ese criterio.
+    </p>
+        ):(
+        actividadesConImagen.map((actividad) => (
+          
+          
+       <motion.article
+  key={actividad.IdActividad}
+  className="actividades-card"
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4 }}
+>
+
             <img
               src={`http://localhost:3001/uploads/${actividad.Imagen}`}
               alt={actividad.NombreActi}
               className="actividades-img"
               onClick={() => abrirModal(actividad)}
             />
+            
             <div className="actividades-info">
               <h4>{actividad.NombreActi}</h4>
               <p>{actividad.Descripcion}</p>
@@ -210,8 +244,9 @@ export default function Actividades() {
                 Ir a Feedbacks
               </button>
             </div>
-          </article>
-        ))}
+          </motion.article>
+        ))
+      )}
       </main>
 
       {actividadSeleccionada && (

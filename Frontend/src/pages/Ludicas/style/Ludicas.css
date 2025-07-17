@@ -369,3 +369,64 @@
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
 }
+.interesado-btn {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.interesado-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.interesado-btn.active {
+  background-color: #ffefef;
+  border-color: #f66;
+  color: #e11d48;
+}
+.interesado-btn {
+  background-color: #ffe0e6;
+  color: #d6336c;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.interesado-btn:hover {
+  transform: scale(1.05);
+  background-color: #ffd6df;
+}
+
+.interesado-btn.active {
+  background-color: #ffb3c1;
+  color: white;
+  transform: scale(1.1);
+}
+
+.interesado-btn.animating {
+  animation: pulse 0.4s ease;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.interesado-btn.active {
+  color: red;
+  transform: scale(1.2);
+  transition: all 0.2s ease-in-out;
+}

@@ -24,7 +24,7 @@ import DashThemed from "../src/pages/Dashtheme/DashThemed";
 import AdminConstancias from "../src/pages/ConstanciaCertificado/Admin/AdminConstancias";
 import PlanificarEventosAdmin from "../src/pages/PlanificarEv/Admin/PlanificarEventosAdmin"
 import ResumenIA from "../src/Components/ResumenIA/ResumenIA";
-
+import AdminLudicas from "../src/pages/Ludicas/Admin/AdminLudicas";
 // Estilos globales
 import "../src/styles/BotHp.css";
 import "../src/styles/ColaViento.css";
@@ -124,6 +124,7 @@ export default function DashBoard() {
         {contenidoActual === "formulariocatalogo" && <FormularioCatalogo />}
         {contenidoActual === "planificareventosadmin" && <PlanificarEventosAdmin/>}
          {contenidoActual === "adminconstancias" && <AdminConstancias />}
+           {contenidoActual === "adminludicas" && <AdminLudicas />}
         {contenidoActual === "temas" && (
           <DashThemed
             esTemaHalloween={esTemaHalloween}

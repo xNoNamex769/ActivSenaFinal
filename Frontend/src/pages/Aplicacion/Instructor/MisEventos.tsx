@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import AsistentesEvento from "../../Asistencia/Instructor/AsistentesEventos"; // Ajusta la ruta si es necesario
 
 interface EventoConDatos {
   IdEvento: number;
@@ -33,6 +34,7 @@ export default function MisEventos() {
   const [asistencias, setAsistencias] = useState<Record<number, AsistenciaItem[]>>({});
   const [usuarioId, setUsuarioId] = useState<number | null>(null);
   const [eventos, setEventos] = useState<EventoConDatos[]>([]);
+const [mostrarAsistentes, setMostrarAsistentes] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -76,87 +78,108 @@ export default function MisEventos() {
 
       {eventos.length === 0 && <p>No has creado eventos aún.</p>}
 
-      {eventos.map((evento) => (
-        <div key={evento.IdEvento} className="actividad-card">
-          <h3>{evento.NombreEvento}</h3>
-          <p>
-            🗓️ {evento.FechaInicio} | ⏰ {evento.HoraInicio} - {evento.HoraFin}
-          </p>
-          <p>📍 {evento.UbicacionEvento}</p>
-          <p>📝 {evento.DescripcionEvento}</p>
+{eventos.map((evento) => (
+  <div key={evento.IdEvento} className="evento-wrapper">
+    <div className="actividad-card">
+      <h3>{evento.NombreEvento}</h3>
+      <p>
+        🗓️ {evento.FechaInicio} | ⏰ {evento.HoraInicio} - {evento.HoraFin}
+      </p>
+      <p>📍 {evento.UbicacionEvento}</p>
+      <p>📝 {evento.DescripcionEvento}</p>
 
-          {evento.QREntrada && (
-            <div className="qr-contenedor">
-              <h4>📥 QR Entrada</h4>
-              <img src={evento.QREntrada} alt="QR Entrada" className="qr-imagen" />
-            </div>
-          )}
-
-          {evento.QRSalida && (
-            <div className="qr-contenedor">
-              <h4>📤 QR Salida</h4>
-              <img src={evento.QRSalida} alt="QR Salida" className="qr-imagen" />
-            </div>
-          )}
-
-          <button
-            className="btn-ver-asistencia"
-            onClick={() => obtenerAsistencias(evento.IdEvento)}
-          >
-            📥 Ver asistencia
-          </button>
-
-          {asistencias[evento.IdEvento] && (
-            <div className="tabla-asistencia">
-              <h4>📊 Asistencia registrada</h4>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Ficha</th>
-                    <th>Programa</th>
-                    <th>Jornada</th>
-                    <th>Hora Entrada</th>
-                    <th>Hora Salida</th>
-                    <th>Estado</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {asistencias[evento.IdEvento].map((asistente, index) => (
-                    <tr key={index}>
-                      <td>
-                        {asistente.usuario?.Nombre} {asistente.usuario?.Apellido}
-                      </td>
-                      <td>{asistente.usuario?.Correo}</td>
-                      <td>{asistente.usuario?.aprendiz?.Ficha || "—"}</td>
-                      <td>{asistente.usuario?.aprendiz?.ProgramaFormacion || "—"}</td>
-                      <td>{asistente.usuario?.aprendiz?.Jornada || "—"}</td>
-                      <td>
-                        {asistente.QREntrada
-                          ? new Date(asistente.QREntrada).toLocaleTimeString("es-CO")
-                          : "—"}
-                      </td>
-                      <td>
-                        {asistente.QRSalida
-                          ? new Date(asistente.QRSalida).toLocaleTimeString("es-CO")
-                          : "—"}
-                      </td>
-                      <td>
-                        {asistente.QREntrada && asistente.QRSalida
-                          ? "✅ Completa"
-                          : asistente.QREntrada
-                          ? "🕓 Solo entrada"
-                          : "❌ Sin registro"}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+      {evento.QREntrada && (
+        <div className="qr-contenedor">
+          <h4>📥 QR Entrada</h4>
+          <img src={evento.QREntrada} alt="QR Entrada" className="qr-imagen" />
         </div>
-      ))}
+      )}
+
+      {evento.QRSalida && (
+        <div className="qr-contenedor">
+          <h4>📤 QR Salida</h4>
+          <img src={evento.QRSalida} alt="QR Salida" className="qr-imagen" />
+        </div>
+      )}
+
+      <button
+        className="btn-ver-asistencia"
+        onClick={() => obtenerAsistencias(evento.IdEvento)}
+      >
+        📥 Ver asistencia
+      </button>
+
+      <button
+        className="btn-ver-asistentes-confirmados"
+        onClick={() =>
+          setMostrarAsistentes((prev) => ({
+            ...prev,
+            [evento.IdEvento]: !prev[evento.IdEvento],
+          }))
+        }
+      >
+        👥 {mostrarAsistentes[evento.IdEvento] ? "Ocultar" : "Ver"} asistentes confirmados
+      </button>
+
+      {/* Renderiza asistentes confirmados si está activado */}
+      {mostrarAsistentes[evento.IdEvento] && (
+        <AsistentesEvento idEvento={evento.IdEvento} />
+      )}
+
+      {/* Asistencia escaneada con QR */}
+      {asistencias[evento.IdEvento] && (
+        <div className="tabla-asistencia">
+          <h4>📊 Asistencia registrada</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Ficha</th>
+                <th>Programa</th>
+                <th>Jornada</th>
+                <th>Hora Entrada</th>
+                <th>Hora Salida</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              {asistencias[evento.IdEvento].map((asistente, index) => (
+                <tr key={index}>
+                  <td>
+                    {asistente.usuario?.Nombre} {asistente.usuario?.Apellido}
+                  </td>
+                  <td>{asistente.usuario?.Correo}</td>
+                  <td>{asistente.usuario?.aprendiz?.Ficha || "—"}</td>
+                  <td>{asistente.usuario?.aprendiz?.ProgramaFormacion || "—"}</td>
+                  <td>{asistente.usuario?.aprendiz?.Jornada || "—"}</td>
+                  <td>
+                    {asistente.QREntrada
+                      ? new Date(asistente.QREntrada).toLocaleTimeString("es-CO")
+                      : "—"}
+                  </td>
+                  <td>
+                    {asistente.QRSalida
+                      ? new Date(asistente.QRSalida).toLocaleTimeString("es-CO")
+                      : "—"}
+                  </td>
+                  <td>
+                    {asistente.QREntrada && asistente.QRSalida
+                      ? "✅ Completa"
+                      : asistente.QREntrada
+                      ? "🕓 Solo entrada"
+                      : "❌ Sin registro"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  </div>
+))}
+
     </div>
   );
 }

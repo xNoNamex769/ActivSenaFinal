@@ -31,6 +31,7 @@ import "../src/styles/BotHp.css";
 import "../src/styles/ColaViento.css";
 import "../src/styles/Resposive.css";
 import "../src/styles/global.css";
+import AsistentesEventos from "../src/pages/Asistencia/Instructor/AsistentesEventos";
 
 export default function DashBoard() {
   const [menuAbierto, setMenuAbierto] = useState(true);
@@ -98,6 +99,7 @@ export default function DashBoard() {
         {contenidoActual === "miseventos" && <MisEventos />}
          {contenidoActual === "aprobadoseventos" && <AprobarEventos />}
          {contenidoActual === "graficopromediofeedback" && <GraficosPromediosAyuda />}
+          {contenidoActual === "asistenciaseventos" && <AsistentesEventos/>}
          {contenidoActual === "panelfeedback" && <PanelFeedback />}
        {contenidoActual === "config" && (
   <ConfigViewIn

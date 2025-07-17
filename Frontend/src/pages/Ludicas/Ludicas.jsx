@@ -7,12 +7,72 @@ const ListaLudicas = () => {
   const [busqueda, setBusqueda] = useState('');
   const [tipoSeleccionado, setTipoSeleccionado] = useState('Todos');
   const [ludicaSeleccionada, setLudicaSeleccionada] = useState(null);
+  const [reacciones, setReacciones] = useState({});
+const [miReaccion, setMiReaccion] = useState({});
+const [animando, setAnimando] = useState({});
+
 
   useEffect(() => {
     axios.get('http://localhost:3001/api/ludica')
       .then(res => setLudicas(res.data))
       .catch(err => console.error("❌ Error cargando lúdicas:", err));
   }, []);
+useEffect(() => {
+  const fetchReacciones = async () => {
+    try {
+      const nuevasReacciones = {};
+      const misReacciones = {};
+
+      for (const ludica of ludicas) {
+        const res = await axios.get(`http://localhost:3001/api/reacciones/${ludica.IdActividad}`);
+        nuevasReacciones[ludica.IdActividad] = res.data.likes;
+
+        const miRes = await axios.get(`http://localhost:3001/api/reacciones/usuario/${ludica.IdActividad}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        misReacciones[ludica.IdActividad] = miRes.data.Tipo;
+      }
+
+      setReacciones(nuevasReacciones);
+      setMiReaccion(misReacciones);
+    } catch (err) {
+      console.error("❌ Error cargando reacciones:", err);
+    }
+  };
+
+  if (ludicas.length > 0) fetchReacciones();
+}, [ludicas]);
+const marcarMeInteresa = async (IdActividad) => {
+  if (miReaccion[IdActividad] === 'like') return; // Ya reaccionó
+
+  try {
+    setAnimando(prev => ({ ...prev, [IdActividad]: true }));
+
+    await axios.post(`http://localhost:3001/api/reacciones`, {
+      IdEvento: IdActividad,
+      Tipo: 'like'
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    setMiReaccion(prev => ({ ...prev, [IdActividad]: 'like' }));
+    setReacciones(prev => ({
+      ...prev,
+      [IdActividad]: (prev[IdActividad] || 0) + 1
+    }));
+  } catch (error) {
+    console.error("❌ Error al marcar interés:", error);
+  } finally {
+    setTimeout(() => {
+      setAnimando(prev => ({ ...prev, [IdActividad]: false }));
+    }, 400); // tiempo del pulso
+  }
+};
 
   const tipos = ['Todos', ...new Set(ludicas.map(l => l.TipoLudica))];
 
@@ -83,6 +143,17 @@ const ListaLudicas = () => {
               <button className="ludicas-btn" onClick={() => setLudicaSeleccionada(ludica)}>
                 <i className="fas fa-info-circle"></i> Más Detalles
               </button>
+    <button
+  className={`interesado-btn 
+    ${miReaccion[ludica.IdActividad] === 'like' ? 'active' : ''} 
+    ${animando[ludica.IdActividad] ? 'animating' : ''}`
+  }
+  disabled={miReaccion[ludica.IdActividad] === 'like'}
+  onClick={() => marcarMeInteresa(ludica.IdActividad)}
+>
+  ❤️ Me interesa ({reacciones[ludica.IdActividad] || 0})
+</button>
+
             </div>
           </div>
         ))}
