@@ -1,4 +1,6 @@
 ///***** no se olviden de insertar estos campos en todas las tablas ***
+////***estaaaaaa base de datosss es por si las moscas la llegamos a cagar en algo esta nos respalda/***
+ni se si estara bien comentado jajajajaj
 ALTER TABLE HistorialSolicitud
 ADD COLUMN createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 ADD COLUMN updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
