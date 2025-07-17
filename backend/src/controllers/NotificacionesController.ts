@@ -1,47 +1,52 @@
 import { Request, Response } from "express";
 import { Notificaciones } from "../models/Notificaciones";
+import { enviarNotificacion } from "../services/notificacionesService"; 
+import { validateIdRolUsuarioYaExiste } from "../middleware/RolUsuario";
+
 
 export class NotificacionController {
-  // ✅ Crear notificación
   static async crear(req: Request, res: Response) {
-  try {
-    const {
-      Titulo,
-      Mensaje,
-      TipoNotificacion,
-      FechaDeEnvio,
-      IdEvento,
-      IdUsuario,
-      RutaDestino,
-      imagenUrl
-    } = req.body;
+    try {
+      const {
+        Titulo,
+        Mensaje,
+        TipoNotificacion,
+        IdEvento,
+        idUsuarios,
+        RutaDestino,
+        imagenUrl,
+      } = req.body;
 
-    const nueva = await Notificaciones.create({
-      Titulo,
-      Mensaje,
-      TipoNotificacion,
-      FechaDeEnvio,
-      IdEvento,
-      IdUsuario,
-      RutaDestino,
-      imagenUrl
-    });
+      if (!idUsuarios || !Array.isArray(idUsuarios) || idUsuarios.length === 0) {
+      res.status(400).json({ error: "Debe enviar idUsuarios como array" });
+      return;
+      }
 
-    // 🔥 Emitir notificación en tiempo real usando el socket guardado en app
-    const io = req.app.get("io");
-    io.emit("nuevaNotificacion", {
-      ...nueva.toJSON() // envías toda la info al frontend
-    });
+      // Obtener el socket io desde app
+      const io = req.app.get("io");
 
-    res.status(201).json({
-      msg: "Notificación creada",
-      notificacion: nueva,
-    });
-  } catch (error) {
-    console.error("❌ Error al crear notificación:", error);
-    res.status(500).json({ error: "Error al crear notificación" });
+      // Llamar a la función que crea y emite notificaciones individualmente
+      await enviarNotificacion(
+        {
+          titulo: Titulo,
+          mensaje: Mensaje,
+          tipo: TipoNotificacion,
+          idUsuarios,
+          idEvento: IdEvento ?? null,
+          RutaDestino,
+          imagenUrl,
+        },
+        io
+      );
+
+     res.status(201).json({ msg: "Notificaciones enviadas y creadas con éxito" })
+     return;
+    } catch (error) {
+      console.error("❌ Error al crear notificación:", error);
+      res.status(500).json({ error: "Error al crear notificación" });
+      return;
+    }
   }
-}
 
 
   // ✅ Obtener todas las notificaciones de un usuario

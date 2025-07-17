@@ -54,9 +54,10 @@ const AsistentesEvento: React.FC<Props> = ({ idEvento }) => {
           <tbody>
             {asistentes.map((asistente, index) => (
               <tr key={index}>
-                <td>{asistente.Usuario?.Nombre ?? "—"}</td>
-                <td>{asistente.Usuario?.Apellido ?? "—"}</td>
-                <td>{asistente.Usuario?.Correo ?? "—"}</td>
+               <td>{asistente.Usuario?.Nombre ?? "—"}</td>
+<td>{asistente.Usuario?.Apellido ?? "—"}</td>
+<td>{asistente.Usuario?.Correo ?? "—"}</td>
+
               </tr>
             ))}
           </tbody>

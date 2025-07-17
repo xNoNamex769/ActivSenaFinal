@@ -120,6 +120,7 @@ static getHistorialAsistenciaPorUsuario = async (req: Request, res: Response) =>
       },
       {
         model: Aprendiz,
+        as:"perfilAprendiz",
         attributes: ['Ficha', 'ProgramaFormacion', 'Jornada'],
       },
     ],
@@ -523,7 +524,7 @@ static getAsistenciaPorEvento = async (req: Request, res: Response) => {
 
     // 2. Buscar asistencias usando IdPlanificarE
     const asistencias = await Asistencia.findAll({
-      where: { IdPlanificarE: evento.IdPlanificarE }, // 👈 este es el campo válido
+      where: { IdPlanificarE: evento.IdPlanificarE }, // 
       include: [
         {
           model: Usuario,
