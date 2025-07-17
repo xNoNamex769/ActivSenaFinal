@@ -71,7 +71,7 @@ console.log ( "usuario recibido" , usuario);
 
       login(token, usuario); // ✅ guardar en el contexto
 
-      setMensaje("✅ Inicio de sesión exitoso");
+      setMensaje(" Inicio de sesión exitoso");
       setTipoMensaje("exito");
 
  setTimeout(() => {

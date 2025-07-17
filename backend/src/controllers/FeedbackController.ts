@@ -242,4 +242,56 @@ static getPromedioPorTipoAyuda = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Error al obtener promedios" });
   }
 };
+static getFeedbacksByEvento = async (req: Request, res: Response) => {
+  try {
+    const { IdEvento } = req.params;
+
+    const feedbacks = await Feedback.findAll({
+      where: { IdEvento },
+      include: [
+        {
+          model: Usuario,
+          attributes: ['IdUsuario', 'Nombre', 'Apellido']
+        }
+      ],
+      order: [['FechaEnvio', 'DESC']]
+    });
+
+    res.json(feedbacks);
+  } catch (error) {
+    console.error("❌ Error al obtener feedbacks por evento:", error);
+    res.status(500).json({ error: "Error al obtener feedbacks del evento" });
+  }
+};
+static crearFeedbackEvento = async (req: Request, res: Response) => {
+  try {
+    const usuario = req.usuario; // viene del middleware authFeedback
+
+    if (!usuario) {
+     res.status(401).json({ error: 'No autorizado' });
+     return;
+    }
+
+    const { ComentarioFeedback, Calificacion, IdEvento } = req.body;
+    const { IdUsuario } = usuario;
+
+    if (!ComentarioFeedback || Calificacion === undefined || !IdEvento) {
+     res.status(400).json({ error: 'Faltan campos obligatorios' });
+     return;
+    }
+
+    const nuevoFeedback = await Feedback.create({
+      ComentarioFeedback,
+      Calificacion,
+      IdEvento,
+      IdUsuario,
+      FechaEnvio: new Date(),
+    });
+
+    res.status(201).json({ message: 'Feedback para evento creado correctamente', feedback: nuevoFeedback });
+  } catch (error) {
+    console.error("❌ Error al crear feedback para evento:", error);
+    res.status(500).json({ error: "Error al crear feedback para evento" });
+  }
+};
 }

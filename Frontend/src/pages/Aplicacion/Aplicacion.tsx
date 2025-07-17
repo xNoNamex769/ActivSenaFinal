@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import axios from "axios";
 import "./styles/style.css";
+import Feedbacks from "../Feedback/FeedbacksEventos"; // o la ruta correcta
 
 // Imágenes por defecto
 import img2 from "./img/img2.jpeg";
@@ -43,14 +44,21 @@ const imagenes = [img2, img3, img4, img5, img6, img7];
 const obtenerRutaImagenEvento = (nombre: string | undefined, idx: number) =>
   nombre ? `http://localhost:3001/uploads/usuarios/${nombre}` : imagenes[idx % imagenes.length];
 
-const obtenerRutaImagenPerfil = (ruta: string | undefined) =>
-  ruta ? `http://localhost:3001${ruta}` : img6;
+const obtenerRutaImagenPerfil = (nombreArchivo: string | undefined) =>
+  nombreArchivo
+    ? `http://localhost:3001/uploads/usuarios/${nombreArchivo}`
+    : img6;
+
 
 const Aplicacion = () => {
   const [eventosPublicos, setEventosPublicos] = useState<EventoConDatos[]>([]);
   const [modalEvento, setModalEvento] = useState<EventoConDatos | null>(null);
   const [reacciones, setReacciones] = useState<Record<number, { like: number; dislike: number }>>({});
   const [miReaccion, setMiReaccion] = useState<Record<number, "like" | "dislike" | null>>({});
+  const [eventoSeleccionado, setEventoSeleccionado] = useState<number | null>(null);
+  const [feedbacksModal, setFeedbacksModal] = useState<any[]>([]);
+
+
   const [detallesReacciones, setDetallesReacciones] = useState<
     { IdUsuario: number; Nombre: string; Apellido: string; Tipo: "like" | "dislike" }[]
   >([]);
@@ -88,6 +96,14 @@ const idUsuario = decoded?.IdUsuario;
       console.error("❌ Error al cargar eventos o reacciones:", err);
     }
   };
+const cargarFeedbacksEvento = async (idEvento: number) => {
+  try {
+    const res = await axios.get(`http://localhost:3001/api/feedback/evento/${idEvento}`);
+    setFeedbacksModal(res.data);
+  } catch (err) {
+    console.error("❌ Error al cargar feedbacks del modal:", err);
+  }
+};
 
   const cargarDetallesReacciones = async (idEvento: number) => {
     try {
@@ -106,33 +122,28 @@ const idUsuario = decoded?.IdUsuario;
 const manejarReaccion = async (idEvento: number, tipo: "like" | "dislike") => {
   try {
     const token = localStorage.getItem("token");
+    if (!token) return;
 
     await axios.post(
       "http://localhost:3001/api/reacciones",
-      {
-        IdEvento: idEvento,
-        Tipo: tipo,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      { IdEvento: idEvento, Tipo: tipo },
+      { headers: { Authorization: `Bearer ${token}` } }
     );
 
-    // resto igual
     setMiReaccion((prev) => ({ ...prev, [idEvento]: tipo }));
 
     setReacciones((prev) => {
       const actual = prev[idEvento] || { like: 0, dislike: 0 };
+      const anterior = miReaccion[idEvento]; // puede ser null
+
       const nuevo = { ...actual };
 
       if (tipo === "like") {
-        if (miReaccion[idEvento] === "dislike") nuevo.dislike--;
-        if (miReaccion[idEvento] !== "like") nuevo.like++;
+        if (anterior === "dislike") nuevo.dislike--;
+        if (anterior !== "like") nuevo.like++;
       } else {
-        if (miReaccion[idEvento] === "like") nuevo.like--;
-        if (miReaccion[idEvento] !== "dislike") nuevo.dislike++;
+        if (anterior === "like") nuevo.like--;
+        if (anterior !== "dislike") nuevo.dislike++;
       }
 
       return { ...prev, [idEvento]: nuevo };
@@ -142,18 +153,33 @@ const manejarReaccion = async (idEvento: number, tipo: "like" | "dislike") => {
   }
 };
 
- 
 
-  useEffect(() => {
-    cargarEventosYReacciones();
-  }, []);
+ useEffect(() => {
+  cargarEventosYReacciones();
+}, []);
+
+const feedbackRef = useRef<HTMLDivElement>(null);
+
+const irAFeedback = () => {
+  feedbackRef.current?.scrollIntoView({ behavior: "smooth" });
+};
 
   return (
     <div className="evento-app-body">
+      
       <div className="evento-app-contenedor-principal">
+        
         <main className="evento-app-contenido-principal">
           <header className="evento-app-cabecera">
             <h2 className="evento-app-titulo-seccion">Novedades</h2>
+  <div ref={feedbackRef} id="seccion-feedback" className="feedback-seccion-container">
+  <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Eventos y actividades</h2>
+  {eventoSeleccionado && (
+    <Feedbacks key={eventoSeleccionado} idEventoSeleccionado={eventoSeleccionado} />
+  )}
+</div>
+
+
           </header>
 
           <section className="evento-app-seccion-historias">
@@ -164,7 +190,11 @@ const manejarReaccion = async (idEvento: number, tipo: "like" | "dislike") => {
                   className="evento-app-historia"
                   onClick={() => {
                     setModalEvento(evento);
+                    
+                    setEventoSeleccionado(evento.IdEvento);
+
                     cargarDetallesReacciones(evento.IdEvento);
+                     cargarFeedbacksEvento(evento.IdEvento); //  nuevo
                   }}
                 >
                   <img
@@ -195,6 +225,8 @@ const manejarReaccion = async (idEvento: number, tipo: "like" | "dislike") => {
                   className="evento-app-tarjeta-evento"
                   onClick={() => {
                     setModalEvento(evento);
+                    setEventoSeleccionado(evento.IdEvento);
+ cargarFeedbacksEvento(evento.IdEvento); //  nuevo
                     cargarDetallesReacciones(evento.IdEvento);
                   }}
                 >
@@ -235,12 +267,28 @@ const manejarReaccion = async (idEvento: number, tipo: "like" | "dislike") => {
                     >
                       👎 No me gusta ({reacciones[evento.IdEvento]?.dislike || 0})
                     </button>
-                    <button className="evento-app-boton-comentar">Feedback</button>
+   <button
+  className="evento-app-boton-comentar"
+  onClick={(e) => {
+  e.stopPropagation();
+  setEventoSeleccionado(evento.IdEvento); // ⚠️ Primero seleccionamos el evento
+
+  setTimeout(() => {
+    irAFeedback(); // Luego hacemos scroll (esperamos un tick del render)
+  }, 100); // 100ms suele ser suficiente
+}}
+
+>
+  📝 Feedback
+</button>
+
+
                   </div>
                 </div>
               ))}
             </div>
           </section>
+          
         </main>
       </div>
 
@@ -292,6 +340,23 @@ const manejarReaccion = async (idEvento: number, tipo: "like" | "dislike") => {
             </div>
 
             <div className="evento-app-modal-reacciones">
+              <div className="evento-app-modal-feedbacks">
+  <h4>📝 Comentarios de los asistentes:</h4>
+  {feedbacksModal.length === 0 ? (
+    <p>No hay comentarios aún.</p>
+  ) : (
+    <ul style={{ listStyle: "none", paddingLeft: 0 }}>
+      {feedbacksModal.map((fb, i) => (
+        <li key={i} style={{ marginBottom: "1rem", borderBottom: "1px solid #ccc", paddingBottom: "0.5rem" }}>
+          <p><strong>{fb.usuario?.Nombre || "Anónimo"} {fb.usuario?.Apellido || ""}</strong></p>
+          <p>{fb.ComentarioFeedback}</p>
+          <p>{"⭐".repeat(fb.Calificacion || 0)}</p>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
               <h4>👍 Usuarios que dieron Me gusta:</h4>
               <ul>
                 {detallesReacciones.filter((r) => r.Tipo === "like").map((u) => (

@@ -161,4 +161,43 @@ static aprobarGestionEvento = async (req: Request, res: Response): Promise<void>
     res.status(500).json({ error: "Error del servidor", message: (error as Error).message });
   }
 };
+static rechazarEvento = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { motivo } = req.body;
+
+  try {
+    const gestion = await GestionEvento.findByPk(id);
+    if (!gestion) {
+      res.status(404).json({ error: "Evento no encontrado" });
+      return;
+    }
+
+    if (!req.usuario) {
+      res.status(401).json({ error: "No autenticado" });
+      return;
+    }
+
+    gestion.Aprobar = "Rechazado";
+    gestion.MotivoRechazo = motivo;
+    gestion.IdUsuario = req.usuario.IdUsuario;
+
+    await gestion.save();
+
+    // Consultar la gestión actualizada incluyendo el usuario que la gestionó
+    const gestionConUsuario = await GestionEvento.findByPk(id, {
+      include: [
+        {
+          model: Usuario,
+          as: "gestionador", // el alias que tienes en el modelo
+          attributes: ["IdUsuario", "Nombre", "Apellido", "Correo"],
+        },
+      ],
+    });
+
+    res.json({ message: "Evento rechazado correctamente", gestion: gestionConUsuario });
+  } catch (error) {
+    console.error("Error al rechazar evento:", error);
+    res.status(500).json({ error: "Error al rechazar el evento" });
+  }
+};
 }

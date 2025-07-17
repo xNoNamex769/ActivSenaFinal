@@ -23,10 +23,11 @@ import FormularioCatalogo from "./pages/AlquierAP/FormularioCatalogo";
 import GestionCatalogo from "./pages/AlquierAP/GestionFormulario";
 
 import ApoyoSostenimiento from "./pages/ApoyoSostenimiento/ApoyoSostenimiento";
-
+import Feedbacks from '../src/pages/Feedback/Feedbacks';
 
 import SubirAprendices from "./pages/SubirAprendices/SubirAprendices"
 import AprendicesCargados from "./pages/SubirAprendices/AprendicesCargados"
+import PlanificarEvento from "./pages/PlanificarEv/PlanificarEvento";
 
 export default function RutasComponents() {
   return (
@@ -50,10 +51,12 @@ export default function RutasComponents() {
             <Route path="/qr" element={<QRGenerator IdUsuario={1} IdActividad={9} tipo="entrada" />} />
             <Route path="/asistencia" element={<Asistencia />} />
             <Route path="/escaner" element={<EscanerQR />} />
+              <Route path="/feedbacks/:idActividad" element={<Feedbacks />} />
              <Route path="/subiraprendiz" element={<SubirAprendices />} />
                <Route path="/aprendices" element={<AprendicesCargados />} />
             <Route path="/historial" element={<HistorialAsistencia IdUsuario={1} />} />
             <Route path="/apoyo-sostenimiento" element={<ApoyoSostenimiento />} />
+             <Route path="/planevento" element={<PlanificarEvento />} />
           </Routes>
         </IAProvider>
       </AuthProvider>

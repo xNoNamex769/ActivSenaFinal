@@ -4,6 +4,7 @@ import { body } from 'express-validator';
 import { handleInputErrors } from '../middleware/validation';
 import { authenticate } from '../middleware/auth'; // <-- aquí usas tu middleware
  import { upload } from '../Uploads/Upload';
+import { verificarToken } from '../middleware/VerificarToken';
 const router = Router();
 router.get('/',PlanificacionEventoControllers.getPlanificarEventoAll)
 router.post(
@@ -17,5 +18,6 @@ router.post(
   PlanificacionEventoControllers.crearPlanificacion
 );
 
+router.get("/mis-eventos", verificarToken, PlanificacionEventoControllers.getMisEventos);
 
 export default router;

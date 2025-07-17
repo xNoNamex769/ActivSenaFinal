@@ -133,7 +133,8 @@ static crearPlanificacion = async (req: Request, res: Response) => {
 
     // ✅ Primero crear gestión (autoincrementable)
     const nuevaGestion = await GestionEvento.create({
-      Aprobar: "Pendiente"  // o el valor por defecto que uses
+      Aprobar: "Pendiente" ,
+      IdUsuario: IdUsuario,  // o el valor por defecto que uses
     });
 
     // ✅ Luego crear planificación con el IdGestionE generado
@@ -166,4 +167,51 @@ static crearPlanificacion = async (req: Request, res: Response) => {
 // Asegúrate de tener esta línea arriba
 
 
+
+static getMisEventos = async (req: Request, res: Response) => {
+  try {
+    const IdUsuario = req.usuario?.IdUsuario;
+
+    if (!IdUsuario) {
+      res.status(401).json({ error: "Usuario no autenticado" });
+      return
+    }
+const eventos = await PlanificacionEvento.findAll({
+  where: { IdUsuario },
+  attributes: [
+    'IdPlanificarE',
+    'NombreEvento',
+    'FechaEvento',
+    'LugarDeEvento',
+    'ImagenEvento',
+    'Recursos',
+    'TipoEvento',
+    'IdGestionE'
+  ],
+  include: [
+    {
+      model: GestionEvento,
+      attributes: ['Aprobar', 'IdGestionE', 'MotivoRechazo'],
+      include: [
+        {
+          model: Usuario,
+          as: "gestionador", // Esto debe coincidir con el alias que pusiste en el modelo GestionEvento
+          attributes: ['Nombre', 'Apellido', 'Correo']
+        }
+      ]
+    },
+    {
+      model: Usuario,
+      attributes: ['IdUsuario', 'Nombre', 'Apellido', 'Correo']
+    }
+  ],
+  order: [['FechaEvento', 'DESC']]
+});
+
+    res.json(eventos);
+  } catch (error) {
+    console.error("❌ Error al obtener mis eventos:", error);
+    res.status(500).json({ error: "Error del servidor" });
+  }
+};
 }

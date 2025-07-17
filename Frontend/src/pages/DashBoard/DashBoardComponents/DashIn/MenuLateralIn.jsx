@@ -105,9 +105,7 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
                 <FaCheckSquare className="iconodash" /> Registro Ludicas
               </button>
             
-               <button onClick={() => setContenidoActual("chromagrid")} className="opciondash">
-                <FaThumbsUp className="iconodash" /> Aprobados
-              </button>
+              
               
                <button onClick={() => setContenidoActual("misludicas")} className="opciondash">
                 <FaThumbsUp className="iconodash" /> mis ludicas
@@ -132,6 +130,9 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
           </button>
           {openSection.aprendices && (
             <>
+            <button onClick={() => setContenidoActual("aprobadoseventos")} className="opciondash">
+                <FaThumbsUp className="iconodash" /> Eventos Aprobados
+              </button>
           
       
               <button onClick={() => setContenidoActual("solicitudapoyoinstructor")} className="opciondash">

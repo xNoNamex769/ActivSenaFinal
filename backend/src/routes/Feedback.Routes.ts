@@ -64,6 +64,10 @@ router.post(
   authFeedback,
   FeedbackController.crearFeedbackActividad
 );
+// Feedbacks para eventos
+router.get('/evento/:IdEvento', FeedbackController.getFeedbacksByEvento);
+router.post('/evento', authFeedback, FeedbackController.crearFeedbackEvento);
+
 
 router.post("/solicitud", FeedbackController.crearFeedbackSolicitud);
 router.get("/solicitud/:IdSolicitud", FeedbackController.obtenerPorSolicitud);
