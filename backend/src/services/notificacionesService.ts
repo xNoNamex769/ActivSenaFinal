@@ -6,7 +6,9 @@ interface NotificacionData {
   mensaje: string;
   tipo: 'Evento' | 'Actividad' | 'Anuncio' | 'Solicitud' | 'Respuesta' | 'Catalogo' |'Lúdica' |'Asistencia';
   idUsuarios: number[];
+  RutaDestino?: string |null; // nuevo campo
   idEvento?: number |null;
+   imagenUrl?: string | null;    
 }
 
 // ahora recibe io como parámetro
