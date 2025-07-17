@@ -70,7 +70,7 @@ console.log ( "usuario recibido" , usuario);
 
 
       login(token, usuario); // ✅ guardar en el contexto
-
+localStorage.setItem("usuarioId", usuario.IdUsuario); 
       setMensaje(" Inicio de sesión exitoso");
       setTipoMensaje("exito");
 

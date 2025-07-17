@@ -89,4 +89,31 @@ if (!IdUsuario) {
       res.status(500).json({ message: "Error al obtener detalles" });
     }
   };
+
+// 👉 Obtener la reacción del usuario autenticado para un evento
+static obtenerReaccionDeUsuario = async (req: Request, res: Response) => {
+  const IdUsuario = req.usuario?.IdUsuario;
+  const { idEvento } = req.params;
+
+  if (!IdUsuario) {
+  res.status(401).json({ error: 'No autorizado' });
+  return;
+  }
+
+  try {
+    const reaccion = await ReaccionEvento.findOne({
+      where: { IdEvento: idEvento, IdUsuario },
+    });
+
+    if (!reaccion) {
+       res.json({ Tipo: null }); // No ha reaccionado aún
+       return;
+    }
+
+    res.json({ Tipo: reaccion.Tipo }); // like o dislike
+  } catch (error) {
+    console.error("❌ Error al obtener reacción del usuario:", error);
+    res.status(500).json({ error: 'Error al obtener reacción del usuario' });
+  }
+};
 }

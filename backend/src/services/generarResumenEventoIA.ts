@@ -77,7 +77,7 @@ const programaFichaDestacada = fichaDestacada?.ProgramaFormacion || 'Programa no
     resumenIA,
   });
   const detalleAsistentes = asistentes.map((rel) => {
-  const usuario = rel.usuario;
+  const usuario = rel.Usuario;
 
  const aprendiz = usuario?.aprendiz;
 

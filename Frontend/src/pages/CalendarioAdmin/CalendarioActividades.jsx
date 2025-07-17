@@ -14,6 +14,11 @@ const CalendarioAp = () => {
   const [selectedEvent, setSelectedEvent] = useState(null); // Evento seleccionado para ver detalles
   const [currentDate, setCurrentDate] = useState(new Date()); // Fecha actual para el calendario
   const [clickedNotifications, setClickedNotifications] = useState([]); // Eventos que ya fueron clickeados
+const [showFeedback, setShowFeedback] = useState(false);
+const [feedbackText, setFeedbackText] = useState("");
+const [feedbackRating, setFeedbackRating] = useState(5);
+
+
 
   // Funciones para cambiar de mes
   const irAlMesAnterior = () => {
@@ -50,6 +55,8 @@ const CalendarioAp = () => {
             description: actividad.Descripcion,
             contact: "contacto@sena.edu.co",
             day: fechaCompleta.getDate(),
+              asistio: false,
+  feedbackDado: false,
           };
         });
 
@@ -93,6 +100,44 @@ const CalendarioAp = () => {
       prev.includes(eventId) ? prev.filter((id) => id !== eventId) : [...prev, eventId]
     );
   };
+  const token = localStorage.getItem('token');
+
+const confirmarAsistencia = async (eventoId) => {
+  const IdUsuario = Number(localStorage.getItem("usuarioId"));
+  const token = localStorage.getItem("token");
+
+  try {
+    await axios.post(
+      'http://localhost:3001/api/relusuarioevento/confirmar-asistencia',
+      {
+        IdUsuario,
+        IdEvento: eventoId
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    alert("¡Ojo! Si no asistes tendrás una penalización , tendras un limite de uso de la plataforma.");
+
+    const nuevosEventos = events.map(ev =>
+      ev.id === eventoId ? { ...ev, asistio: true } : ev
+    );
+    setEvents(nuevosEventos);
+
+    if (selectedEvent && selectedEvent.id === eventoId) {
+      setSelectedEvent(prev => ({ ...prev, asistio: true }));
+    }
+
+  } catch (err) {
+    console.error("Error al confirmar asistencia:", err);
+    alert("Error al confirmar asistencia");
+  }
+};
+
+
 
   // Renderizar los días del calendario
   const renderCalendarDays = () => {
@@ -102,11 +147,13 @@ const CalendarioAp = () => {
 
     for (let i = 1; i <= 31; i++) {
       const event = calendarEvents.find((e) => e.day === i);
+      const isToday = i === new Date().getDate() && currentDate.getMonth() === new Date().getMonth();
       if (event) {
         const fullEvent = events.find((e) => e.id === event.eventId);
         const isClicked = clickedNotifications.includes(fullEvent.id);
         days.push(
-          <div key={`day-${i}`} className="dia evento">
+          <div key={`day-${i}`} className={`dia evento ${isToday ? 'hoy' : ''}`}>
+
             <div onClick={() => openEventModal(fullEvent)} className="dia-clickable">
               <span className="dia-numero">{i}</span>
               <span className="nombre-evento">{event.title}</span>
@@ -200,6 +247,61 @@ const CalendarioAp = () => {
             <div className="event-modal-content">
               <img src={selectedEvent.image} alt={selectedEvent.title} className="event-modal-image" />
               <div className="event-details">
+                <div className="event-participation">
+  {!selectedEvent.asistio ? (
+    <button className="btn-confirmar" onClick={() => confirmarAsistencia(selectedEvent.id)}>
+      ✔ Asistiré
+    </button>
+  ) : (
+    <span className="asistencia-confirmada">✅ Ya asististe</span>
+  )}
+
+  {!selectedEvent.feedbackDado && selectedEvent.asistio && (
+    <button className="btn-feedback" onClick={() => setShowFeedback(true)}>
+      💬 Dar feedback
+    </button>
+  )}
+</div>
+{showFeedback && (
+  <div className="modal-overlay">
+    <div className="event-modal-container">
+      <button className="modal-close" onClick={() => setShowFeedback(false)}>&times;</button>
+      <h2 className="event-modal-title">Feedback del evento</h2>
+      <div className="event-modal-content">
+        <label>Calificación (1-5):</label>
+        <input
+          type="number"
+          min="1"
+          max="5"
+          value={feedbackRating}
+          onChange={(e) => setFeedbackRating(Number(e.target.value))}
+        />
+        <label>Comentario:</label>
+        <textarea
+          rows="4"
+          value={feedbackText}
+          onChange={(e) => setFeedbackText(e.target.value)}
+        />
+        <button
+          onClick={() => {
+            // Aquí podrías enviar feedback al backend
+            const nuevosEventos = events.map(ev =>
+              ev.id === selectedEvent.id ? { ...ev, feedbackDado: true } : ev
+            );
+            setEvents(nuevosEventos);
+            setSelectedEvent((prev) => ({ ...prev, feedbackDado: true }));
+            setShowFeedback(false);
+            setFeedbackText("");
+            setFeedbackRating(5);
+          }}
+        >
+          Enviar feedback
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
                 <p><strong>Fecha:</strong> {selectedEvent.date}</p>
                 <p><strong>Hora:</strong> {selectedEvent.time}</p>
                 <p><strong>Lugar:</strong> {selectedEvent.location}</p>

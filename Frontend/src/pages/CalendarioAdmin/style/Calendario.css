@@ -594,4 +594,63 @@
     color: var(--success-color); /* verde al hacer clic */
   }
   
-  
+  .dia.hoy {
+  border: 2px solid #ff9800;
+  background-color: #fff3e0;
+}
+.event-participation {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.btn-confirmar, .btn-feedback {
+  padding: 0.5rem 1rem;
+  background-color: #01796f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-confirmar:hover, .btn-feedback:hover {
+  background-color: #025f52;
+}
+
+.asistencia-confirmada {
+  color: green;
+  font-weight: bold;
+}
+/* Asegúrate de tener esto en tu archivo de estilos */
+.dia.hoy {
+  background-color: #e0f7fa; /* azul claro */
+  border: 2px solid #00acc1; /* azul más fuerte */
+  border-radius: 12px;
+  font-weight: bold;
+  box-shadow: 0 0 8px rgba(0, 172, 193, 0.5);
+  color: #006064;
+  transition: all 0.3s ease;
+}
+
+.dia.hoy:hover {
+  background-color: #b2ebf2;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+/* Asegúrate de tener esto en tu archivo de estilos */
+.dia.hoy {
+  background-color: #e0f7fa; /* azul claro */
+  border: 2px solid #00acc1; /* azul más fuerte */
+  border-radius: 12px;
+  font-weight: bold;
+  box-shadow: 0 0 8px rgba(0, 172, 193, 0.5);
+  color: #006064;
+  transition: all 0.3s ease;
+}
+
+.dia.hoy:hover {
+  background-color: #b2ebf2;
+  transform: scale(1.05);
+  cursor: pointer;
+}

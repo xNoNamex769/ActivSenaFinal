@@ -350,4 +350,51 @@ res.json({ totalHoras });
     res.status(500).json({ error: "Error al calcular horas" });
   }
 };
+static getResumenInteresPorLudica = async (_req: Request, res: Response) => {
+  try {
+    const actividades = await Actividad.findAll({
+      where: {
+        TipoLudica: { [Op.not]: null },
+      },
+      attributes: ["IdActividad", "NombreActi"],
+    });
+
+    const resumen = await Promise.all(
+      actividades.map(async (actividad) => {
+        const totalAsistencias = await Asistencia.count({
+          where: {
+            IdActividad: actividad.IdActividad,
+            QREntrada: { [Op.not]: null },
+          },
+        });
+
+        const asistenciasCompletas = await Asistencia.count({
+          where: {
+            IdActividad: actividad.IdActividad,
+            AsiEstado: "Completa",
+          },
+        });
+
+        const horasTotales = await Asistencia.sum("AsiHorasAsistidas", {
+          where: {
+            IdActividad: actividad.IdActividad,
+            AsiEstado: "Completa",
+          },
+        });
+
+        return {
+          actividad: actividad.NombreActi,
+          entradas: totalAsistencias,
+          completas: asistenciasCompletas,
+          horas: parseFloat((horasTotales || 0).toFixed(2)),
+        };
+      })
+    );
+
+    res.json(resumen);
+  } catch (error) {
+    console.error("❌ Error al obtener resumen de interés:", error);
+    res.status(500).json({ error: "Error al obtener resumen" });
+  }
+};
 }

@@ -133,7 +133,9 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
             <button onClick={() => setContenidoActual("aprobadoseventos")} className="opciondash">
                 <FaThumbsUp className="iconodash" /> Eventos Aprobados
               </button>
-          
+           <button onClick={() => setContenidoActual("asistenciaseventos")} className="opciondash">
+                <FaThumbsUp className="iconodash" /> asistencia eventos
+              </button>
       
               <button onClick={() => setContenidoActual("solicitudapoyoinstructor")} className="opciondash">
                 <FaClipboardList className="iconodash" /> Apoyos
