@@ -21,22 +21,46 @@ export class EventoControllers {
             res.status(500).json({ error: 'Hubo un error al obtener los eventos' });
         }
     };
+static getIdEvento = async (req: Request, res: Response) => {
+  try {
+    const { IdEvento } = req.params;
 
-    static getIdEvento = async (req: Request, res: Response) => {
-        try {
-            const { IdEvento } = req.params;
-            const evento = await Evento.findByPk(IdEvento);
-            if (!evento) {
-                const error =new Error('Evento no encontrado')
-                res.status(404).json({ error:error.message });
-                return;
-            }
-            res.json(evento);
-        } catch (error) {
-            res.status(500).json({ error: 'Hubo un error al buscar el evento' });
-        }
-    };
+    const evento = await Evento.findByPk(IdEvento, {
+      include: [
+        {
+          model: PlanificacionEvento,
+          as: 'PlanificacionEvento',
+          attributes: ['IdPlanificarE', 'ImagenEvento'],
+          include: [
+            {
+              model: Usuario,
+              attributes: ['Nombre', 'Apellido'],
+              include: [
+                {
+                  model: PerfilInstructor,
+                  as: 'perfilInstructor', // ¡ESTO es lo que te falta!
+                  attributes: ['imagen'],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
 
+    if (!evento) {
+       res.status(404).json({ error: 'Evento no encontrado' });
+       return;
+    }
+
+    res.json(evento);
+  } catch (error) {
+    console.error("❌ Error al buscar evento:", error);
+    res.status(500).json({ error: 'Hubo un error al buscar el evento' });
+  }
+};
+
+    
     static crearEvento = async (req: Request, res: Response) => {
         try {
             const evento = new Evento(req.body)

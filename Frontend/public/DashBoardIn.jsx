@@ -26,6 +26,7 @@ import AsistenciasActividad from "../src/pages/Asistencia/Instructor/Asistencias
 import Instructor from "../src/pages/SolicitudApoyo/Instructor";
 import PanelFeedback from "../src/pages/Feedback/instructor/PanelFeedback";
 import GraficosPromediosAyuda from "../src/pages/Graficos/GraficosPromediosAyuda";
+import AprobarEventos from "../src/pages/PlanificarEv/AprobarEventos";
 import "../src/styles/BotHp.css";
 import "../src/styles/ColaViento.css";
 import "../src/styles/Resposive.css";
@@ -86,7 +87,7 @@ export default function DashBoard() {
         {contenidoActual === "planevento" && <PlanificarEvento />}
         {contenidoActual === "registro" && <RegistroA />}
         {contenidoActual === "cartacontacto" && <CartaContacto />}
-        {contenidoActual === "chromagrid" && <ChromaGrid />}
+       
         {contenidoActual === "solicitudapoyoinstructor" && <Instructor />}
         {contenidoActual === "chatai" && <ChatAI />}
         {contenidoActual === "perfil" && <HomeDash />}
@@ -95,6 +96,7 @@ export default function DashBoard() {
         {contenidoActual === "misactividades" && <MisActividades />}
         {contenidoActual === "misludicas" && <MisLudicas />}
         {contenidoActual === "miseventos" && <MisEventos />}
+         {contenidoActual === "aprobadoseventos" && <AprobarEventos />}
          {contenidoActual === "graficopromediofeedback" && <GraficosPromediosAyuda />}
          {contenidoActual === "panelfeedback" && <PanelFeedback />}
        {contenidoActual === "config" && (

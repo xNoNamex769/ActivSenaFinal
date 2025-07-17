@@ -1,20 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import './styles/Actividades.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./styles/Actividades.css";
+import { useNavigate } from "react-router-dom";
 
 const formatearFecha = (fechaStr) => {
   if (!fechaStr) return "";
   const [year, month, day] = fechaStr.split("-");
-  const fechaLocal = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-  const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
-  return fechaLocal.toLocaleDateString('es-ES', opciones);
+  const fechaLocal = new Date(
+    parseInt(year),
+    parseInt(month) - 1,
+    parseInt(day)
+  );
+  return fechaLocal.toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 };
 
 const formatearHora = (horaStr) => {
   if (!horaStr) return "";
-  const [hora, min] = horaStr.split(':');
+  const [hora, min] = horaStr.split(":");
   let h = parseInt(hora, 10);
-  const ampm = h >= 12 ? 'PM' : 'AM';
+  const ampm = h >= 12 ? "PM" : "AM";
   h = h % 12 || 12;
   return `${h}:${min} ${ampm}`;
 };
@@ -42,20 +50,21 @@ export default function Actividades() {
   const [feedback, setFeedback] = useState("");
   const [calificacion, setCalificacion] = useState(0);
   const [feedbacksActividad, setFeedbacksActividad] = useState([]);
+  const navigate = useNavigate();
 
-const obtenerIdUsuario = () => {
-  const token = localStorage.getItem("token");
-  if (!token) return null;
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.IdUsuario || null;
-  } catch (error) {
-    console.error("Error al decodificar token:", error);
-    return null;
-  }
-};
+  const obtenerIdUsuario = () => {
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      return payload.IdUsuario || null;
+    } catch (error) {
+      console.error("Error al decodificar token:", error);
+      return null;
+    }
+  };
 
-const idUsuarioLogueado = obtenerIdUsuario();
+  const idUsuarioLogueado = obtenerIdUsuario();
 
   useEffect(() => {
     const fetchActividades = async () => {
@@ -69,21 +78,15 @@ const idUsuarioLogueado = obtenerIdUsuario();
     fetchActividades();
   }, []);
 
-  const { lunes, domingo } = obtenerLimitesSemanaActual();
-
-  const actividadesSemana = actividades.filter((actividad) => {
-    const fechaInicio = new Date(actividad.FechaInicio);
-    return fechaInicio >= lunes && fechaInicio <= domingo;
-  });
-
   const abrirModal = async (actividad) => {
     setActividadSeleccionada(actividad);
     setMostrarFeedback(false);
     setFeedback("");
     setCalificacion(0);
-
     try {
-      const res = await axios.get(`http://localhost:3001/api/feedback/actividad/${actividad.IdActividad}`);
+      const res = await axios.get(
+        `http://localhost:3001/api/feedback/actividad/${actividad.IdActividad}`
+      );
       setFeedbacksActividad(res.data);
     } catch (error) {
       console.error("Error al traer feedbacks:", error);
@@ -96,17 +99,9 @@ const idUsuarioLogueado = obtenerIdUsuario();
     setMostrarFeedback(false);
   };
 
-  const handleFeedbackChange = (e) => {
-    setFeedback(e.target.value);
-  };
-
   const enviarFeedback = async () => {
-    if (!feedback.trim()) {
-      alert("Por favor escribe tu feedback.");
-      return;
-    }
-    if (calificacion === 0) {
-      alert("Selecciona una calificación en estrellas.");
+    if (!feedback.trim() || calificacion === 0) {
+      alert("Completa el feedback y calificación.");
       return;
     }
     try {
@@ -123,42 +118,44 @@ const idUsuarioLogueado = obtenerIdUsuario();
       setCalificacion(0);
       abrirModal(actividadSeleccionada);
     } catch (error) {
-      console.error("Error al Enviar feedback:", error);
+      console.error("Error al enviar feedback:", error);
       alert("❌ Hubo un error al enviar el feedback.");
     }
   };
 
-
-const actividadesConImagen = actividades.filter((a) => a.Imagen);
-
-  const puedeComentar = actividadSeleccionada && (() => {
-  const ahora = new Date();
-
-  const [anioInicio, mesInicio, diaInicio] = actividadSeleccionada.FechaInicio.split("-");
-  const [horaInicio, minutoInicio] = actividadSeleccionada.HoraInicio.split(":");
-
-  const [anioFin, mesFin, diaFin] = actividadSeleccionada.FechaFin.split("-");
-  const [horaFin, minutoFin] = actividadSeleccionada.HoraFin.split(":");
-
-  const fechaHoraInicio = new Date(anioInicio, mesInicio - 1, diaInicio, horaInicio, minutoInicio);
-  const fechaHoraFin = new Date(anioFin, mesFin - 1, diaFin, horaFin, minutoFin);
-
-  return ahora >= fechaHoraInicio && ahora <= fechaHoraFin;
-})();
-
-
   const calcularPromedioCalificacion = () => {
     if (feedbacksActividad.length === 0) return 0;
-    const suma = feedbacksActividad.reduce((total, fb) => total + (fb.Calificacion || 0), 0);
+    const suma = feedbacksActividad.reduce(
+      (total, fb) => total + (fb.Calificacion || 0),
+      0
+    );
     return (suma / feedbacksActividad.length).toFixed(1);
   };
+
+  const actividadesConImagen = actividades.filter((a) => a.Imagen);
+  const { lunes, domingo } = obtenerLimitesSemanaActual();
+
+  const puedeComentar =
+    actividadSeleccionada &&
+    (() => {
+      const ahora = new Date();
+      const [aI, mI, dI] = actividadSeleccionada.FechaInicio.split("-");
+      const [hI, miI] = actividadSeleccionada.HoraInicio.split(":");
+      const [aF, mF, dF] = actividadSeleccionada.FechaFin.split("-");
+      const [hF, miF] = actividadSeleccionada.HoraFin.split(":");
+
+      const inicio = new Date(aI, mI - 1, dI, hI, miI);
+      const fin = new Date(aF, mF - 1, dF, hF, miF);
+      return ahora >= inicio && ahora <= fin;
+    })();
 
   return (
     <div className="actividades-contenedor">
       <header className="actividades-cabecera">
         <h1 className="actividades-titulo">Actividades - SENA</h1>
         <p className="actividades-descripcion">
-          Explora las actividades semanales pensadas para tu bienestar y formación integral.
+          Explora las actividades semanales pensadas para tu bienestar y
+          formación integral.
         </p>
       </header>
 
@@ -183,26 +180,35 @@ const actividadesConImagen = actividades.filter((a) => a.Imagen);
           </div>
         </section>
       ) : (
-        <p className="actividades-vacio">No hay actividades con imágenes esta semana.</p>
+        <p className="actividades-vacio">
+          No hay actividades con imágenes esta semana.
+        </p>
       )}
 
       <main className="actividades-galeria">
         {actividadesConImagen.map((actividad) => (
-          <article
-            key={actividad.IdActividad}
-            className="actividades-card"
-            onClick={() => abrirModal(actividad)}
-          >
+          <article key={actividad.IdActividad} className="actividades-card">
             <img
               src={`http://localhost:3001/uploads/${actividad.Imagen}`}
               alt={actividad.NombreActi}
               className="actividades-img"
+              onClick={() => abrirModal(actividad)}
             />
             <div className="actividades-info">
               <h4>{actividad.NombreActi}</h4>
               <p>{actividad.Descripcion}</p>
-              <p>📍 {actividad.Ubicacion} - ⏰ {formatearHora(actividad.HoraInicio)} a {formatearHora(actividad.HoraFin)}</p>
+              <p>
+                📍 {actividad.Ubicacion} - ⏰{" "}
+                {formatearHora(actividad.HoraInicio)} a{" "}
+                {formatearHora(actividad.HoraFin)}
+              </p>
               <p>🗓️ {formatearFecha(actividad.FechaInicio)}</p>
+              <button
+                className="btn-ver-feedback"
+                onClick={() => navigate(`/feedbacks/${actividad.IdActividad}`)}
+              >
+                Ir a Feedbacks
+              </button>
             </div>
           </article>
         ))}
@@ -211,21 +217,37 @@ const actividadesConImagen = actividades.filter((a) => a.Imagen);
       {actividadSeleccionada && (
         <div className="modal-overlay" onClick={cerrarModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={cerrarModal}>×</button>
+            <button className="modal-close" onClick={cerrarModal}>
+              ×
+            </button>
             <img
               src={`http://localhost:3001/uploads/${actividadSeleccionada.Imagen}`}
               alt={actividadSeleccionada.NombreActi}
               className="modal-img"
             />
             <h2>{actividadSeleccionada.NombreActi}</h2>
-            <p><strong>Descripción:</strong> {actividadSeleccionada.Descripcion}</p>
-            <p><strong>Ubicación:</strong> {actividadSeleccionada.Ubicacion}</p>
-            <p><strong>Horario:</strong> {formatearHora(actividadSeleccionada.HoraInicio)} a {formatearHora(actividadSeleccionada.HoraFin)}</p>
-            <p><strong>Fecha:</strong> {formatearFecha(actividadSeleccionada.FechaInicio)}</p>
+            <p>
+              <strong>Descripción:</strong> {actividadSeleccionada.Descripcion}
+            </p>
+            <p>
+              <strong>Ubicación:</strong> {actividadSeleccionada.Ubicacion}
+            </p>
+            <p>
+              <strong>Horario:</strong>{" "}
+              {formatearHora(actividadSeleccionada.HoraInicio)} a{" "}
+              {formatearHora(actividadSeleccionada.HoraFin)}
+            </p>
+            <p>
+              <strong>Fecha:</strong>{" "}
+              {formatearFecha(actividadSeleccionada.FechaInicio)}
+            </p>
 
             {feedbacksActividad.length > 0 && (
               <div className="promedio-calificacion">
-                <p><strong>⭐ Promedio:</strong> {calcularPromedioCalificacion()} / 5</p>
+                <p>
+                  <strong>⭐ Promedio:</strong> {calcularPromedioCalificacion()}{" "}
+                  / 5
+                </p>
               </div>
             )}
 
@@ -236,11 +258,16 @@ const actividadesConImagen = actividades.filter((a) => a.Imagen);
               ) : (
                 feedbacksActividad.map((fb, index) => (
                   <div key={index} className="feedback-item">
-                    <p><strong>{fb.usuario?.Nombre || "Anónimo"}:</strong> {fb.ComentarioFeedback}</p>
+                    <p>
+                      <strong>{fb.usuario?.Nombre || "Anónimo"}:</strong>{" "}
+                      {fb.ComentarioFeedback}
+                    </p>
                     <div className="feedback-stars">
                       {"⭐".repeat(fb.Calificacion || 0)}
                     </div>
-                    <small className="feedback-fecha">{formatearFecha(fb.FechaEnvio)}</small>
+                    <small className="feedback-fecha">
+                      {formatearFecha(fb.FechaEnvio)}
+                    </small>
                   </div>
                 ))
               )}
@@ -248,12 +275,17 @@ const actividadesConImagen = actividades.filter((a) => a.Imagen);
 
             {puedeComentar ? (
               !mostrarFeedback && (
-                <button className="btn-feedback" onClick={() => setMostrarFeedback(true)}>
+                <button
+                  className="btn-feedback"
+                  onClick={() => setMostrarFeedback(true)}
+                >
                   📝 Dar Feedback
                 </button>
               )
             ) : (
-              <p className="text-muted">🕒 Los comentarios se habilitan durante la actividad.</p>
+              <p className="text-muted">
+                🕒 Los comentarios se habilitan durante la actividad.
+              </p>
             )}
 
             {mostrarFeedback && (
@@ -263,7 +295,9 @@ const actividadesConImagen = actividades.filter((a) => a.Imagen);
                     <span
                       key={num}
                       onClick={() => setCalificacion(num)}
-                      className={num <= calificacion ? "estrella activa" : "estrella"}
+                      className={
+                        num <= calificacion ? "estrella activa" : "estrella"
+                      }
                     >
                       ★
                     </span>
@@ -272,12 +306,14 @@ const actividadesConImagen = actividades.filter((a) => a.Imagen);
                 <textarea
                   rows="4"
                   value={feedback}
-                  onChange={handleFeedbackChange}
+                  onChange={(e) => setFeedback(e.target.value)}
                   placeholder="Escribe tu feedback aquí..."
                 />
                 <div className="feedback-buttons">
                   <button onClick={enviarFeedback}>Enviar</button>
-                  <button onClick={() => setMostrarFeedback(false)}>Cancelar</button>
+                  <button onClick={() => setMostrarFeedback(false)}>
+                    Cancelar
+                  </button>
                 </div>
               </div>
             )}

@@ -101,3 +101,22 @@
 .planificar-evento-card input[type="checkbox"] {
   transform: scale(1.2);
 }
+.pe-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.pe-tab {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ddd;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.pe-tab-activa {
+  background-color: #4caf50;
+  color: white;
+}

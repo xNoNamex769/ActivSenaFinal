@@ -33,5 +33,6 @@ GestionEventoRoute.delete("/:id",
 
 GestionEventoRoute.put("/aprobar/:id", verificarToken, GestionEventoController.aprobarGestionEvento);
 
+GestionEventoRoute.put("/rechazar/:id",verificarToken, GestionEventoController.rechazarEvento);
 
 export default GestionEventoRoute
