@@ -156,6 +156,9 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
                 <button onClick={() => setContenidoActual("resumenia")} className="opciondash">
                 <FaChartBar className="iconodash" /> resumen
               </button>
+               <button onClick={() => setContenidoActual("listatrimestre")} className="opciondash">
+                <FaChartBar className="iconodash" /> Agenda Eventos
+              </button>
              
             </>
           )}

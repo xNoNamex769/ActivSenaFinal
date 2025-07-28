@@ -32,7 +32,7 @@ import "../src/styles/ColaViento.css";
 import "../src/styles/Resposive.css";
 import "../src/styles/global.css";
 import AsistentesEventos from "../src/pages/Asistencia/Instructor/AsistentesEventos";
-
+import Noticias from "../src/pages/Noticias/Noticias";
 export default function DashBoard() {
   const [menuAbierto, setMenuAbierto] = useState(true);
   const [contenidoActual, setContenidoActual] = useState("userviewin");
@@ -101,6 +101,7 @@ export default function DashBoard() {
          {contenidoActual === "graficopromediofeedback" && <GraficosPromediosAyuda />}
           {contenidoActual === "asistenciaseventos" && <AsistentesEventos/>}
          {contenidoActual === "panelfeedback" && <PanelFeedback />}
+          {contenidoActual === "noticias" && <Noticias />}
        {contenidoActual === "config" && (
   <ConfigViewIn
     setContenidoActual={handleSetContenido}

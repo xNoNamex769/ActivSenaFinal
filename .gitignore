@@ -9,14 +9,8 @@
 # React build (por si algún build va a otro lado)
 build/
 
-# Archivos de entorno (.env, .env.local, etc.)
-**/.env
-**/.env.*
-!.env.example
 
-# Archivos subidos por usuarios
-**/uploads/
-!**/uploads/.gitkeep
+
 
 # Archivos de logs
 *.log
