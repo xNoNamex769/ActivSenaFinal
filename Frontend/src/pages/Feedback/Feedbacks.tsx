@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 interface Usuario {
   Nombre: string;
+  Imagen?:string
 }
 
 interface Feedback {
@@ -184,6 +185,11 @@ const navigate = useNavigate();
               ) : (
                 feedbacks.map((fb, i) => (
                   <div key={i} className="feedback-item">
+                       <img
+        src={`http://localhost:3001/uploads/usuarios/${fb.usuario?.Imagen || 'default.png'}`}
+        alt={fb.usuario?.Nombre || "Anónimo"}
+        className="feedback-user-img"
+      />
                     <p><strong>{fb.usuario?.Nombre || "Anónimo"}:</strong> {fb.ComentarioFeedback}</p>
                     <p>{"⭐".repeat(fb.Calificacion || 0)}</p>
                   </div>

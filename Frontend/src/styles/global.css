@@ -534,3 +534,152 @@ margin-right: 00px;
   color: black;
 
 }
+.banner-sindesena {
+  background: linear-gradient(90deg, #009688, #26a69a);
+  color: white;
+  padding: 10px 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  animation: slideDown 0.5s ease;
+  border-bottom: 2px solid #00796b;
+  font-weight: bold;
+}
+
+.ver-mas-noti {
+  background: white;
+  color: #00796b;
+  padding: 5px 10px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.logo-sindesena-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: -5px;
+  animation: bounce 2s infinite;
+}
+
+.logo-sindesena {
+  width: 60px;
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+/* --- Banner Sindesena --- */
+.banner-sindesena {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #006f3c, #00b158);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  margin: 10px 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  animation: slideDown 0.4s ease;
+  position: relative;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.logo-sindesena-wrapper {
+  flex-shrink: 0;
+  margin-right: 16px;
+  animation: bounce 1.5s infinite;
+}
+
+.logo-sindesena {
+  width: 480px;
+  height: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+}
+
+.banner-sindesena strong {
+  margin-left: 8px;
+  font-weight: 600;
+}
+
+.banner-sindesena span[role="img"] {
+  font-size: 1.5rem;
+  margin-right: 6px;
+}
+
+.ver-mas-noti {
+  background: white;
+  color: #007f4f;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin-left: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.ver-mas-noti:hover {
+  background: #e1fff2;
+}
+
+.btn-cerrar-banner {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  margin-left: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.btn-cerrar-banner:hover {
+  transform: scale(1.2);
+}
+
+/* Animaciones */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}

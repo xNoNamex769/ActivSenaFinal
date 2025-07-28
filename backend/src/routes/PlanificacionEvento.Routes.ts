@@ -19,5 +19,14 @@ router.post(
 );
 
 router.get("/mis-eventos", verificarToken, PlanificacionEventoControllers.getMisEventos);
-
+router.post(
+  "/masivo",
+  verificarToken,
+  PlanificacionEventoControllers.crearEventosMasivos
+);
+router.get(
+  "/trimestre/:anio/:trimestre",
+  verificarToken,
+  PlanificacionEventoControllers.obtenerEventosPorTrimestre
+);
 export default router;

@@ -10,7 +10,7 @@ const router = Router();
 
 // Obtener todas las actividades
 router.get('/', ActividadControllers.getActividadAll);
-
+router.get('/noticias',ActividadControllers.getNoticias);
 // Obtener una actividad por ID
 router.get('/:IdActividad',
   validateIdActividad,
@@ -51,6 +51,7 @@ router.get(
   handleInputErrors,
   ActividadControllers.getActividadesPorEvento
 );
+
 // Eliminar una actividad por ID
 router.delete(
   '/:IdActividad',

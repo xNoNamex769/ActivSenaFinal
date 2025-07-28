@@ -4,7 +4,7 @@ import { Evento } from "../models/Evento";
 import * as QRCode from 'qrcode';
 import { enviarNotificacion } from '../services/notificacionesService';
 import { Usuario } from '../models/Usuario'; 
-
+import { Op } from "sequelize";
 
 export class ActividadControllers {
   static getActividadAll = async (req: Request, res: Response) => {
@@ -216,4 +216,24 @@ await enviarNotificacion({
       res.status(500).json({ error: 'hubo un error' });
     }
   };
-}
+
+  static getNoticias = async (req: Request, res: Response) => {
+    try{
+      const noticias = await Actividad.findAll({
+        where: {
+  TipoLudica: {
+    [Op.like]: '%Noticia%'  // tolera minúsculas o palabras compuestas
+  }
+},
+
+        order: [['createdAt', 'DESC']],
+        include: [Evento, Usuario],
+      });
+      res.json(noticias);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error al obtener noticias' });
+    }
+    };
+  }
+    

@@ -23,7 +23,7 @@ import CalendarioActividades from "../src/pages/CalendarioAdmin/CalendarioActivi
 import EscanerQR from "../src/Components/QrGenerador.jsx/EscanerHtml5QR";
 import Constancia from "../src/pages/Constancia/components/ConstanciasList";
 import Aprendiz from "../src/pages/SolicitudApoyo/Aprendiz";
-
+import Noticias from "../src/pages/Noticias/Noticias";
 // Estilos
 import "../src/styles/BotHp.css";
 import "../src/styles/ColaViento.css";
@@ -118,6 +118,7 @@ export default function DashBoard() {
         {contenidoActual === "escanerqr" && <EscanerQR />}
         {contenidoActual === "solicitudapoyoaprendiz" && <Aprendiz />}
         {contenidoActual === "calendarioactividades" && <CalendarioActividades />}
+        {contenidoActual === "noticias" && <Noticias />}
         {contenidoActual === "userviewap" && (
           <UserViewAp usuario={usuario} setContenidoActual={setContenidoActual} />
         )}

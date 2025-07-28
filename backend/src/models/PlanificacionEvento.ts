@@ -27,6 +27,14 @@ export class PlanificacionEvento extends Model {
 declare TipoEvento: string;
 @Column({ type: DataType.STRING(255), allowNull: true })
 declare ImagenEvento: string;
+@Column({ type: DataType.STRING(10), allowNull: true })
+declare Trimestre: string;
+@Column({
+  type: DataType.ENUM("Manual", "Masivo"),
+  allowNull: false,
+  defaultValue: "Manual",
+})
+declare EstadoCarga: "Manual" | "Masivo";
 
   @BelongsTo(() => GestionEvento)
   declare gestionEvento: GestionEvento;

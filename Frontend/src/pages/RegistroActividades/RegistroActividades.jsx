@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./style/RegistroActividades.css";
 import cuadradoImg from './img/cuadrado.jpg';
 import axios from "axios";
-
+import sindesenaLogo from "../../../public/img/sindesena.webp"; // Importar logo
 const formatearFecha = (fechaStr) => {
   if (!fechaStr) return "";
   const [year, month, day] = fechaStr.split("-");
@@ -26,6 +26,7 @@ const ActivityRegistration = () => {
     infoLink: "",
     image: cuadradoImg,
     IdEvento: "",
+    tipoLudica: "",
   });
 
   const [imageFile, setImageFile] = useState(null);
@@ -122,6 +123,7 @@ if (fechaSeleccionada < hoySinHora) {
       formData.append("Ubicacion", activityData.location);
       formData.append("Imagen", imageFile);
       formData.append("IdUsuario", idUsuario);
+      formData.append("TipoLudica", activityData.tipoLudica);
 
       if (activityData.IdEvento) {
         formData.append("IdEvento", activityData.IdEvento);
@@ -147,7 +149,7 @@ if (fechaSeleccionada < hoySinHora) {
     <div className="activity-wrapper">
       <div className="image-container">
         <img src={activityData.image} alt="Vista previa" className="preview-image" />
-        <input type="file" name="image" accept="image/*" onChange={handleImageChange} />
+        <input type="file" name="image" accept="Image/*" onChange={handleImageChange} />
       </div>
 
       <div className="activity-container">
@@ -195,6 +197,30 @@ if (fechaSeleccionada < hoySinHora) {
               ))}
             </select>
           </label>
+          <label>
+  🗂 Tipo
+ <select name="tipoLudica" value={activityData.tipoLudica} onChange={handleChange} required>
+  <option value="">-- Selecciona una opción --</option>
+  <option value="Noticia">📢 SINDESENA</option>
+  <option value="Cultural">🎭 Cultural</option>
+  <option value="Deportiva">🏅 Deportiva</option>
+  <option value="Recreativa">🎲 Recreativa</option>
+</select>
+
+{activityData.tipoLudica === "Noticia" && (
+
+  <div style={{ marginTop: "10px" }}>
+    <img
+      src={sindesenaLogo}
+      alt="Logo SINDESENA"
+      style={{ width: "120px", height: "auto" }}
+    />
+    <p style={{ fontWeight: "bold", color: "#333" }}>SINDESENA</p>
+  </div>
+)}
+
+</label>
+
 
           <button type="submit">✅ Registrar Actividad</button>
         </form>
@@ -210,6 +236,8 @@ if (fechaSeleccionada < hoySinHora) {
             <p><strong>Hora inicio:</strong> {activityData.startTime}</p>
             <p><strong>Hora fin:</strong> {activityData.endTime}</p>
             <p><strong>Ubicación:</strong> {activityData.location}</p>
+            <p><strong>Tipo:</strong> {activityData.tipoLudica}</p>
+
             <p>
               <strong>Evento:</strong>{" "}
               {eventos.find(e => e.IdEvento === parseInt(activityData.IdEvento))?.NombreEvento || "Sin evento"}

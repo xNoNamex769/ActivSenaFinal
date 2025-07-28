@@ -144,7 +144,7 @@ static getFeedbacksByActividad = async (req: Request, res: Response) => {
       include: [
         {
           association: Feedback.associations.usuario,
-          attributes: ["Nombre", "Apellido", "Correo"],
+          attributes: ["Nombre", "Apellido", "Correo","FotoPerfil"],
         },
       ],
       order: [["FechaEnvio", "DESC"]],

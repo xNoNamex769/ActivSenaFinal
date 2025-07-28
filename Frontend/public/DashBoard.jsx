@@ -31,7 +31,7 @@ import "../src/styles/ColaViento.css";
 import "../src/styles/Resposive.css";
 import "../src/styles/global.css";
 import RegistrarElemento from "../src/pages/Elementos/RegistrarElemento";
-
+import ListaTrimestre from "../src/pages/ListaEventosTM/EventosporTrimestre";
 export default function DashBoard() {
   const [menuAbierto, setMenuAbierto] = useState(true);
   const [contenidoActual, setContenidoActual] = useState("userview");
@@ -125,6 +125,7 @@ export default function DashBoard() {
         {contenidoActual === "planificareventosadmin" && <PlanificarEventosAdmin/>}
          {contenidoActual === "adminconstancias" && <AdminConstancias />}
            {contenidoActual === "adminludicas" && <AdminLudicas />}
+            {contenidoActual === "listatrimestre" && <ListaTrimestre />}
         {contenidoActual === "temas" && (
           <DashThemed
             esTemaHalloween={esTemaHalloween}
