@@ -5,7 +5,7 @@ import "./styles/Alquiler.css";
 interface AlquilerElemento {
   IdAlquiler: number;
   CantidadDisponible: number;
-  Nombre: string; // 👈 Este campo lo renombré a "Nombre" según tu backend
+  Nombre: string; //  Este campo lo renombré a "Nombre" según el backend
   Imagen: string;
   IdElemento: number;
 }
