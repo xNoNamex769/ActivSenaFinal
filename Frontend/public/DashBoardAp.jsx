@@ -48,7 +48,7 @@ export default function DashBoard() {
     const token = localStorage.getItem("token");
     const IdUsuario = localStorage.getItem("IdUsuario");
 
-    if (!token || !IdUsuario) {
+    if (!token || IdUsuario) {
       alert("⚠️ Debes iniciar sesión primero");
       navigate("/");
     } else {

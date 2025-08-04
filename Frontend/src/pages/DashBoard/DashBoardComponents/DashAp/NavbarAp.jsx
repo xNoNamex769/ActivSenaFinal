@@ -139,9 +139,7 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
       )}
 
       <header className="encabezadodash">
-        <button className="iconodashm" onClick={toggleMenu}>
-          <FaBars />
-        </button>
+        
         <Rotar />
 
         <nav className="accionesdash">

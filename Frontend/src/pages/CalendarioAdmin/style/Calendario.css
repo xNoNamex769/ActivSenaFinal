@@ -26,7 +26,7 @@
 }
 
 .cal-sena-text {
-  color: #0066cc;
+  color: #5eb319;
   font-weight: bold;
 }
 
@@ -152,14 +152,14 @@
   font-size: 1.4rem;
   background: none;
   border: none;
-  color: #0066cc;
+  color: #5eb319;
   transition: color 0.3s;
   padding: 0.2rem 0.7rem;
   border-radius: 5px;
 }
 
 .cal-month-btn:hover {
-  color: #004a99;
+  color: #5eb319;
   background-color: #e6f0ff;
 }
 
@@ -237,7 +237,7 @@
 
 .cal-nombre-evento {
   font-size: 0.75rem;
-  color: #0066cc;
+  color: #5eb319;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -245,7 +245,7 @@
 }
 
 .cal-hoy {
-  border: 2px solid #0066cc;
+  border: 2px solid #5eb319;
 }
 
 .cal-noti-icon {
@@ -263,7 +263,7 @@
 }
 
 .cal-clicked {
-  color: #0066cc !important;
+  color: #5eb319 !important;
 }
 
 /* Modal */
@@ -311,7 +311,7 @@
 
 .cal-event-modal-title {
   margin-top: 0;
-  color: #0066cc;
+  color: #5eb319;
 }
 
 .cal-event-modal-content {
@@ -342,7 +342,7 @@
 
 .cal-btn-confirmar, .cal-btn-feedback {
   cursor: pointer;
-  background-color: #0066cc;
+  background-color: #5eb319;
   color: white;
   border: none;
   padding: 0.5rem 1rem;

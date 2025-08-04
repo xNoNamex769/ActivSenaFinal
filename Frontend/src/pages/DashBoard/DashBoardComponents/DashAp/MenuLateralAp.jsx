@@ -55,9 +55,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
           <img src={avatar} alt="Usuario" className="avatardash" />
           <span className="nombredash">Aprendiz</span>
         </div>
-        <button className="subirdash" onClick={toggleMenu}>
-          <FaTimes />
-        </button>
+        
 
         {mostrarMenu && (
           <div className="menudesplegabledash">

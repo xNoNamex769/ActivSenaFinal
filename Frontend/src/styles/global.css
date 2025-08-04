@@ -56,7 +56,7 @@
 .opciondash:hover,
 .activa {
   
-  background: #0aee0a;
+  background: #5eb319;
 }
 
 .contenidodash {
@@ -76,7 +76,7 @@
   padding: 14px 30px;
 
   /* Colores */
-  background: linear-gradient(90deg, #3edb0e, #3edb0e);
+  background-color: #5eb319;
   color: white;
   font-family: 'Segoe UI', sans-serif;
   font-size: 1.1rem;
@@ -111,7 +111,7 @@
 
 .accionesdash {
   /*Navbar*/
-   background-color: #eeeff7;
+   background-color: #ffffff;
   display: flex;
   align-items: center;
   gap: 15px;
@@ -135,7 +135,8 @@
   background-color: #f7f7f7;
   box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.2);
   color: rgb(87, 86, 86);
-   filter: drop-shadow(1px 5px 1px rgb(20, 235, 56));
+   filter: drop-shadow(1px 5px 1px rgb(94, 179, 25));
+
    
    margin-left: 10px;
 
@@ -157,7 +158,7 @@
 
 .opciondash:hover {
   
-  background: #3edb0e,
+  background: #5eb319,
   
   
 }
@@ -197,7 +198,6 @@
   height: 45px;
   border-radius: 50%;
   object-fit: cover;
-  filter: drop-shadow(4px 4px 4px rgb(67, 223, 5));
  
 }
 
@@ -213,7 +213,7 @@
 
 .Clogodash {
   border-radius: 30px;
-  background-color: #3ddf3d;
+  background-color: #5eb319;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -240,7 +240,7 @@
 }
 
 .menudash-lateral.oculto {
-  background-color: #3edb0e;
+  background-color: #5eb319;
   display: none;
 }
 
@@ -291,7 +291,7 @@
 }
 
 .subirdash {
-   background-color: #30ee0a;
+   background-color: #5eb319;
   position: relative;
   top: -3mm;
     
@@ -436,7 +436,7 @@ margin-right: 00px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(90deg, #3edb0e, #3edb0e,);
+  background-color: #5eb319;
   padding: 10px 15px;
   border-radius: 20px;
   max-width: 230px;
@@ -450,7 +450,6 @@ margin-right: 00px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid white;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
 
@@ -459,7 +458,7 @@ margin-right: 00px;
   margin-left: 10px;
   font-size: 16px;
   font-weight: 600;
-  color: #ffffff;
+  color: #000000;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   white-space: nowrap;
 }
@@ -503,14 +502,14 @@ margin-right: 00px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 10px;
-  border: 2px solid white;
+  border: 2px solid #5eb319;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .nombredash {
   font-size: 15px;
   font-weight: bold;
-  color: white;
+  color: black;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -550,7 +549,7 @@ margin-right: 00px;
 
 .ver-mas-noti {
   background: white;
-  color: #00796b;
+  color: #5eb319;
   padding: 5px 10px;
   font-size: 12px;
   border: none;
@@ -635,7 +634,7 @@ margin-right: 00px;
 
 .ver-mas-noti {
   background: white;
-  color: #007f4f;
+  color: #5eb319;
   border: none;
   padding: 6px 12px;
   border-radius: 8px;

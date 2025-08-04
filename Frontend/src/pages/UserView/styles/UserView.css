@@ -29,7 +29,6 @@
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  border: 3px solid #2563eb;
   margin-bottom: 15px;
   object-fit: cover;
 }
@@ -59,7 +58,7 @@
 .UserBoton {
   margin-top: 15px;
   padding: 10px 22px;
-  background-color: #2563eb;
+  background-color: #5eb319;
   border: none;
   color: white;
   font-size: 1rem;
