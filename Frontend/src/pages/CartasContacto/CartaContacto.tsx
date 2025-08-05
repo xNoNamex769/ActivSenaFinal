@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./style/CartaContacto.css";
-import aleximg from './img/alex.png';
+import aleximg from './img/alex.png'; // (No estás usándolo, podrías eliminarlo)
 import logoSena from './img/logo-sena.png';
 import defaultImg from './img/defecto.png';
 import axios from "axios";
@@ -15,69 +15,34 @@ interface PerfilInstructor {
   telefono: string;
 }
 
-const FlipCard = ({ perfil }: { perfil: PerfilInstructor }) => {
-  const datos = [
-    `Nombre: ${perfil.nombre}`,
-    `Correo: ${perfil.correo}`,
-    `Teléfono: ${perfil.telefono}`,
-    `Profesión: ${perfil.profesion}`,
-    `Ubicación: ${perfil.ubicacion}`
-  ];
-
-  return (
-    <div className="flip-card-contacto">
-      <div className="flip-card-inner-contacto">
-       <div className="flip-card-front-contacto">
-  <span className={`badge-contacto ${perfil.profesion.toLowerCase().replace(/\s+/g, '-')}`}>
-    {perfil.profesion}
-  </span>
-  <img
-    src={perfil.imagen || logoSena}
-    alt="Imagen"
-    className="card-image-contacto"
-  />
-</div>
-
-        <div className="flip-card-back-contacto">
-          <img src={aleximg} alt="logo sena" className="logo-portada-contacto" />
-          <h3>Información de Contacto</h3>
-          <ul>
-            {datos.map((item, idx) => (
-              <li key={idx}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const VerContactosInstructores = () => {
   const [perfiles, setPerfiles] = useState<PerfilInstructor[]>([]);
   const [filtroNombre, setFiltroNombre] = useState("");
   const [filtroUbicacion, setFiltroUbicacion] = useState("");
   const [filtroProfesion, setFiltroProfesion] = useState("");
+  const [perfilActivo, setPerfilActivo] = useState<PerfilInstructor | null>(null);
 
   useEffect(() => {
     const fetchPerfiles = async () => {
       try {
         const res = await axios.get("http://localhost:3001/api/perfil-instructor");
-        console.log("🔍 Datos recibidos del backend:", res.data);
         setPerfiles(res.data);
       } catch (error) {
         console.error("❌ Error al cargar perfiles:", error);
       }
     };
-
     fetchPerfiles();
   }, []);
 
-const filtrados = perfiles.filter((perfil) =>
-  (perfil.nombre ?? "").toLowerCase().includes(filtroNombre.toLowerCase()) &&
-  (perfil.ubicacion ?? "").toLowerCase().includes(filtroUbicacion.toLowerCase()) &&
-  (perfil.profesion ?? "").toLowerCase().includes(filtroProfesion.toLowerCase())
-);
+  const filtrados = perfiles.filter((perfil) =>
+    (perfil.nombre ?? "").toLowerCase().includes(filtroNombre.toLowerCase()) &&
+    (perfil.ubicacion ?? "").toLowerCase().includes(filtroUbicacion.toLowerCase()) &&
+    (perfil.profesion ?? "").toLowerCase().includes(filtroProfesion.toLowerCase())
+  );
 
+  const getImagenValida = (img: string) => {
+    return img && img.trim() !== "" ? img : logoSena;
+  };
 
   return (
     <div className="pagina-contacto-unica">
@@ -114,12 +79,41 @@ const filtrados = perfiles.filter((perfil) =>
 
       <div className="card-container-contacto">
         {filtrados.map((perfil, idx) => (
-          <FlipCard key={idx} perfil={perfil} />
-          
+          <div
+            key={idx}
+            className="card-instructor-modal"
+            onClick={() => setPerfilActivo(perfil)}
+          >
+            <span className={`badge-contacto ${perfil.profesion.toLowerCase().replace(/\s+/g, '-')}`}>
+              {perfil.profesion}
+            </span>
+            <img
+              src={getImagenValida(perfil.imagen)}
+              alt={perfil.nombre}
+              className="card-image-contacto"
+            />
+            <h3>{perfil.nombre}</h3>
+          </div>
         ))}
-        
       </div>
-      
+
+      {perfilActivo && (
+        <div className="modal-overlay" onClick={() => setPerfilActivo(null)}>
+          <div className="modal-contenido" onClick={(e) => e.stopPropagation()}>
+            <button className="cerrar-modal" onClick={() => setPerfilActivo(null)}>×</button>
+            <img
+              src={getImagenValida(perfilActivo.imagen)}
+              className="imagen-modal"
+              alt="Instructor"
+            />
+            <h2>{perfilActivo.nombre}</h2>
+            <p><strong>Correo:</strong> {perfilActivo.correo}</p>
+            <p><strong>Teléfono:</strong> {perfilActivo.telefono}</p>
+            <p><strong>Profesión:</strong> {perfilActivo.profesion}</p>
+            <p><strong>Ubicación:</strong> {perfilActivo.ubicacion}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { QRCodeCanvas } from "qrcode.react";
-import "./style/RegistroLudicas.css"
+import "./style/RegistroLudicas.css";
 import cuadradoImg from "../RegistroActividades/img/cuadrado.jpg";
 
 const RegistroLudica = () => {
@@ -13,7 +13,7 @@ const RegistroLudica = () => {
     HoraFin: "",
     TipoLudica: "Recreativa",
     Ubicacion: "",
-    HorarioContinuo: false, // ✅ Añadido al estado
+    HorarioContinuo: false,
   });
 
   const [imagen, setImagen] = useState(null);
@@ -41,7 +41,7 @@ const RegistroLudica = () => {
     e.preventDefault();
 
     if (form.HoraInicio >= form.HoraFin) {
-      alert("⚠️ La hora de inicio debe ser menor que la de fin.");
+      alert("La hora de inicio debe ser menor que la de fin.");
       return;
     }
 
@@ -67,7 +67,7 @@ const RegistroLudica = () => {
     formData.append("TipoLudica", form.TipoLudica);
     formData.append("Ubicacion", form.Ubicacion);
     formData.append("IdUsuario", IdUsuario);
-    formData.append("HorarioContinuo", form.HorarioContinuo ? "true" : "false"); // ✅ FIX
+    formData.append("HorarioContinuo", form.HorarioContinuo ? "true" : "false");
 
     if (imagen) {
       formData.append("Imagen", imagen);
@@ -78,62 +78,57 @@ const RegistroLudica = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      alert("✅ Lúdica registrada con éxito");
-      setActividadCreada(response.data.actividad); // 👈 Guardamos los datos con QR
+      alert("Lúdica registrada con éxito");
+      setActividadCreada(response.data.actividad);
     } catch (error) {
-      console.error("❌ Error al registrar lúdica:", error);
+      console.error("Error al registrar lúdica:", error);
       alert("Hubo un error al registrar la lúdica.");
     }
   };
 
   return (
     <div className="activity-wrapper">
-      <div className="image-container">
-        <img src={preview} alt="Vista previa" className="preview-image" />
-        <input type="file" name="imagen" accept="image/*" onChange={handleImageChange} />
-      </div>
-
       <div className="activity-container">
-        <h2>🎈 Registro de Lúdica</h2>
+        <h2>Registro de Lúdica</h2>
         <form onSubmit={handleSubmit}>
           <label>
-            🎯 Nombre
+            Nombre
             <input type="text" name="NombreActi" value={form.NombreActi} onChange={handleChange} required />
           </label>
 
           <label>
-            📝 Descripción
+            Descripción
             <textarea name="Descripcion" value={form.Descripcion} onChange={handleChange} required />
           </label>
 
           <label>
-            📅 Fecha
+            Fecha
             <input type="date" name="Fecha" value={form.Fecha} onChange={handleChange} required />
           </label>
-<div className="registro-checkbox-unico">
-  <input
-    type="checkbox"
-    name="HorarioContinuo"
-    checked={form.HorarioContinuo}
-    onChange={handleChange}
-  />
-  <span>¿Es un horario continuo?</span>
-</div>
 
-   
+          <div className="registro-checkbox-unico">
+            <input
+              type="checkbox"
+              name="HorarioContinuo"
+              checked={form.HorarioContinuo}
+              onChange={handleChange}
+            />
+            <span>¿Es un horario continuo?</span>
+          </div>
+
           <div className="time-container">
             <label>
-              ⏰ Hora de inicio
+              Hora de inicio
               <input type="time" name="HoraInicio" value={form.HoraInicio} onChange={handleChange} required />
             </label>
             <label>
-              ⏳ Hora de fin
+              Hora de fin
               <input type="time" name="HoraFin" value={form.HoraFin} onChange={handleChange} required />
             </label>
           </div>
 
           <label>
-            🧩 Tipo de lúdica
+            Tipo de lúdica
             <select name="TipoLudica" value={form.TipoLudica} onChange={handleChange}>
               <option value="Recreativa">Recreativa</option>
               <option value="Cultural">Cultural</option>
@@ -142,15 +137,31 @@ const RegistroLudica = () => {
           </label>
 
           <label>
-            📍 Ubicación
+            Ubicación
             <input type="text" name="Ubicacion" value={form.Ubicacion} onChange={handleChange} required />
           </label>
+
+          {/* Sección de imagen */}
+          <div className="image-container" style={{ marginTop: "20px", textAlign: "center" }}>
+            <img
+              src={preview}
+              alt="Vista previa"
+              className="preview-image"
+              style={{
+                width: "100px",
+                height: "100px",
+                objectFit: "cover",
+                borderRadius: "8px",
+                marginBottom: "10px",
+              }}
+            />
+            <input type="file" name="imagen" accept="image/*" onChange={handleImageChange} />
+          </div>
 
           <button type="submit">Registrar Lúdica</button>
         </form>
       </div>
 
-      {/* Modal de confirmación */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -168,13 +179,12 @@ const RegistroLudica = () => {
         </div>
       )}
 
-      {/* Mostrar los QR generados */}
       {actividadCreada && (
         <div className="qr-section">
-          <h3>📲 Código QR de Entrada</h3>
+          <h3>Código QR de Entrada</h3>
           <QRCodeCanvas value={actividadCreada.CodigoQR} size={200} />
 
-          <h3>🚪 Código QR de Salida</h3>
+          <h3>Código QR de Salida</h3>
           <QRCodeCanvas value={actividadCreada.CodigoQRSalida} size={200} />
         </div>
       )}

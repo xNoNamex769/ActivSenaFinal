@@ -84,12 +84,6 @@
   color: #111827;
 }
 
-.UserTexto {
-  font-size: 0.95rem;
-  color: #374151;
-}
-
-/* Tarjetas */
 .UserTarjetas {
   display: flex;
   gap: 15px;
@@ -98,13 +92,13 @@
 }
 
 .UserTarjeta {
-  width: 160px;
+  width: 180px;
+  cursor: pointer;
   border-radius: 12px;
-  background: white;
   overflow: hidden;
-  text-align: center;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease;
+  background: #fff;
 }
 
 .UserTarjeta:hover {
@@ -115,91 +109,86 @@
   width: 100%;
   height: 100px;
   object-fit: cover;
-  border-bottom: 1px solid #e5e7eb;
 }
 
 .UserTarjetaTexto {
-  font-size: 0.95rem;
   padding: 12px;
-  color: #1f2937;
-}
-
-/* Tarjetas Flip (Estilo Instagram o Facebook Story) */
-.flip-card-user {
-  background-color: transparent;
-  width: 180px;
-  height: 220px;
-  perspective: 1000px;
-}
-
-.flip-card-inner-user {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  font-weight: 500;
+  color: #111827;
   text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
 }
 
-.flip-card-user:hover .flip-card-inner-user {
-  transform: rotateY(180deg);
-}
-
-.flip-card-front-user,
-.flip-card-back-user {
-  position: absolute;
+/* Modal */
+.UserModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 12px;
-  overflow: hidden;
-  backface-visibility: hidden;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.flip-card-front-user {
-  background-color: #ffffff;
+  background-color: rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
 }
 
-.flip-card-back-user {
-  background-color: #1f2937;
-  color: white;
-  transform: rotateY(180deg);
+.UserModalContenido {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.UserModalCerrar {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/*xdddd*/
+
+.UserTarjetas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Fuerza 4 columnas exactas */
+  gap: 20px;
+  grid-auto-flow: row dense;
+}
+
+.UserTarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.UserTarjeta {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 14px;
-  font-size: 0.85rem;
-  text-align: left;
-  overflow-y: auto;
-}
-
-.card-img-user {
-  width: 100%;
   height: 100%;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.UserTarjetaImg {
+  width: 100%;
+  height: 210px;
   object-fit: cover;
 }
 
-.card-title-user {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  text-align: center;
-  font-weight: bold;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white;
-  padding: 6px 0;
-  font-size: 0.9rem;
-  z-index: 2;
+.UserTarjetas > * {
+  height: 100%;
 }
-.UserAvatarCustom {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin: 10px 0;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-}
+
+
+

@@ -26,9 +26,7 @@ export default function Navbar({ toggleMenu, setContenidoActual }) {
 
   return (
     <header className="encabezadodash">
-      <button className="iconodash" onClick={toggleMenu}>
-        <FaBars />
-      </button>
+      
 <div className="rotar-container">
         <Rotar />
       </div>

@@ -14,6 +14,18 @@ import axios from "axios";
 
 export default function InstructorView({ setContenidoActual, actualizarPerfil }) {
   const [usuario, setUsuario] = useState(null);
+  const [modalAbierto, setModalAbierto] = useState(false);
+  const [modalContenido, setModalContenido] = useState({ titulo: "", contenido: null });
+
+  const abrirModal = (titulo, contenido) => {
+    setModalContenido({ titulo, contenido });
+    setModalAbierto(true);
+  };
+
+  const cerrarModal = () => {
+    setModalAbierto(false);
+    setModalContenido({ titulo: "", contenido: null });
+  };
 
   const fetchUsuario = async () => {
     try {
@@ -33,9 +45,9 @@ export default function InstructorView({ setContenidoActual, actualizarPerfil })
   };
 
   useEffect(() => {
-      console.log("⚡ actualizando perfil desde useEffect");
+    console.log("⚡ actualizando perfil desde useEffect");
     fetchUsuario();
-  }, [actualizarPerfil]); // 👈 se vuelve a ejecutar al cambiar el perfil
+  }, [actualizarPerfil]);
 
   return (
     <section className="UserContenedor">
@@ -44,16 +56,16 @@ export default function InstructorView({ setContenidoActual, actualizarPerfil })
       ) : (
         <div className="UserCuadro UserInfo">
           {usuario.perfilInstructor?.imagen && (
-  <img
-    src={
-      usuario.perfilInstructor.imagen.startsWith("data:image")
-        ? usuario.perfilInstructor.imagen
-        : `http://localhost:3001${usuario.perfilInstructor.imagen}`
-    }
-    alt="Foto del instructor"
-    className="UserAvatarCustom"
-  />
-)}
+            <img
+              src={
+                usuario.perfilInstructor.imagen.startsWith("data:image")
+                  ? usuario.perfilInstructor.imagen
+                  : `http://localhost:3001${usuario.perfilInstructor.imagen}`
+              }
+              alt="Foto del instructor"
+              className="UserAvatarCustom"
+            />
+          )}
 
           <h2 className="UserNombre">
             <strong>Nombre: </strong>{usuario.Nombre} {usuario.Apellido}
@@ -76,25 +88,54 @@ export default function InstructorView({ setContenidoActual, actualizarPerfil })
         <h3 className="UserTitulo">Lúdicas</h3>
         <div className="UserTarjetas">
           {[
-            { titulo: "Baile Caucano", img: ludicaImg, hora: "8:00 AM - 12:00 PM", lugar: "Donde se baila :P", tipo: "Recreativa", desc: "Baile Baile Baile Baile Baile Baile." },
-            { titulo: "Fútbol Recreativo", img: ludicaImg2, hora: "8:00 AM - 12:00 PM", lugar: "Cancha múltiple", tipo: "Recreativa", desc: "Futbol Futbol Futbol Futbol Futbol Futbol." },
-            { titulo: "Gimnasio Sena", img: ludicaImg3, hora: "8:00 AM - 12:00 PM", lugar: "Sabrá Dios 👌", tipo: "Recreativa", desc: "GimBro GimBro GimBro GimBro GimBro." },
-            { titulo: "Música y Artes", img: ludicaImg4, hora: "2:00 PM - 5:00 PM", lugar: "No se", tipo: "Cultural", desc: "Music Music Music Music Music Music." },
+            {
+              titulo: "Baile Caucano",
+              img: ludicaImg,
+              hora: "8:00 AM - 12:00 PM",
+              lugar: "Donde se baila :P",
+              tipo: "Recreativa",
+              desc: "Baile Baile Baile Baile Baile Baile.",
+            },
+            {
+              titulo: "Fútbol Recreativo",
+              img: ludicaImg2,
+              hora: "8:00 AM - 12:00 PM",
+              lugar: "Cancha múltiple",
+              tipo: "Recreativa",
+              desc: "Futbol Futbol Futbol Futbol Futbol Futbol.",
+            },
+            {
+              titulo: "Gimnasio Sena",
+              img: ludicaImg3,
+              hora: "8:00 AM - 12:00 PM",
+              lugar: "Sabrá Dios 👌",
+              tipo: "Recreativa",
+              desc: "GimBro GimBro GimBro GimBro GimBro.",
+            },
+            {
+              titulo: "Música y Artes",
+              img: ludicaImg4,
+              hora: "2:00 PM - 5:00 PM",
+              lugar: "No se",
+              tipo: "Cultural",
+              desc: "Music Music Music Music Music Music.",
+            },
           ].map((ludica, i) => (
-            <div className="flip-card-user" key={i}>
-              <div className="flip-card-inner-user">
-                <div className="flip-card-front-user">
-                  <h4 className="card-title-user">{ludica.titulo}</h4>
-                  <img src={ludica.img} alt={ludica.titulo} className="card-img-user" />
-                </div>
-                <div className="flip-card-back-user">
+            <div
+              key={i}
+              className="UserTarjeta"
+              onClick={() => abrirModal(ludica.titulo, (
+                <>
                   <p>📅 ¡INSCRIPCIONES ABIERTAS!</p>
                   <p>🕒 Hora: {ludica.hora}</p>
                   <p>📍 Lugar: {ludica.lugar}</p>
                   <p>🎯 Tipo: {ludica.tipo}</p>
                   <p>{ludica.desc}</p>
-                </div>
-              </div>
+                </>
+              ))}
+            >
+              <img src={ludica.img} alt={ludica.titulo} className="UserTarjetaImg" />
+              <div className="UserTarjetaTexto">{ludica.titulo}</div>
             </div>
           ))}
         </div>
@@ -105,29 +146,73 @@ export default function InstructorView({ setContenidoActual, actualizarPerfil })
         <h3 className="UserTitulo">Eventos Semanales!</h3>
         <div className="UserTarjetas">
           {[
-            { titulo: "Charla Motivacional", img: EventoImg, fecha: "20 de junio 2025", hora: "10:00 AM - 11:30 AM", lugar: "Sala múltiple", tipo: "Formativa", desc: "Este hombre fue el que descubrió la vacuna contra el Covid-19... (historia motivacional)." },
-            { titulo: "Feria Del Cacao 🍫", img: EventoImg2, fecha: "20 de junio 2025", hora: "10:00 AM - 3:00 PM", lugar: "Sala múltiple", tipo: "Formativa", desc: "Exposición de proyectos por aprendices de diferentes programas." },
-            { titulo: "Academia", img: EventoImg3, fecha: "20 de junio 2025", hora: "10:00 AM - 3:00 PM", lugar: "Sala múltiple", tipo: "Formativa", desc: "Exposición de proyectos por aprendices de diferentes programas." },
-            { titulo: "Feria del Emprendimiento", img: EventoImg4, fecha: "25 de junio 2025", hora: "7:00 AM - 5:00 PM", lugar: "Ambiente de Software", tipo: "Competencia", desc: "Desarrollo de apps en tiempo récord por equipos SENA." },
+            {
+              titulo: "Charla Motivacional",
+              img: EventoImg,
+              fecha: "20 de junio 2025",
+              hora: "10:00 AM - 11:30 AM",
+              lugar: "Sala múltiple",
+              tipo: "Formativa",
+              desc: "Este hombre fue el que descubrió la vacuna contra el Covid-19... (historia motivacional).",
+            },
+            {
+              titulo: "Feria Del Cacao 🍫",
+              img: EventoImg2,
+              fecha: "20 de junio 2025",
+              hora: "10:00 AM - 3:00 PM",
+              lugar: "Sala múltiple",
+              tipo: "Formativa",
+              desc: "Exposición de proyectos por aprendices de diferentes programas.",
+            },
+            {
+              titulo: "Academia",
+              img: EventoImg3,
+              fecha: "20 de junio 2025",
+              hora: "10:00 AM - 3:00 PM",
+              lugar: "Sala múltiple",
+              tipo: "Formativa",
+              desc: "Exposición de proyectos por aprendices de diferentes programas.",
+            },
+            {
+              titulo: "Feria del Emprendimiento",
+              img: EventoImg4,
+              fecha: "25 de junio 2025",
+              hora: "7:00 AM - 5:00 PM",
+              lugar: "Ambiente de Software",
+              tipo: "Competencia",
+              desc: "Desarrollo de apps en tiempo récord por equipos SENA.",
+            },
           ].map((evento, i) => (
-            <div className="flip-card-user" key={i}>
-              <div className="flip-card-inner-user">
-                <div className="flip-card-front-user">
-                  <h4 className="card-title-user">{evento.titulo}</h4>
-                  <img src={evento.img} alt={evento.titulo} className="card-img-user" />
-                </div>
-                <div className="flip-card-back-user">
+            <div
+              key={i}
+              className="UserTarjeta"
+              onClick={() => abrirModal(evento.titulo, (
+                <>
                   <p>📅 Fecha: {evento.fecha}</p>
                   <p>🕒 Hora: {evento.hora}</p>
                   <p>📍 Lugar: {evento.lugar}</p>
                   <p>🎯 Tipo: {evento.tipo}</p>
                   <p>{evento.desc}</p>
-                </div>
-              </div>
+                </>
+              ))}
+            >
+              <img src={evento.img} alt={evento.titulo} className="UserTarjetaImg" />
+              <div className="UserTarjetaTexto">{evento.titulo}</div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* MODAL */}
+      {modalAbierto && (
+        <div className="UserModalOverlay" onClick={cerrarModal}>
+          <div className="UserModalContenido" onClick={(e) => e.stopPropagation()}>
+            <button className="UserModalCerrar" onClick={cerrarModal}>✖</button>
+            <h3>{modalContenido.titulo}</h3>
+            <div>{modalContenido.contenido}</div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
