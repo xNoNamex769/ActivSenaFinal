@@ -138,11 +138,22 @@
 }
 
 .admin-estado-label.atendido {
-  background-color: #33cc33;
+  background-color: #5eb319;
   color: #fff;
 }
 
 .admin-estado-label.finalizado {
   background-color: #999999;
   color: #fff;
+}
+
+.btn-historiales {
+  margin-top: 0.8rem;
+  padding: 0.5rem 1rem;
+  background-color: #5eb319;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
 }

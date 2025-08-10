@@ -209,13 +209,7 @@ const irAFeedback = () => {
             </div>
           </section>
 
-          <h1 className="titulo-intro">¿Qué piensas hacer hoy?</h1>
-          <section className="evento-app-seccion-botones-accion">
-            <button className="evento-app-boton-accion">Apoyos</button>
-            <button className="evento-app-boton-accion">Lúdicas</button>
-            <button className="evento-app-boton-accion">Alquiler</button>
-            <button className="evento-app-boton-accion">ChatIA</button>
-          </section>
+          
 
           <h2 className="evento-app-titulo-seccion">Eventos Semanales</h2>
           <section className="evento-app-seccion-feed">

@@ -70,7 +70,7 @@
   /* Título */
   .activity-container h2 {
     font-size: 26px;
-    color: #12c731;
+    color: #5eb319;
     margin-bottom: 15px;
     text-align: center;
   }
@@ -225,7 +225,7 @@
   height: 180px;
   object-fit: cover;
   border-radius: 10px;
-  border: 2px solid #ccc;
+  border: 2px solid #fffcfc;
   margin-bottom: 10px;
 }
 
@@ -240,7 +240,7 @@
 
 .activity-container h2 {
   text-align: center;
-  color: #004080;
+  color: #5eb319;
   margin-bottom: 25px;
 }
 
@@ -290,7 +290,7 @@ textarea {
 }
 
 .activity-container button[type="submit"]:hover {
-  background-color: #218838;
+  background-color: #5eb319;
 }
 
 /* Modal */

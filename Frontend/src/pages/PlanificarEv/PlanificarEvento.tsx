@@ -138,7 +138,7 @@ const EventPlanner: React.FC = () => {
 
   return (
     <div className="planificar-evento-container">
-      <h1 className="planificar-evento-title">📅 Planificador de eventos</h1>
+      <h1 className="planificar-evento-title"> Planificador de eventos</h1>
       <div className="planificar-evento-form">
         <input
           type="text"

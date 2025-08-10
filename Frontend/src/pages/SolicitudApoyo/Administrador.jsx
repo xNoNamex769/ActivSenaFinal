@@ -152,7 +152,7 @@ const Administrador = () => {
 
             <p><strong>Descripción:</strong> {s.Descripcion}</p>
             <p><strong>Contacto Emergencia:</strong> {s.ContactoEmergencia || 'N/A'}</p>
-            <button onClick={() => cargarHistorial(s.IdSolicitud)}>
+            <button className='btn-historiales' onClick={() => cargarHistorial(s.IdSolicitud)}>
               {historialVisible[s.IdSolicitud] ? 'Ocultar Historial' : 'Ver Historial'}
             </button>
 

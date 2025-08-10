@@ -455,11 +455,22 @@
 }
 
 .tabla-alquiler th {
-  background-color: #3edb0e;
+  background-color: #5eb319;
   color: white;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.btn-cosas-xd {
+  margin-top: 0.8rem;
+  padding: 0.5rem 1rem;
+  background-color: #5eb319;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
 .tabla-alquiler tr:nth-child(even) {

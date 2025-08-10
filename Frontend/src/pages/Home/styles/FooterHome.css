@@ -27,7 +27,7 @@
 }
 
 .footer-about-home p {
-  color: rgba(255, 255, 255, 0.7);
+  color: #5eb319;
   margin-bottom: 20px;
 }
 
@@ -38,7 +38,7 @@
 .footer-social-icon-home {
   width: 40px;
   height: 40px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #5eb319;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -76,7 +76,7 @@
 }
 
 .footer-links-home a {
-  color: rgba(255, 255, 255, 0.7);
+  color: #5eb319;
   transition: var(--transition-home);
 }
 
@@ -96,13 +96,13 @@
 }
 
 .footer-contact-text-home {
-  color: rgba(255, 255, 255, 0.7);
+  color: #5eb319;
 }
 
 .footer-bottom-home {
   text-align: center;
   padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid #5eb319;
 }
 
 .footer-bottom-home p {

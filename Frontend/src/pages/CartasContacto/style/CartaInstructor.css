@@ -45,7 +45,7 @@ form input:focus {
 
 button[type="submit"] {
   padding: 14px;
-  background-color: #3498db;
+  background-color: #5eb319;
   color: white;
   font-size: 1rem;
   font-weight: bold;
@@ -56,7 +56,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #2a80b9;
+  background-color: #519717;
 }
 
 .mensaje-form {
@@ -124,7 +124,6 @@ input::placeholder {
   height: 100px;
   object-fit: cover;
   border-radius: 50%;
-  border: 2px solid #3498db;
   margin-bottom: 14px;
 }
 
@@ -160,7 +159,7 @@ input::placeholder {
 .btn-ver-mas {
   margin-top: 12px;
   padding: 10px 16px;
-  background-color: #3498db;
+  background-color: #5eb319;
   color: white;
   border: none;
   border-radius: 8px;
@@ -170,7 +169,7 @@ input::placeholder {
 }
 
 .btn-ver-mas:hover {
-  background-color: #2980b9;
+  background-color: #59b40f;
 }
 
 /* Modal */
@@ -242,7 +241,6 @@ input::placeholder {
   margin-bottom: 2rem;
   padding: 1.5rem;
   background-color: #f7f9fb;
-  border: 2px solid #3498db;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }

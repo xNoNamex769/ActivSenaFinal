@@ -2,14 +2,14 @@
   background-color: var(--white-home);
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 15px #5eb319;
   transition: var(--transition-home);
   height: 100%;
 }
 
 .anuncio-card-home:hover {
   transform: translateY(-10px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px #5eb319;
 }
 
 .anuncio-icon-home {

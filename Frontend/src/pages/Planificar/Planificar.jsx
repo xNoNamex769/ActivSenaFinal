@@ -25,7 +25,7 @@ function Planificar() {
 
   return (
     <div className="container">
-      <h1 className="title">📅 Planificador de eventos</h1>
+      <h1 className="title">Planificador de eventos</h1>
       <div className="form-container">
         <input type="text" placeholder="Nombre del evento" value={eventName} onChange={(e) => setEventName(e.target.value)} />
         <input type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} />

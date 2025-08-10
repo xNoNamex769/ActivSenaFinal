@@ -47,7 +47,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #2d6a4f, #16a34a, #2563eb);
+  background: linear-gradient(90deg, #5eb319, #678f47, #ebeef5);
   border-radius: 18px 18px 0 0;
 }
 
@@ -122,7 +122,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #16a34a, #2563eb);
+  background: linear-gradient(90deg, #5eb319, #e8ecf5);
   border-radius: 16px 16px 0 0;
 }
 
@@ -201,7 +201,7 @@
 /* Resumen lateral mejorado */
 .horas-ludicas-summary {
   flex: 1 1 320px;
-  background: linear-gradient(145deg, #eff6ff 0%, #dbeafe 100%);
+  background: linear-gradient(145deg, #eff6ff 0%, #5eb319 130%);
   border-radius: 16px;
   padding: 2.5rem;
   box-shadow: 
@@ -220,14 +220,14 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  background: linear-gradient(90deg, #eff6ff, #5eb319);
   border-radius: 16px 16px 0 0;
 }
 
 .horas-ludicas-summary h3 {
   font-size: 1.6rem;
   margin-bottom: 1.5rem;
-  color: #1d4ed8;
+  color: #000000;
   font-weight: 800;
   display: flex;
   align-items: center;
@@ -249,7 +249,7 @@
 
 /* Botón de certificado mejorado */
 .btn-certificado {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  background: linear-gradient(135deg, #5eb319 0%, #5eb319 100%);
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -288,7 +288,7 @@
 }
 
 .btn-certificado.btn-disabled {
-  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+  background: linear-gradient(135deg, #5eb319 0%, #d4e6cd 100%);
   color: #e2e8f0;
   cursor: not-allowed;
   font-weight: 600;
@@ -352,7 +352,7 @@
 .horas-ludicas-info h3 {
   font-size: 1.4rem;
   margin-bottom: 1rem;
-  color: #1e40af;
+  color: #5eb319;
   font-weight: 700;
   display: flex;
   align-items: center;

@@ -757,7 +757,7 @@
 .btn-ver-qr {
   margin-top: 0.8rem;
   padding: 0.5rem 1rem;
-  background-color: #2a7de1;
+  background-color: #5eb319;
   color: white;
   border: none;
   border-radius: 6px;
@@ -766,7 +766,7 @@
 }
 
 .btn-ver-qr:hover {
-  background-color: #185abc;
+  background-color: #43880b;
 }
 
 /* Modal fijo y centrado */

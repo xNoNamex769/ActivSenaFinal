@@ -125,11 +125,11 @@ const DetallesAlquiler = () => {
               <td>{registro.Observaciones || "Sin observaciones"}</td>
               <td>
                 {!registro.CumplioConEntrega && (
-                  <button onClick={() => marcarComoEntregado(registro.IdAlquiler)}>
+                  <button className='btn-cosas-xd' onClick={() => marcarComoEntregado(registro.IdAlquiler)}>
                     Marcar como entregado
                   </button>
                 )}
-                <button
+                <button className='btn-cosas-xd'
                   style={{ marginLeft: '8px' }}
                   onClick={() => abrirModalEdicion(registro.IdAlquiler, registro.Observaciones)}
                 >

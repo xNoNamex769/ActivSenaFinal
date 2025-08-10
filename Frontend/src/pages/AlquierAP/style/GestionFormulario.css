@@ -273,12 +273,12 @@
 
 /* ✅ Botón principal */
 .item-catalogo button:first-of-type {
-  background-color: #3edb0e;
+  background-color: #5eb319;
   color: white;
 }
 
 .item-catalogo button:first-of-type:hover {
-  background-color: #0e3edb;
+  background-color: #4b990b;
 }
 
 /*  Botón de eliminar o cancelar */

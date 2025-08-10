@@ -242,7 +242,7 @@
 .card-instructor-modal h3 {
   margin: 0;
   font-size: 1rem;
-  color: #1e3a8a;
+  color: black;
 }
 
 .modal-overlay {
@@ -329,7 +329,7 @@
 
 .texto-instructor-contacto {
   font-size: 1.6rem;
-  color: #1e3a8a;
+  color: black;
 }
 
 .filtros-multicampo-contacto {
@@ -358,7 +358,7 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  background: #1e3a8a;
+  background: #5eb319;
   color: white;
   padding: 4px 8px;
   border-radius: 6px;

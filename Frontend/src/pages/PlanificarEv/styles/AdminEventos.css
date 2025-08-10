@@ -35,11 +35,12 @@
 
 .pe-boton {
   padding: 0.4rem 0.8rem;
-  background-color: #28a745;
+  background-color: #5eb319;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 4px;
+  margin-bottom: 8px;
 }
 
 .pe-boton:hover {
@@ -112,7 +113,7 @@
 
 .pe-boton {
   padding: 0.5rem 1rem;
-  background-color: #38a169;
+  background-color: #5eb319;
   border: none;
   color: white;
   border-radius: 6px;

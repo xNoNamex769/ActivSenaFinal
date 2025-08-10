@@ -279,7 +279,7 @@
   text-align: center;
   margin-bottom: 2rem;
   padding: 2rem;
-  background: linear-gradient(145deg, #f0f9ff, #e0f2fe);
+  background: linear-gradient(145deg, #f0f9ff, #baee90);
   border-radius: 16px;
   border: 1px solid rgba(0, 74, 153, 0.2);
   box-shadow: 0 4px 12px rgba(0, 74, 153, 0.08);
@@ -294,7 +294,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #004a99, #0066cc, #004a99);
+  background: linear-gradient(90deg, #5eb319, #5eb319, #c2eba0);
   border-radius: 16px 16px 0 0;
 }
 

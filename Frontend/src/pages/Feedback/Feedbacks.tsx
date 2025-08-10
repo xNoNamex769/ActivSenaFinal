@@ -154,7 +154,7 @@ const navigate = useNavigate();
 
   return (
     <div className="carousel-container">
-      <button onClick={() => navigate("/actividades")}>⬅ Volver</button>
+      {/*<button onClick={() => navigate("/actividades")}>⬅ Volver</button>*/}
 
       <h2>FEEDBACK DE Actividades</h2>
 

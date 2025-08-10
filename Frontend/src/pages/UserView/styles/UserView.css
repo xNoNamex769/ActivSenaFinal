@@ -1,12 +1,12 @@
 .UserContenedor {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 370px 1fr;
+  grid-template-rows: 1fr;
   gap: 24px;
   padding: 30px;
-  box-sizing: border-box;
   min-height: 100vh;
   background-color: #f8fafc;
+  align-items: flex-start;
 }
 
 .UserCuadro {
@@ -23,6 +23,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  min-height: 750px; /* Ajusta este valor hasta que quede alineado */
 }
 
 .UserAvatar {
@@ -85,37 +86,38 @@
 }
 
 .UserTarjetas {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
 }
 
 .UserTarjeta {
-  width: 180px;
-  cursor: pointer;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease;
   background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  border-top: 4px solid #5eb319;
 }
 
 .UserTarjeta:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(94,179,25,0.13);
 }
 
 .UserTarjetaImg {
   width: 100%;
-  height: 100px;
+  height: 160px;
   object-fit: cover;
 }
 
 .UserTarjetaTexto {
-  padding: 12px;
-  font-weight: 500;
-  color: #111827;
+  padding: 16px 12px;
+  font-weight: 600;
+  color: #222;
   text-align: center;
+  font-size: 1.08rem;
 }
 
 /* Modal */
@@ -157,14 +159,7 @@
 
 .UserTarjetas {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Fuerza 4 columnas exactas */
-  gap: 20px;
-  grid-auto-flow: row dense;
-}
-
-.UserTarjetas {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
 }
 
@@ -188,6 +183,86 @@
 
 .UserTarjetas > * {
   height: 100%;
+}
+
+/* Modern profile card */
+.UserProfileCard {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 340px;
+  margin: 0 auto;
+  gap: 0.5rem;
+}
+
+.UserProfileAvatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-bottom: 0.7rem;
+  border: 3px solid #e6f4ea;
+  object-fit: cover;
+}
+
+.UserProfileName {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.UserProfileList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.7rem 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.UserProfileList li {
+  font-size: 1rem;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f7fafc;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+.UserProfileLogo {
+  width: 55px;
+  margin: 0.7rem 0 0.5rem 0;
+}
+
+.UserProfileBtn {
+  background: #5eb319;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
+}
+
+.UserProfileBtn:hover {
+  background: #3a7d13;
+}
+
+.UserMainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 
