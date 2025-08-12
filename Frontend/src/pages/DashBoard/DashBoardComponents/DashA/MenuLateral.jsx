@@ -59,7 +59,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
 
       {/* Header usuario */}
       <section className="Clogodash">
-        <div className="UserHeaderInfo" onClick={toggleDropdown}>
+        <div className="UserHeaderInfo" >
           <img src={avatar} alt="Usuario" className="avatardash" />
           <span className="nombredash">Administrador</span>
         </div>

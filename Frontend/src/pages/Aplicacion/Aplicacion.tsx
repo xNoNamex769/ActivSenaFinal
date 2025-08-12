@@ -42,7 +42,7 @@ interface EventoConDatos {
 const imagenes = [img2, img3, img4, img5, img6, img7];
 
 const obtenerRutaImagenEvento = (nombre: string | undefined, idx: number) =>
-  nombre ? `http://localhost:3001/uploads/usuarios/${nombre}` : imagenes[idx % imagenes.length];
+  nombre ? `http://localhost:3001/uploads/${nombre}` : imagenes[idx % imagenes.length];
 
 const obtenerRutaImagenPerfil = (nombreArchivo: string | undefined) =>
   nombreArchivo

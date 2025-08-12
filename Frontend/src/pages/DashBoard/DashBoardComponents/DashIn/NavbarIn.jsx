@@ -172,7 +172,6 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
           <img src={avatar} alt="Usuariodash" className="avatardash" />
           <span
             className="nombredash"
-            onClick={toggleDropdown}
             style={{ cursor: "pointer" }}
           >
             Instructor

@@ -169,11 +169,11 @@ const rechazarEvento = async (idGestionE: number, motivo: string) => {
 
                 {e.ImagenEvento ? (
                   <img
-                    src={`http://localhost:3001/uploads/usuarios/${e.ImagenEvento}`}
+                    src={`http://localhost:3001/uploads/${e.ImagenEvento}`}
                     alt="Imagen del evento"
                     className="pe-miniatura"
                     onClick={() =>
-                      setModalImagen(`http://localhost:3001/uploads/usuarios/${e.ImagenEvento}`)
+                      setModalImagen(`http://localhost:3001/uploads/${e.ImagenEvento}`)
                     }
                     style={{ cursor: "pointer" }}
                     title="Ver imagen en grande"

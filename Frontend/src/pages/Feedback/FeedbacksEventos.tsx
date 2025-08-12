@@ -146,7 +146,7 @@ console.log(" Imagen perfil:", eventoRes.data.PlanificacionEvento?.usuario?.perf
         <img
           src={
             evento.PlanificacionEvento?.ImagenEvento
-              ? `http://localhost:3001/uploads/usuarios/${evento.PlanificacionEvento.ImagenEvento}`
+              ? `http://localhost:3001/uploads/${evento.PlanificacionEvento.ImagenEvento}`
               : "/default.jpg"
           }
           alt={evento.NombreEvento}
@@ -208,7 +208,7 @@ console.log(" Imagen perfil:", eventoRes.data.PlanificacionEvento?.usuario?.perf
         </div>
         <textarea
           rows={3}
-          placeholder="Escribe Algo so sucia que igual no nos importa..."
+          placeholder="Escribe tu opinión..."
           value={feedback}
           onChange={(e) => setFeedback(e.target.value)}
         />
