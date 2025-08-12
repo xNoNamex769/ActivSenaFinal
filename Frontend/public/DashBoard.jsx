@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MenuLateral from "../src/pages/DashBoard/DashBoardComponents/DashA/MenuLateral";
 import HomeDash from "../src/pages/DashBoard/HomeDash";
-import ActivBot from "../src/pages/DashBoard/DashBoardComponents/DashA/ActivBot";
+// import ActivBot from "../src/pages/DashBoard/DashBoardComponents/DashA/ActivBot";
 import Alquiler from "../src/pages/Alquiler/CatalogoDisponible";
 import CalendarioAdmin from "../src/pages/CalendarioAdmin/CalendarioAp";
 import DetallesAlquiler from "../src/pages/DetallesAlquiler/DetallerAlquiler";
@@ -140,7 +140,7 @@ export default function DashBoard() {
         )}
       </main>
 
-      <ActivBot irAChatai={() => setContenidoActual("chatai")} />
+      {/* <ActivBot irAChatai={() => setContenidoActual("chatai")} /> */}
     </section>
   );
 }

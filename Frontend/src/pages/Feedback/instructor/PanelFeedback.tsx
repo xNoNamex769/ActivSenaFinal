@@ -13,7 +13,7 @@ const PanelFeedbacks = () => {
 
   return (
     <div className="panel-feedbacks-container">
-      <h2 className="text-2x">📋 Panel de Feedbacks</h2>
+      <h2 className="text-2x">Panel de Feedbacks</h2>
 
       <div className="overflow-x-auto">
         <table className="table-feedbacks">

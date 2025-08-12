@@ -69,8 +69,10 @@ console.log ( "usuario recibido" , usuario);
 
 
 
-      login(token, usuario); // ✅ guardar en el contexto
-localStorage.setItem("usuarioId", usuario.IdUsuario); 
+      login(token, usuario); // Contexto
+localStorage.setItem("IdUsuario", usuario.IdUsuario); // ✅ Cambiado
+localStorage.setItem("token", token);
+
       setMensaje(" Inicio de sesión exitoso");
       setTipoMensaje("exito");
 

@@ -144,21 +144,21 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
               <button onClick={() => setContenidoActual("combinar")} className="opciondash">
                 <FaCommentDots className="iconodash" /> Feedback
               </button>
-              <button onClick={() => setContenidoActual("solicitudes")} className="opciondash">
+              {/* <button onClick={() => setContenidoActual("solicitudes")} className="opciondash">
                 <FaClipboardList className="iconodash" /> Solicitudes
               </button>
               <button onClick={() => setContenidoActual("analisisia")} className="opciondash">
                 <FaChartBar className="iconodash" /> Análisis IA
-              </button>
+              </button> */}
               <button onClick={() => setContenidoActual("solicitudapoyo")} className="opciondash">
                 <FaChartBar className="iconodash" /> Apoyos
               </button>
-                <button onClick={() => setContenidoActual("resumenia")} className="opciondash">
+                {/* <button onClick={() => setContenidoActual("resumenia")} className="opciondash">
                 <FaChartBar className="iconodash" /> resumen
               </button>
                <button onClick={() => setContenidoActual("listatrimestre")} className="opciondash">
                 <FaChartBar className="iconodash" /> Agenda Eventos
-              </button>
+              </button> */}
              
             </>
           )}
@@ -188,7 +188,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
         </div>
 
         {/* Sección: Documentos */}
-        <div className="grupo-menu">
+        {/* <div className="grupo-menu">
           <button className="tituloseccion" onClick={() => toggleSection("gestionusuarios")}>
             {openSection.gestionusuarios ? <FaChevronDown /> : <FaChevronRight />} GestionUsuarios
           </button>
@@ -200,9 +200,9 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
               </button>
             </>
           )}
-        </div>
+        </div> */}
 {/* Sección: Apariencia o Temas */}
-<div className="grupo-menu">
+{/* <div className="grupo-menu">
   <button className="tituloseccion" onClick={() => toggleSection("temas")}>
     {openSection.temas ? <FaChevronDown /> : <FaChevronRight />} Apariencia
   </button>
@@ -213,7 +213,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
       </button>
     </>
   )}
-</div>
+</div> */}
 
        
         <img src={logo} alt="Logo"  className="logo-dashboard-general"/>

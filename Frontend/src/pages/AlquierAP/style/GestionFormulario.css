@@ -220,11 +220,14 @@
 
 /* 🖼️ Imagen principal del ítem */
 .item-catalogo img {
-  width: 100%;
-  max-height: 160px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 14px;
+    width: auto;           /* que el ancho se ajuste automáticamente */
+    max-width: 50%;        /* la mitad del contenedor */
+    height: auto;          /* mantiene proporción */
+    max-height: 160px;     /* altura máxima */
+    object-fit: cover;     /* recorta si excede */
+    border-radius: 12px;
+    margin: 0 auto 14px;   /* centrado horizontal */
+    display: block;        /* necesario para centrar con margin auto */
 }
 
 /* 🧾 Texto descriptivo */

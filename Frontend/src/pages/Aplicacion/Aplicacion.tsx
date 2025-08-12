@@ -174,7 +174,7 @@ const irAFeedback = () => {
           <header className="evento-app-cabecera">
             <h2 className="evento-app-titulo-seccion">Novedades</h2>
   <div ref={feedbackRef} id="seccion-feedback" className="feedback-seccion-container">
-  <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Eventos y actividades</h2>
+  <h2 className="color-eventoa" style={{ textAlign: "center", marginBottom: "20px" }}>Eventos y actividades</h2>
   {eventoSeleccionado && (
     <Feedbacks key={eventoSeleccionado} idEventoSeleccionado={eventoSeleccionado} />
   )}

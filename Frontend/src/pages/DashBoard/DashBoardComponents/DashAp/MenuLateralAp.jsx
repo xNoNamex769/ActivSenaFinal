@@ -51,7 +51,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
     <aside className={`barradash ${menuAbierto ? "mostrar" : "ocultar"}`}>
       {/* Header usuario */}
       <section className="Clogodash">
-        <div className="UserHeaderInfo" onClick={toggleDropdown}>
+        <div className="UserHeaderInfo" >
           <img src={avatar} alt="Usuario" className="avatardash" />
           <span className="nombredash">Aprendiz</span>
         </div>
@@ -134,9 +134,9 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
               <button onClick={() => setContenidoActual("cartacontacto")} className="opciondash">
                 <FaAddressBook className="iconodash" /> Contactos
               </button>
-              <button onClick={() => setContenidoActual("noticias")} className="opciondash">
+              {/* <button onClick={() => setContenidoActual("noticias")} className="opciondash">
                 <FaAddressBook className="iconodash" /> Noticias
-              </button>
+              </button> */}
             </>
           )}
         </div>

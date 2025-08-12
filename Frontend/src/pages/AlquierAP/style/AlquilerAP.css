@@ -5,10 +5,11 @@
 .body-alquiler-ap {
     position: relative;
     display: flex;
-  margin-left: 450px;
+    margin-left: 700px;
     align-items: center;
     min-height: 100%;
     color: white;
+
    
 }
 

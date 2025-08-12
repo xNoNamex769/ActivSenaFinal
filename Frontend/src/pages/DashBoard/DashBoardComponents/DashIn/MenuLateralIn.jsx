@@ -45,7 +45,7 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
     <aside className={`barradash ${menuAbierto ? "mostrar" : "ocultar"}`}>
       {/* Header */}
       <section className="Clogodash">
-        <div className="UserHeaderInfo" onClick={toggleDropdown}>
+        <div className="UserHeaderInfo" >
           <img src={avatar} alt="Usuario" className="avatardash" />
           <span className="nombredash">Instructor</span>
         </div>

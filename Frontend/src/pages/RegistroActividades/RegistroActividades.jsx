@@ -224,7 +224,7 @@ if (fechaSeleccionada < hoySinHora) {
     </div>
   </div>
 </label>
-          <button type="submit"> Registrar Actividad</button>
+          <button className="btnregisterxd" type="submit"> Registrar Actividad</button>
         </form>
       </div>
 

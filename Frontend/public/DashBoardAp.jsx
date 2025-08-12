@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 // Componentes
 import MenuLateralAp from "../src/pages/DashBoard/DashBoardComponents/DashAp/MenuLateralAp";
 import NavbarAp from '../src/pages/DashBoard/DashBoardComponents/DashAp/NavbarAp';
-import ActivBot from "../src/pages/DashBoard/DashBoardComponents/DashA/ActivBot";
+// import ActivBot from "../src/pages/DashBoard/DashBoardComponents/DashA/ActivBot";
 
 // Páginas
 import Feedbacks from "../src/pages/Feedback/Feedbacks";
@@ -41,14 +41,16 @@ export default function DashBoard() {
   const cerrarSesion = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("IdUsuario");
+    
     navigate("/");
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const IdUsuario = localStorage.getItem("IdUsuario");
+    
 
-    if (!token || IdUsuario) {
+    if (!token || !IdUsuario) {
       alert("⚠️ Debes iniciar sesión primero");
       navigate("/");
     } else {
@@ -59,7 +61,7 @@ export default function DashBoard() {
       }
 
       // ✅ Solo carga si no hay datos aún
-      if (!usuario) {
+      if (usuario) {
         const fetchUsuario = async () => {
           try {
             const res = await fetch(`http://localhost:3001/api/usuario/${IdUsuario}`, {
@@ -124,7 +126,7 @@ export default function DashBoard() {
         )}
       </main>
 
-      <ActivBot irAChatai={() => setContenidoActual("chatai")} />
+      {/* <ActivBot irAChatai={() => setContenidoActual("chatai")} /> */}
     </section>
   );
 }

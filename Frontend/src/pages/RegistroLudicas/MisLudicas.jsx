@@ -55,7 +55,7 @@ export default function MisActividadesYLudicas() {
 
   return (
     <div className="mis-actividades-contenedor">
-      <h2>📌 Mis Registros</h2>
+      <h2>Mis Registros</h2>
 
       {/* Tabs */}
       <div className="tabs">
@@ -63,13 +63,13 @@ export default function MisActividadesYLudicas() {
           className={vista === "actividades" ? "active-tab" : ""}
           onClick={() => setVista("actividades")}
         >
-          ✅ Actividades
+          Actividades
         </button>
         <button
           className={vista === "ludicas" ? "active-tab" : ""}
           onClick={() => setVista("ludicas")}
         >
-          🎯 Lúdicas
+           Lúdicas
         </button>
       </div>
 

@@ -224,7 +224,7 @@ if (idsNoConfirmaronPeroAsistieron.length > 0) {
 
   return (
     <div className="mis-actividades-contenedor">
-      <h2>📅 Mis Eventos Creados</h2>
+      <h2>Mis Eventos Creados</h2>
 
       {eventos.length === 0 && <p>No has creado eventos aún.</p>}
 

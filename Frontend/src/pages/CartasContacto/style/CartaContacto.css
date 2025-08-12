@@ -1,7 +1,6 @@
 /* Página general */
 .pagina-contacto-unica {
   min-height: 100vh;
-  background: linear-gradient(to right, #e0f2fe, #f0f4f8);
   padding: 2rem;
   font-family: 'Segoe UI', sans-serif;
 }

@@ -606,12 +606,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.img-elemento {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-}
+
 
 .qr-img {
   margin-top: 10px;
@@ -657,12 +652,7 @@
   transform: scale(1.03);
 }
 
-.img-elemento {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 10px;
-}
+
 
 .btn-ver-qr {
   margin-top: 0.8rem;
@@ -748,11 +738,17 @@
 }
 
 .img-elemento {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 10px;
+    width: auto;           /* ancho se ajusta */
+    max-width: 50%;        /* ocupa como máximo la mitad del contenedor */
+    height: auto;          /* mantiene proporción */
+    max-height: 150px;     /* límite de altura */
+    object-fit: contain;     /* recorta si es más grande */
+    border-radius: 8px;
+    margin: 0 auto 0.5rem; /* centrado horizontal */
+    display: block;  
+    max-width: 200px;      /* necesario para margin auto */
 }
+
 
 .btn-ver-qr {
   margin-top: 0.8rem;

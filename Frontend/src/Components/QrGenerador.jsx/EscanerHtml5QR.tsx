@@ -60,7 +60,7 @@ const QRScannerHtml5 = () => {
       } else if (tipo === "evento") {
         // 🔵 Registro de asistencia a evento
         const response = await axios.post(
-          "http://192.168.10.111:3001/api/asistencia/evento/qr",
+          "http://localhost:3001/api/asistencia/evento/qr",
           payload,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -82,7 +82,7 @@ const QRScannerHtml5 = () => {
       } else {
         // 🟡 Asistencia regular
         const response = await axios.post(
-          "http://192.168.10.111:3001/api/asistencia/qr",
+          "http://localhost:3001/api/asistencia/qr",
           payload,
           { headers: { Authorization: `Bearer ${token}` } }
         );

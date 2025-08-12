@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import ludicaImg from "./img/bl.png";
-import ludicaImg2 from "./img/ft.png";
-import ludicaImg3 from "./img/gm.png";
-import ludicaImg4 from "./img/ms.png";
-import EventoImg from "./img/director.png";
-import EventoImg2 from "./img/cacao.jpg";
-import EventoImg3 from "./img/academia.jpg";
-import EventoImg4 from "./img/emprende.png";
+import ludicaImg from "./img/baile.webp";
+import ludicaImg2 from "./img/futbol.jpg";
+import ludicaImg3 from "./img/gim.jpeg";
+import ludicaImg4 from "./img/musica.jpg";
+import EventoImg from "./img/charla.avif";
+import EventoImg2 from "./img/cacao.avif";
+import EventoImg3 from "./img/charla.avif";
+import EventoImg4 from "./img/feriaempe.png";
 import logo from "./img/image.png";
 import { FaUserTie, FaMapMarkerAlt, FaUserShield, FaPhoneAlt, FaPhone, FaEnvelope } from "react-icons/fa";
 
@@ -75,7 +75,7 @@ export default function InstructorView({ setContenidoActual, actualizarPerfil })
               <li><FaEnvelope /> <b>Correo:</b> {usuario.Correo}</li>
             </ul>
             <img src={logo} className="UserProfileLogo" alt="Logo" />
-            <button className="UserProfileBtn" onClick={() => setContenidoActual("config")}>
+            <button className="UserProfileBtn" >
               Editar perfil
             </button>
           </div>

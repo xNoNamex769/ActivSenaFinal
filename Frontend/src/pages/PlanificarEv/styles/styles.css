@@ -216,7 +216,10 @@
   transition: all 0.3s ease;
   box-shadow: 0 6px 12px rgba(94, 179, 25, 0.3); /* Sombra suave en verde */
   letter-spacing: 0.5px;
-}
+  max-width: 300px;
+  margin-top: 15px;
+  align-self: center;
+} 
 
 .planificar-evento-boton:hover {
   transform: translateY(-2px); /* Movimiento suave al hacer hover */
@@ -241,7 +244,12 @@
   transition: all 0.2s ease-in-out;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 10px;  
+  max-width: 130px;
+  max-height: 150px;
+  overflow-wrap: break-word; /* fuerza a que palabras largas se partan */
+  word-wrap: break-word;     /* para compatibilidad */
+  font-size: 13px
 }
 
 .planificar-evento-card:hover {
@@ -281,4 +289,20 @@
   background-color: #5eb319; /* Color verde principal */
   color: #fff;
   border-color: #4aa200; /* Borde en verde oscuro */
+}
+
+
+.planificar-evento-botonactividades {
+  width: 100%;
+  font-size: 1.00rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #5eb319, #4aa200); /* Degradado verde */
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 12px rgba(94, 179, 25, 0.3); /* Sombra suave en verde */
+  letter-spacing: 0.5px;
+  max-width: 100px;
 }

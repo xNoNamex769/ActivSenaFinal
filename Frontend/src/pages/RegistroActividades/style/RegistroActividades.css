@@ -280,13 +280,11 @@ textarea {
 .activity-container button[type="submit"] {
   width: 100%;
   padding: 12px;
-  background-color: #28a745;
   border: none;
   color: white;
   font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .activity-container button[type="submit"]:hover {
@@ -368,6 +366,20 @@ textarea {
 
 .image-input:hover {
   background-color: #d9e7f3;
+}
+
+.btnregisterxd {
+
+  background: #5eb319;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
 }
 
   

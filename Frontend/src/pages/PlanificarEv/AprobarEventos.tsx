@@ -111,7 +111,7 @@ const cerrarModal = () => {
               <td>
                 {evento.ImagenEvento ? (
                   <img
-                    src={`http://localhost:3001/uploads/usuarios/${evento.ImagenEvento}`}
+                    src={`http://localhost:3001/uploads/${evento.ImagenEvento}`}
                     alt="Evento"
                     className="miniatura-img"
                   />

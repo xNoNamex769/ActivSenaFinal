@@ -250,8 +250,10 @@ body {
 }
 
 .evento-app-titulo-seccion {
+  color: black;
   font-size: 1.75rem;
   font-weight: 700;
+  text-align: center;
 }
 
 .titulo-intro {
@@ -262,6 +264,7 @@ body {
 }
 
 .evento-app-seccion-historias {
+  text-align: center;
   padding: 1rem;
 }
 
@@ -631,4 +634,8 @@ body {
 
 .estado-feedback p {
   margin: 4px 0;
+}
+
+.color-eventoa{
+  color: black;
 }
