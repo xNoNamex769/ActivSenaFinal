@@ -42,8 +42,9 @@ async function connectDB() {
       colors.blue.bold("Conexión exitosa a la Base de datos echo por Alex")
     );
 
+    
     try {
-      const [results, metadata] = await db.query("SELECT * FROM asistencia");
+      const [results, metadata] = await db.query("SELECT * FROM Usuario LIMIT 1;");
       console.log("Datos de ejemplo:", results);
     } catch (error) {
       console.error("Error al ejecutar la consulta:", error);
