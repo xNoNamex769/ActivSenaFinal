@@ -108,7 +108,9 @@ export default function DashBoard() {
         {contenidoActual === "aplicacion" && <Aplicacion />}
         {contenidoActual === "ludicas" && <Ludicas />}
         {contenidoActual === "horasl" && <HorasLudicas />}
-        {contenidoActual === "feedback" && <Feedbacks />}
+        {contenidoActual.startsWith("feedback-") && (
+  <Feedbacks idActividad={contenidoActual.split("-")[1]} />
+)}
         {contenidoActual === "constancia" && <Constancia />}
         {contenidoActual === "alquilerap" && <AlquilerAP />}
         {contenidoActual === "combinar" && <Combinar />}

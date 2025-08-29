@@ -115,9 +115,9 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
               <button onClick={() => setContenidoActual("constanciacr")} className="opciondash">
                 <FaUserGraduate className="iconodash" /> Constancia
               </button>
-              <button onClick={() => setContenidoActual("solicitudapoyoaprendiz")} className="opciondash">
+              {/* <button onClick={() => setContenidoActual("solicitudapoyoaprendiz")} className="opciondash">
                 <FaUserGraduate className="iconodash" /> Apoyos
-              </button>
+              </button> */}
             </>
           )}
         </div>

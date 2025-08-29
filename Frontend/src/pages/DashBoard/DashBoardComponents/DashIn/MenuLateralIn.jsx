@@ -108,17 +108,17 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
               
               
                <button onClick={() => setContenidoActual("misludicas")} className="opciondash">
-                <FaThumbsUp className="iconodash" /> mis ludicas
+                <FaThumbsUp className="iconodash" /> Mis ludicas
               </button>
                <button onClick={() => setContenidoActual("miseventos")} className="opciondash">
-                <FaThumbsUp className="iconodash" /> mis eventos
+                <FaThumbsUp className="iconodash" /> Mis eventos
               </button>
                  <button onClick={() => setContenidoActual("panelfeedback")} className="opciondash">
-                <FaThumbsUp className="iconodash" /> mis feedback
+                <FaThumbsUp className="iconodash" /> Mis feedback
               </button>
-              <button onClick={() => setContenidoActual("graficopromediofeedback")} className="opciondash">
+              {/* <button onClick={() => setContenidoActual("graficopromediofeedback")} className="opciondash">
                 <FaThumbsUp className="iconodash" /> graficos feedback
-              </button>
+              </button> */}
             </>
           )}
         </div>
@@ -134,12 +134,12 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
                 <FaThumbsUp className="iconodash" /> Eventos Aprobados
               </button>
            <button onClick={() => setContenidoActual("asistenciaseventos")} className="opciondash">
-                <FaThumbsUp className="iconodash" /> asistencia eventos
+                <FaThumbsUp className="iconodash" /> Asistencia eventos
               </button>
       
-              <button onClick={() => setContenidoActual("solicitudapoyoinstructor")} className="opciondash">
+              {/* <button onClick={() => setContenidoActual("solicitudapoyoinstructor")} className="opciondash">
                 <FaClipboardList className="iconodash" /> Apoyos
-              </button>
+              </button> */}
             </>
           )}
         </div>

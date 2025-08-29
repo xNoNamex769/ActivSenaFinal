@@ -1,23 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./styles/Actividades.css";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-
 
 const formatearFecha = (fechaStr) => {
   if (!fechaStr) return "";
   const [year, month, day] = fechaStr.split("-");
-  const fechaLocal = new Date(
-    parseInt(year),
-    parseInt(month) - 1,
-    parseInt(day)
-  );
-  return fechaLocal.toLocaleDateString("es-ES", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const fechaLocal = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  return fechaLocal.toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric" });
 };
 
 const formatearHora = (horaStr) => {
@@ -29,7 +19,7 @@ const formatearHora = (horaStr) => {
   return `${h}:${min} ${ampm}`;
 };
 
-function obtenerLimitesSemanaActual() {
+const obtenerLimitesSemanaActual = () => {
   const hoy = new Date();
   const dia = hoy.getDay();
   const diferenciaLunes = dia === 0 ? 6 : dia - 1;
@@ -43,18 +33,16 @@ function obtenerLimitesSemanaActual() {
   domingo.setHours(23, 59, 59, 999);
 
   return { lunes, domingo };
-}
+};
 
-export default function Actividades() {
+export default function Actividades({ setContenidoActual }) {
   const [actividades, setActividades] = useState([]);
   const [actividadSeleccionada, setActividadSeleccionada] = useState(null);
   const [mostrarFeedback, setMostrarFeedback] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [calificacion, setCalificacion] = useState(0);
   const [feedbacksActividad, setFeedbacksActividad] = useState([]);
-  const navigate = useNavigate();
   const [filtro, setFiltro] = useState("");
-
 
   const obtenerIdUsuario = () => {
     const token = localStorage.getItem("token");
@@ -136,12 +124,13 @@ export default function Actividades() {
     return (suma / feedbacksActividad.length).toFixed(1);
   };
 
-const actividadesConImagen = actividades
-  .filter((a) => a.Imagen)
-  .filter((a) =>
-    a.NombreActi.toLowerCase().includes(filtro.toLowerCase()) ||
-    a.Ubicacion.toLowerCase().includes(filtro.toLowerCase())
-  );
+  const actividadesConImagen = actividades
+    .filter((a) => a.Imagen)
+    .filter(
+      (a) =>
+        a.NombreActi.toLowerCase().includes(filtro.toLowerCase()) ||
+        a.Ubicacion.toLowerCase().includes(filtro.toLowerCase())
+    );
 
   const { lunes, domingo } = obtenerLimitesSemanaActual();
 
@@ -164,14 +153,13 @@ const actividadesConImagen = actividades
       <header className="actividades-cabecera">
         <h1 className="actividades-titulo">Actividades - SENA</h1>
         <div className="actividades-busqueda">
-  <input
-    type="text"
-    placeholder="🔍 Buscar por nombre o ubicación..."
-    value={filtro}
-    onChange={(e) => setFiltro(e.target.value)}
-  />
-</div>
-
+          <input
+            type="text"
+            placeholder="🔍 Buscar por nombre o ubicación..."
+            value={filtro}
+            onChange={(e) => setFiltro(e.target.value)}
+          />
+        </div>
         <p className="actividades-descripcion">
           Explora las actividades semanales pensadas para tu bienestar y
           formación integral.
@@ -206,47 +194,46 @@ const actividadesConImagen = actividades
 
       <main className="actividades-galeria">
         {actividadesConImagen.length === 0 ? (
-        <p className="actividades-vacio">
-      😕 No se encontraron actividades con ese criterio.
-    </p>
-        ):(
-        actividadesConImagen.map((actividad) => (
-          
-          
-       <motion.article
-  key={actividad.IdActividad}
-  className="actividades-card"
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.4 }}
->
+          <p className="actividades-vacio">
+            😕 No se encontraron actividades con ese criterio.
+          </p>
+        ) : (
+          actividadesConImagen.map((actividad) => (
+            <motion.article
+              key={actividad.IdActividad}
+              className="actividades-card"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              <img
+                src={`http://localhost:3001/uploads/${actividad.Imagen}`}
+                alt={actividad.NombreActi}
+                className="actividades-img"
+                onClick={() => abrirModal(actividad)}
+              />
 
-            <img
-              src={`http://localhost:3001/uploads/${actividad.Imagen}`}
-              alt={actividad.NombreActi}
-              className="actividades-img"
-              onClick={() => abrirModal(actividad)}
-            />
-            
-            <div className="actividades-info">
-              <h4>{actividad.NombreActi}</h4>
-              <p>{actividad.Descripcion}</p>
-              <p>
-                📍 {actividad.Ubicacion} - ⏰{" "}
-                {formatearHora(actividad.HoraInicio)} a{" "}
-                {formatearHora(actividad.HoraFin)}
-              </p>
-              <p>🗓️ {formatearFecha(actividad.FechaInicio)}</p>
-              <button
-                className="btn-ver-feedback"
-                onClick={() => navigate(`/feedbacks/${actividad.IdActividad}`)}
-              >
-                Ir a Feedbacks
-              </button>
-            </div>
-          </motion.article>
-        ))
-      )}
+              <div className="actividades-info">
+                <h4>{actividad.NombreActi}</h4>
+                <p>{actividad.Descripcion}</p>
+                <p>
+                  📍 {actividad.Ubicacion} - ⏰{" "}
+                  {formatearHora(actividad.HoraInicio)} a{" "}
+                  {formatearHora(actividad.HoraFin)}
+                </p>
+                <p>🗓️ {formatearFecha(actividad.FechaInicio)}</p>
+                <button
+                  className="btn-ver-feedback"
+                  onClick={() =>
+                    setContenidoActual(`feedback-${actividad.IdActividad}`)
+                  }
+                >
+                  Ir a Feedbacks
+                </button>
+              </div>
+            </motion.article>
+          ))
+        )}
       </main>
 
       {actividadSeleccionada && (
@@ -273,15 +260,13 @@ const actividadesConImagen = actividades
               {formatearHora(actividadSeleccionada.HoraFin)}
             </p>
             <p>
-              <strong>Fecha:</strong>{" "}
-              {formatearFecha(actividadSeleccionada.FechaInicio)}
+              <strong>Fecha:</strong> {formatearFecha(actividadSeleccionada.FechaInicio)}
             </p>
 
             {feedbacksActividad.length > 0 && (
               <div className="promedio-calificacion">
                 <p>
-                  <strong>⭐ Promedio:</strong> {calcularPromedioCalificacion()}{" "}
-                  / 5
+                  <strong>⭐ Promedio:</strong> {calcularPromedioCalificacion()} / 5
                 </p>
               </div>
             )}
@@ -310,17 +295,12 @@ const actividadesConImagen = actividades
 
             {puedeComentar ? (
               !mostrarFeedback && (
-                <button
-                  className="btn-feedback"
-                  onClick={() => setMostrarFeedback(true)}
-                >
+                <button className="btn-feedback" onClick={() => setMostrarFeedback(true)}>
                   📝 Dar Feedback
                 </button>
               )
             ) : (
-              <p className="text-muted">
-                🕒 Los comentarios se habilitan durante la actividad.
-              </p>
+              <p className="text-muted">🕒 Los comentarios se habilitan durante la actividad.</p>
             )}
 
             {mostrarFeedback && (
@@ -330,9 +310,7 @@ const actividadesConImagen = actividades
                     <span
                       key={num}
                       onClick={() => setCalificacion(num)}
-                      className={
-                        num <= calificacion ? "estrella activa" : "estrella"
-                      }
+                      className={num <= calificacion ? "estrella activa" : "estrella"}
                     >
                       ★
                     </span>
@@ -346,9 +324,7 @@ const actividadesConImagen = actividades
                 />
                 <div className="feedback-buttons">
                   <button onClick={enviarFeedback}>Enviar</button>
-                  <button onClick={() => setMostrarFeedback(false)}>
-                    Cancelar
-                  </button>
+                  <button onClick={() => setMostrarFeedback(false)}>Cancelar</button>
                 </div>
               </div>
             )}

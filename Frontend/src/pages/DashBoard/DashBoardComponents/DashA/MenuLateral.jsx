@@ -97,9 +97,9 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
               <button onClick={() => setContenidoActual("aplicacion")} className="opciondash">
                 <FaCalendarAlt className="iconodash" /> Eventos
               </button>
-              <button onClick={() => setContenidoActual("calendario")} className="opciondash">
+              {/* <button onClick={() => setContenidoActual("calendario")} className="opciondash">
                 <FaCalendarAlt className="iconodash" /> Calendario
-              </button>
+              </button> */}
             </>
           )}
         </div>
@@ -135,7 +135,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
         </div>
 
         {/* Sección: Análisis */}
-        <div className="grupo-menu">
+        {/* <div className="grupo-menu">
           <button className="tituloseccion" onClick={() => toggleSection("analisis")}>
             {openSection.analisis ? <FaChevronDown /> : <FaChevronRight />} Análisis y Feedback
           </button>
@@ -144,25 +144,25 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
               <button onClick={() => setContenidoActual("combinar")} className="opciondash">
                 <FaCommentDots className="iconodash" /> Feedback
               </button>
-              {/* <button onClick={() => setContenidoActual("solicitudes")} className="opciondash">
+              <button onClick={() => setContenidoActual("solicitudes")} className="opciondash">
                 <FaClipboardList className="iconodash" /> Solicitudes
               </button>
               <button onClick={() => setContenidoActual("analisisia")} className="opciondash">
                 <FaChartBar className="iconodash" /> Análisis IA
-              </button> */}
+              </button>
               <button onClick={() => setContenidoActual("solicitudapoyo")} className="opciondash">
                 <FaChartBar className="iconodash" /> Apoyos
               </button>
-                {/* <button onClick={() => setContenidoActual("resumenia")} className="opciondash">
+                <button onClick={() => setContenidoActual("resumenia")} className="opciondash">
                 <FaChartBar className="iconodash" /> resumen
               </button>
                <button onClick={() => setContenidoActual("listatrimestre")} className="opciondash">
                 <FaChartBar className="iconodash" /> Agenda Eventos
-              </button> */}
+              </button>
              
             </>
           )}
-        </div>
+        </div> */}
 
         {/* Sección: Documentos */}
         <div className="grupo-menu">
@@ -180,9 +180,9 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
                <button onClick={() => setContenidoActual("planificareventosadmin")} className="opciondash">
                 <FaAddressBook className="iconodash" /> AprobarEventos
               </button>
-                 <button onClick={() => setContenidoActual("adminludicas")} className="opciondash">
+                 {/* <button onClick={() => setContenidoActual("adminludicas")} className="opciondash">
                 <FaChartBar className="iconodash" /> Ludicas Aprendices
-              </button>
+              </button> */}
             </>
           )}
         </div>
