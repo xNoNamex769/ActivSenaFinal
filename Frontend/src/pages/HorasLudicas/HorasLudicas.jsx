@@ -48,7 +48,6 @@ const HorasLudicas = () => {
         if (localStorage.getItem("refrescarHorasLudicas")) {
           localStorage.removeItem("refrescarHorasLudicas");
         }
-
       } catch (err) {
         console.error("Error cargando datos lúdicos", err);
       }
@@ -57,18 +56,34 @@ const HorasLudicas = () => {
     cargarDatos();
   }, []);
 
+  const formatearTiempo = (horasDecimales) => {
+    if (!horasDecimales) return "0 h";
+
+    const totalMin = Math.round(horasDecimales * 60);
+    const h = Math.floor(totalMin / 60);
+    const m = totalMin % 60;
+
+    if (h > 0 && m > 0) return `${h} h ${m} min`;
+    if (h > 0) return `${h} h`;
+    return `${m} min`;
+  };
+
   return (
     <section className="horas-ludicas-container">
-     <header className="horas-ludicas-header">
-  <div className="intro-banner">
-    <h1 className="titulo-ludicas"> Tu progreso en actividades lúdicas</h1>
-    <p className="subtitulo-ludicas">
-      Participa, aprende, diviértete y alcanza las <strong>{objetivo} horas</strong> requeridas para tu formación.
-    </p>
-    <p className="frase-motivacional">"Aprender también es jugar, compartir y crecer".</p>
-  </div>
-</header>
-
+      <header className="horas-ludicas-header">
+        <div className="intro-banner">
+          <h1 className="titulo-ludicas">
+            Tu progreso en actividades lúdicas
+          </h1>
+          <p className="subtitulo-ludicas">
+            Participa, aprende, diviértete y alcanza las{" "}
+            <strong>{objetivo} horas</strong> requeridas para tu formación.
+          </p>
+          <p className="frase-motivacional">
+            "Aprender también es jugar, compartir y crecer".
+          </p>
+        </div>
+      </header>
 
       <div className="horas-ludicas-content">
         <article className="horas-ludicas-activities">
@@ -77,7 +92,7 @@ const HorasLudicas = () => {
             {actividades.map(({ actividad, horas, fecha }, idx) => (
               <li key={idx} className="actividad-item">
                 <span className="actividad-nombre">{actividad}</span>
-                <span className="actividad-horas">{horas} hora(s)</span>
+                <span className="actividad-horas">{formatearTiempo(horas)}</span>
                 <span className="actividad-fecha">{fecha}</span>
               </li>
             ))}
@@ -86,38 +101,43 @@ const HorasLudicas = () => {
 
         <aside className="horas-ludicas-summary">
           <h3>Resumen</h3>
-          <p><strong>{totalHoras}</strong> hora(s) acumuladas</p>
+          <p>
+            <strong>{formatearTiempo(totalHoras)}</strong> acumuladas
+          </p>
 
           {objetivoAlcanzado ? (
             <p className="mensaje-exito">
-              ¡Felicidades! Has alcanzado el objetivo de <strong>{objetivo}</strong> horas.
+              ¡Felicidades! Has alcanzado el objetivo de{" "}
+              <strong>{objetivo}</strong> horas.
             </p>
           ) : (
             <p>
-              Te faltan <strong>{objetivo - totalHoras}</strong> horas para llegar a <strong>{objetivo}</strong>
+              Te faltan <strong>{objetivo - totalHoras}</strong> horas para
+              llegar a <strong>{objetivo}</strong>
             </p>
           )}
 
           <button
-  className={`btn-certificado ${objetivoAlcanzado ? "" : "btn-disabled"}`}
-  disabled={!objetivoAlcanzado}
-  onClick={() => {
-    if (objetivoAlcanzado) {
-      Swal.fire({
-        icon: "info",
-        title: "🎓 Constancia disponible",
-        text: "Dirígete al menú de Constancias y haz clic en 'Descargar' para obtener tu certificado.",
-        confirmButtonText: "ok",
-        confirmButtonColor: "#35b40eff"
-      });
-    }
-  }}
->
-  {objetivoAlcanzado
-    ? "Descargar Certificado"
-    : "Descarga disponible al alcanzar el objetivo"}
-</button>
-
+            className={`btn-certificado ${
+              objetivoAlcanzado ? "" : "btn-disabled"
+            }`}
+            disabled={!objetivoAlcanzado}
+            onClick={() => {
+              if (objetivoAlcanzado) {
+                Swal.fire({
+                  icon: "info",
+                  title: "🎓 Constancia disponible",
+                  text: "Dirígete al menú de Constancias y haz clic en 'Descargar' para obtener tu certificado.",
+                  confirmButtonText: "ok",
+                  confirmButtonColor: "#35b40eff",
+                });
+              }
+            }}
+          >
+            {objetivoAlcanzado
+              ? "Descargar Certificado"
+              : "Descarga disponible al alcanzar el objetivo"}
+          </button>
 
           <div
             className="progress-bar"
@@ -127,7 +147,10 @@ const HorasLudicas = () => {
             aria-valuemax={objetivo}
             aria-label="Barra de progreso de horas lúdicas"
           >
-            <div className="progress-fill" style={{ width: `${progreso}%` }}>
+            <div
+              className="progress-fill"
+              style={{ width: `${progreso}%` }}
+            >
               {Math.round(progreso)}%
             </div>
           </div>
@@ -136,8 +159,14 @@ const HorasLudicas = () => {
 
       <section className="horas-ludicas-info">
         <h3>¿Qué son las horas lúdicas?</h3>
-        <p>Son actividades recreativas y educativas que ayudan a tu desarrollo personal y social.</p>
-        <p>Participar en talleres, clases y eventos organizados cuenta como horas lúdicas.</p>
+        <p>
+          Son actividades recreativas y educativas que ayudan a tu desarrollo
+          personal y social.
+        </p>
+        <p>
+          Participar en talleres, clases y eventos organizados cuenta como horas
+          lúdicas.
+        </p>
       </section>
     </section>
   );
