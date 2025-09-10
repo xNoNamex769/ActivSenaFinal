@@ -69,6 +69,7 @@ const RegistroLudica = () => {
     formData.append("IdUsuario", IdUsuario);
     formData.append("HorarioContinuo", form.HorarioContinuo ? "true" : "false");
 
+    // 👇 este nombre debe coincidir con upload.single("Imagen")
     if (imagen) {
       formData.append("Imagen", imagen);
     }
@@ -78,10 +79,10 @@ const RegistroLudica = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      alert("Lúdica registrada con éxito");
+      alert("✅ Lúdica registrada con éxito");
       setActividadCreada(response.data.actividad);
     } catch (error) {
-      console.error("Error al registrar lúdica:", error);
+      console.error("❌ Error al registrar lúdica:", error);
       alert("Hubo un error al registrar la lúdica.");
     }
   };
@@ -155,7 +156,8 @@ const RegistroLudica = () => {
                 marginBottom: "10px",
               }}
             />
-            <input type="file" name="imagen" accept="image/*" onChange={handleImageChange} />
+            {/* 👇 name corregido a "Imagen" */}
+            <input type="file" name="Imagen" accept="image/*" onChange={handleImageChange} />
           </div>
 
           <button type="submit">Registrar Lúdica</button>
@@ -186,6 +188,18 @@ const RegistroLudica = () => {
 
           <h3>Código QR de Salida</h3>
           <QRCodeCanvas value={actividadCreada.CodigoQRSalida} size={200} />
+
+          {/* 👇 aquí puedes mostrar la imagen subida */}
+          {actividadCreada.ImagenUrl && (
+            <div style={{ marginTop: "20px" }}>
+              <h3>Imagen de la Lúdica</h3>
+              <img
+                src={actividadCreada.ImagenUrl}
+                alt="Lúdica subida"
+                style={{ width: "200px", borderRadius: "10px" }}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

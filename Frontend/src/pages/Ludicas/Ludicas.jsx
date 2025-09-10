@@ -8,71 +8,72 @@ const ListaLudicas = () => {
   const [tipoSeleccionado, setTipoSeleccionado] = useState('Todos');
   const [ludicaSeleccionada, setLudicaSeleccionada] = useState(null);
   const [reacciones, setReacciones] = useState({});
-const [miReaccion, setMiReaccion] = useState({});
-const [animando, setAnimando] = useState({});
-
+  const [miReaccion, setMiReaccion] = useState({});
+  const [animando, setAnimando] = useState({});
 
   useEffect(() => {
     axios.get('http://localhost:3001/api/ludica')
       .then(res => setLudicas(res.data))
       .catch(err => console.error("❌ Error cargando lúdicas:", err));
   }, []);
-useEffect(() => {
-  const fetchReacciones = async () => {
-    try {
-      const nuevasReacciones = {};
-      const misReacciones = {};
 
-      for (const ludica of ludicas) {
-        const res = await axios.get(`http://localhost:3001/api/reacciones/${ludica.IdActividad}`);
-        nuevasReacciones[ludica.IdActividad] = res.data.likes;
+  useEffect(() => {
+    const fetchReacciones = async () => {
+      try {
+        const nuevasReacciones = {};
+        const misReacciones = {};
 
-        const miRes = await axios.get(`http://localhost:3001/api/reacciones/usuario/${ludica.IdActividad}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        for (const ludica of ludicas) {
+          const res = await axios.get(`http://localhost:3001/api/reacciones/${ludica.IdActividad}`);
+          nuevasReacciones[ludica.IdActividad] = res.data.likes;
 
-        misReacciones[ludica.IdActividad] = miRes.data.Tipo;
+          const miRes = await axios.get(`http://localhost:3001/api/reacciones/usuario/${ludica.IdActividad}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          });
+
+          misReacciones[ludica.IdActividad] = miRes.data.Tipo;
+        }
+
+        setReacciones(nuevasReacciones);
+        setMiReaccion(misReacciones);
+      } catch (err) {
+        console.error("❌ Error cargando reacciones:", err);
       }
+    };
 
-      setReacciones(nuevasReacciones);
-      setMiReaccion(misReacciones);
-    } catch (err) {
-      console.error("❌ Error cargando reacciones:", err);
+    if (ludicas.length > 0) fetchReacciones();
+  }, [ludicas]);
+
+  const marcarMeInteresa = async (IdActividad) => {
+    if (miReaccion[IdActividad] === 'like') return;
+
+    try {
+      setAnimando(prev => ({ ...prev, [IdActividad]: true }));
+
+      await axios.post(`http://localhost:3001/api/reacciones`, {
+        IdEvento: IdActividad,
+        Tipo: 'like'
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      setMiReaccion(prev => ({ ...prev, [IdActividad]: 'like' }));
+      setReacciones(prev => ({
+        ...prev,
+        [IdActividad]: (prev[IdActividad] || 0) + 1
+      }));
+    } catch (error) {
+      console.error("❌ Error al marcar interés:", error);
+    } finally {
+      setTimeout(() => {
+        setAnimando(prev => ({ ...prev, [IdActividad]: false }));
+      }, 400);
     }
   };
-
-  if (ludicas.length > 0) fetchReacciones();
-}, [ludicas]);
-const marcarMeInteresa = async (IdActividad) => {
-  if (miReaccion[IdActividad] === 'like') return; // Ya reaccionó
-
-  try {
-    setAnimando(prev => ({ ...prev, [IdActividad]: true }));
-
-    await axios.post(`http://localhost:3001/api/reacciones`, {
-      IdEvento: IdActividad,
-      Tipo: 'like'
-    }, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
-
-    setMiReaccion(prev => ({ ...prev, [IdActividad]: 'like' }));
-    setReacciones(prev => ({
-      ...prev,
-      [IdActividad]: (prev[IdActividad] || 0) + 1
-    }));
-  } catch (error) {
-    console.error("❌ Error al marcar interés:", error);
-  } finally {
-    setTimeout(() => {
-      setAnimando(prev => ({ ...prev, [IdActividad]: false }));
-    }, 400); // tiempo del pulso
-  }
-};
 
   const tipos = ['Todos', ...new Set(ludicas.map(l => l.TipoLudica))];
 
@@ -119,7 +120,7 @@ const marcarMeInteresa = async (IdActividad) => {
             <div className="card-image-container">
               <img
                 className="ludicas-card-image"
-                src={`http://localhost:3001/uploads/${ludica.Imagen}`}
+                src={ludica.ImagenUrl || "https://via.placeholder.com/300x200?text=Sin+Imagen"}
                 alt={ludica.NombreActi}
               />
               <div className="image-overlay"></div>
@@ -143,17 +144,15 @@ const marcarMeInteresa = async (IdActividad) => {
               <button className="ludicas-btn" onClick={() => setLudicaSeleccionada(ludica)}>
                 <i className="fas fa-info-circle"></i> Más Detalles
               </button>
-    <button
-  className={`interesado-btn 
-    ${miReaccion[ludica.IdActividad] === 'like' ? 'active' : ''} 
-    ${animando[ludica.IdActividad] ? 'animating' : ''}`
-  }
-  disabled={miReaccion[ludica.IdActividad] === 'like'}
-  onClick={() => marcarMeInteresa(ludica.IdActividad)}
->
-  ❤️ Me interesa ({reacciones[ludica.IdActividad] || 0})
-</button>
-
+              <button
+                className={`interesado-btn 
+                  ${miReaccion[ludica.IdActividad] === 'like' ? 'active' : ''} 
+                  ${animando[ludica.IdActividad] ? 'animating' : ''}`}
+                disabled={miReaccion[ludica.IdActividad] === 'like'}
+                onClick={() => marcarMeInteresa(ludica.IdActividad)}
+              >
+                ❤️ Me interesa ({reacciones[ludica.IdActividad] || 0})
+              </button>
             </div>
           </div>
         ))}
@@ -171,8 +170,8 @@ const marcarMeInteresa = async (IdActividad) => {
             <p><strong>Descripción:</strong> {ludicaSeleccionada.Descripcion}</p>
             <img
               className="modal-img"
-              src={`http://localhost:3001/uploads/${ludicaSeleccionada.Imagen}`}
-              alt={`Ubicación de ${ludicaSeleccionada.NombreActi}`}
+              src={ludicaSeleccionada.ImagenUrl || "https://via.placeholder.com/300x200?text=Sin+Imagen"}
+              alt={`Imagen de ${ludicaSeleccionada.NombreActi}`}
             />
           </div>
         </div>
