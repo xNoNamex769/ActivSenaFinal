@@ -178,7 +178,6 @@ const ListaLudicas = () => {
       )}
 
       <footer className="ludicas-footer">
-        <p>¿No encuentras lo que buscas? <a href="#">Contáctanos</a></p>
       </footer>
     </div>
   );

@@ -3,10 +3,9 @@ import './styles/FeedbackStyle.css';
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 
-
 interface Usuario {
   Nombre: string;
-  Imagen?:string
+  Imagen?: string; // URL remota
 }
 
 interface Feedback {
@@ -19,7 +18,7 @@ interface Actividad {
   IdActividad: number;
   NombreActi: string;
   Descripcion: string;
-  Imagen: string;
+  Imagen?: string; // URL remota
   Ubicacion: string;
   FechaInicio: string;
   FechaFin: string;
@@ -33,10 +32,12 @@ export default function Feedbacks() {
   const [feedback, setFeedback] = useState("");
   const [calificacion, setCalificacion] = useState(0);
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
-const { idActividad } = useParams();
-const actividadIdFromUrl = isNaN(Number(idActividad)) ? null : parseInt(idActividad!, 10);
-const navigate = useNavigate();
 
+  const { idActividad } = useParams();
+  const actividadIdFromUrl = isNaN(Number(idActividad)) ? null : parseInt(idActividad!, 10);
+  const navigate = useNavigate();
+
+  // Obtener IdUsuario desde token JWT
   const obtenerIdUsuario = (): number | null => {
     const token = localStorage.getItem("token");
     if (!token) return null;
@@ -48,35 +49,34 @@ const navigate = useNavigate();
       return null;
     }
   };
-
   const usuario = obtenerIdUsuario();
 
- useEffect(() => {
-  const fetchActividades = async () => {
-  try {
-    const res = await axios.get<Actividad[]>("http://localhost:3001/api/actividad");
-    const filtradas = res.data.filter((a) => a.Imagen);
-    setActividades(filtradas);
+  // Traer todas las actividades
+  useEffect(() => {
+    const fetchActividades = async () => {
+      try {
+        const res = await axios.get<Actividad[]>("http://localhost:3001/api/actividad");
+        const filtradas = res.data.filter((a) => a.Imagen); // solo con imagen
+        setActividades(filtradas);
 
-    if (filtradas.length > 0) {
-      const indexActividad = filtradas.findIndex(
-        (a) => a.IdActividad === actividadIdFromUrl
-      );
-      setIndex(indexActividad >= 0 ? indexActividad : 0);
-      const idBuscar = indexActividad >= 0
-        ? filtradas[indexActividad].IdActividad
-        : filtradas[0].IdActividad;
-      obtenerFeedbacks(idBuscar);
-    }
-  } catch (err) {
-    console.error("Error al obtener actividades:", err);
-  }
-};
+        if (filtradas.length > 0) {
+          const indexActividad = filtradas.findIndex(
+            (a) => a.IdActividad === actividadIdFromUrl
+          );
+          setIndex(indexActividad >= 0 ? indexActividad : 0);
+          const idBuscar = indexActividad >= 0
+            ? filtradas[indexActividad].IdActividad
+            : filtradas[0].IdActividad;
+          obtenerFeedbacks(idBuscar);
+        }
+      } catch (err) {
+        console.error("Error al obtener actividades:", err);
+      }
+    };
+    fetchActividades();
+  }, [actividadIdFromUrl]);
 
-  fetchActividades();
-}, [actividadIdFromUrl]);
-
-
+  // Traer feedbacks de una actividad
   const obtenerFeedbacks = async (idActividad: number) => {
     try {
       const res = await axios.get(`http://localhost:3001/api/feedback/actividad/${idActividad}`);
@@ -86,6 +86,7 @@ const navigate = useNavigate();
     }
   };
 
+  // Cambiar slide
   const cambiarSlide = (nuevoIndex: number) => {
     setIndex(nuevoIndex);
     setFeedback("");
@@ -97,6 +98,7 @@ const navigate = useNavigate();
 
   const actividadActual = actividades[index];
 
+  // Verificar si la actividad está activa
   const actividadActiva = (): boolean => {
     if (!actividadActual) return false;
     const ahora = new Date();
@@ -110,6 +112,7 @@ const navigate = useNavigate();
     return ahora >= inicio && ahora <= fin;
   };
 
+  // Enviar feedback
   const enviarFeedback = async () => {
     if (!feedback.trim() || calificacion === 0) {
       alert("Completa el feedback y selecciona una calificación.");
@@ -133,12 +136,9 @@ const navigate = useNavigate();
     }
   };
 
-  const formatearFecha = (str: string): string => {
-    const [a, m, d] = str.split("-");
-    return `${d}/${m}/${a}`;
-  };
-
-  const formatearHora = (str: string): string => {
+  // Formateo de fecha y hora
+  const formatearFecha = (str: string) => str.split("-").reverse().join("/");
+  const formatearHora = (str: string) => {
     const [h, m] = str.split(":");
     const hora = parseInt(h);
     const ampm = hora >= 12 ? "PM" : "AM";
@@ -146,6 +146,7 @@ const navigate = useNavigate();
     return `${h12}:${m} ${ampm}`;
   };
 
+  // Promedio de calificación
   const promedio = (): string => {
     if (feedbacks.length === 0) return "0.0";
     const total = feedbacks.reduce((sum, fb) => sum + (fb.Calificacion || 0), 0);
@@ -154,20 +155,18 @@ const navigate = useNavigate();
 
   return (
     <div className="carousel-container">
-      {/*<button onClick={() => navigate("/actividades")}>⬅ Volver</button>*/}
-
-      <h2>FEEDBACK DE Actividades</h2>
+      <h2>FEEDBACK DE ACTIVIDADES</h2>
 
       {actividadActual && (
         <div className="carousel">
-          {/* Imagen del evento */}
+          {/* Imagen de la actividad */}
           <img
-            src={`http://localhost:3001/uploads/${actividadActual.Imagen}`}
+            src={actividadActual.Imagen || "https://via.placeholder.com/300x200"}
             alt={actividadActual.NombreActi}
             className="carousel-image"
           />
 
-          {/* Información del evento + comentarios */}
+          {/* Información + comentarios */}
           <div className="actividad-info">
             <div>
               <h3>{actividadActual.NombreActi} ⭐ {promedio()}/5</h3>
@@ -177,7 +176,7 @@ const navigate = useNavigate();
               <p>🕒 {formatearHora(actividadActual.HoraInicio)} - {formatearHora(actividadActual.HoraFin)}</p>
             </div>
 
-            {/* Comentarios */}
+            {/* Lista de comentarios */}
             <div className="feedback-lista">
               <h4>🗣️ Comentarios:</h4>
               {feedbacks.length === 0 ? (
@@ -185,11 +184,11 @@ const navigate = useNavigate();
               ) : (
                 feedbacks.map((fb, i) => (
                   <div key={i} className="feedback-item">
-                       <img
-        src={`http://localhost:3001/uploads/usuarios/${fb.usuario?.Imagen || 'default.png'}`}
-        alt={fb.usuario?.Nombre || "Anónimo"}
-        className="feedback-user-img"
-      />
+                    <img
+                      src={fb.usuario?.Imagen || "https://via.placeholder.com/50"}
+                      alt={fb.usuario?.Nombre || "Anónimo"}
+                      className="feedback-user-img"
+                    />
                     <p><strong>{fb.usuario?.Nombre || "Anónimo"}:</strong> {fb.ComentarioFeedback}</p>
                     <p>{"⭐".repeat(fb.Calificacion || 0)}</p>
                   </div>
@@ -197,7 +196,7 @@ const navigate = useNavigate();
               )}
             </div>
 
-            {/* Formulario de feedback */}
+            {/* Formulario para dejar feedback */}
             {actividadActiva() ? (
               <div className="feedback-form">
                 <h4>📝 Deja tu feedback:</h4>
@@ -225,7 +224,7 @@ const navigate = useNavigate();
         </div>
       )}
 
-      {/* Indicadores de cambio de slide */}
+      {/* Indicadores de slide */}
       <div className="carousel-indicators">
         {actividades.map((_, i) => (
           <button key={i} className={i === index ? "active" : ""} onClick={() => cambiarSlide(i)}></button>

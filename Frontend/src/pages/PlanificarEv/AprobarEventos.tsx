@@ -129,8 +129,8 @@ const cerrarModal = () => {
       <h3>📌 Motivo del Rechazo</h3>
       <p>{motivoActual}</p>
 
-      <button onClick={cerrarModal}>Cerrar</button>
-<button onClick={() => navigate("/planevento")}>
+      <button className="btn2apr" onClick={cerrarModal}>Cerrar</button>
+<button className="btn1apr" onClick={() => navigate("/planevento")}>
   Planificar de nuevo
 </button>
     </div>

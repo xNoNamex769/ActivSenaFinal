@@ -125,7 +125,7 @@ export default function Actividades({ setContenidoActual }) {
   };
 
   const actividadesConImagen = actividades
-    .filter((a) => a.Imagen)
+    .filter((a) => a.ImagenUrl) // ahora usamos ImagenUrl
     .filter(
       (a) =>
         a.NombreActi.toLowerCase().includes(filtro.toLowerCase()) ||
@@ -177,7 +177,7 @@ export default function Actividades({ setContenidoActual }) {
                 onClick={() => abrirModal(actividad)}
               >
                 <img
-                  src={`http://localhost:3001/uploads/${actividad.Imagen}`}
+                  src={actividad.ImagenUrl}
                   alt={actividad.NombreActi}
                   className="historia-img"
                 />
@@ -207,7 +207,7 @@ export default function Actividades({ setContenidoActual }) {
               transition={{ duration: 0.4 }}
             >
               <img
-                src={`http://localhost:3001/uploads/${actividad.Imagen}`}
+                src={actividad.ImagenUrl}
                 alt={actividad.NombreActi}
                 className="actividades-img"
                 onClick={() => abrirModal(actividad)}
@@ -243,7 +243,7 @@ export default function Actividades({ setContenidoActual }) {
               ×
             </button>
             <img
-              src={`http://localhost:3001/uploads/${actividadSeleccionada.Imagen}`}
+              src={actividadSeleccionada.ImagenUrl}
               alt={actividadSeleccionada.NombreActi}
               className="modal-img"
             />
@@ -260,7 +260,8 @@ export default function Actividades({ setContenidoActual }) {
               {formatearHora(actividadSeleccionada.HoraFin)}
             </p>
             <p>
-              <strong>Fecha:</strong> {formatearFecha(actividadSeleccionada.FechaInicio)}
+              <strong>Fecha:</strong>{" "}
+              {formatearFecha(actividadSeleccionada.FechaInicio)}
             </p>
 
             {feedbacksActividad.length > 0 && (
@@ -295,12 +296,17 @@ export default function Actividades({ setContenidoActual }) {
 
             {puedeComentar ? (
               !mostrarFeedback && (
-                <button className="btn-feedback" onClick={() => setMostrarFeedback(true)}>
+                <button
+                  className="btn-feedback"
+                  onClick={() => setMostrarFeedback(true)}
+                >
                   📝 Dar Feedback
                 </button>
               )
             ) : (
-              <p className="text-muted">🕒 Los comentarios se habilitan durante la actividad.</p>
+              <p className="text-muted">
+                🕒 Los comentarios se habilitan durante la actividad.
+              </p>
             )}
 
             {mostrarFeedback && (
@@ -324,7 +330,9 @@ export default function Actividades({ setContenidoActual }) {
                 />
                 <div className="feedback-buttons">
                   <button onClick={enviarFeedback}>Enviar</button>
-                  <button onClick={() => setMostrarFeedback(false)}>Cancelar</button>
+                  <button onClick={() => setMostrarFeedback(false)}>
+                    Cancelar
+                  </button>
                 </div>
               </div>
             )}

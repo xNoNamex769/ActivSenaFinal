@@ -33,7 +33,6 @@
     flex: 1;
     height: auto;
     padding-right: 20px;
-    border-right: 2px solid #0ee756;
   }
   
   /* Imagen de vista previa */
@@ -102,7 +101,6 @@
   
   /* Botón con transición de color */
   .activity-container button {
-    background: linear-gradient(135deg, #3936df, #3c29e7);
     color: rgb(255, 254, 254);
     border: none;
     padding: 14px;
@@ -124,7 +122,6 @@
   
   .activity-container button:hover {
     transform: scale(1.05);
-    box-shadow: 0px 8px 20px rgba(72, 55, 228, 0.959);
     background-color: #0ee756;
   }
   
@@ -149,7 +146,6 @@
     align-items: center;
     justify-content: center;
     height: 350px;
-    border-right: 2px solid #0ee756;
     padding-right: 20px;
   }
   

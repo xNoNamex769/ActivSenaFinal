@@ -44,7 +44,6 @@ const ConstanciaSENA = () => {
 
         const cacheUsuario = localStorage.getItem("cache_usuario");
 
-        // ⚠️ Validación de identidad de usuario en caché
         if (cacheUsuario) {
           const usuarioCache = JSON.parse(cacheUsuario);
           if (usuarioCache.IdUsuario !== id) {
@@ -54,7 +53,6 @@ const ConstanciaSENA = () => {
           }
         }
 
-        // Recarga de valores luego de posible limpieza
         const newCacheUsuario = localStorage.getItem("cache_usuario");
         const cacheAsistencias = localStorage.getItem("cache_asistencias");
         const cacheConstancia = localStorage.getItem("cache_constancia");
@@ -68,13 +66,12 @@ const ConstanciaSENA = () => {
           setTotalHoras(total);
           setEstadoConstancia(JSON.parse(cacheConstancia));
         } else {
-          const config = {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          };
+          const config = { headers: { Authorization: `Bearer ${token}` } };
 
-          const usuarioRes = await axios.get(`http://localhost:3001/api/usuario/${id}`, config);
+          const usuarioRes = await axios.get(
+            `http://localhost:3001/api/usuario/${id}`,
+            config
+          );
           setDatos(usuarioRes.data);
           localStorage.setItem("cache_usuario", JSON.stringify(usuarioRes.data));
 
@@ -86,20 +83,23 @@ const ConstanciaSENA = () => {
             .filter((a) => a.AsiEstado === "Completa")
             .reduce((sum, a) => sum + (a.AsiHorasAsistidas || 0), 0);
           setTotalHoras(total);
-          localStorage.setItem("cache_asistencias", JSON.stringify(asistenciasRes.data));
+          localStorage.setItem(
+            "cache_asistencias",
+            JSON.stringify(asistenciasRes.data)
+          );
 
           const constanciaRes = await axios.get(
             `http://localhost:3001/api/constancia/usuario/${id}`,
             config
           );
           setEstadoConstancia(constanciaRes.data?.ConstanciaEstado);
-          localStorage.setItem("cache_constancia", JSON.stringify(constanciaRes.data?.ConstanciaEstado));
+          localStorage.setItem(
+            "cache_constancia",
+            JSON.stringify(constanciaRes.data?.ConstanciaEstado)
+          );
         }
 
-        QRCode.toCanvas(qrRef.current, urlVerificacion, {
-          width: 100,
-          margin: 1,
-        });
+        QRCode.toCanvas(qrRef.current, urlVerificacion, { width: 100, margin: 1 });
       } catch (err) {
         console.error("❌ Error cargando datos de usuario o asistencia", err);
       } finally {
@@ -113,6 +113,10 @@ const ConstanciaSENA = () => {
   if (cargando) return <p className="cargando">🔄 Cargando datos...</p>;
   if (!datos) return <p className="cargando">❌ Error cargando datos del usuario.</p>;
 
+  // Conversión a horas y minutos
+  const horasCompletas = Math.floor(totalHoras);
+  const minutos = Math.round((totalHoras - horasCompletas) * 60);
+
   const haCumplido = totalHoras >= objetivo;
   const progreso = Math.min((totalHoras / objetivo) * 100, 100).toFixed(0);
   const nombreCompleto = `${datos.Nombre} ${datos.Apellido}`;
@@ -121,10 +125,16 @@ const ConstanciaSENA = () => {
     <div className="constancia-wrapper">
       <div className="progreso-info">
         <p>
-          Has completado <strong>{totalHoras}</strong> de <strong>{objetivo}</strong> horas lúdicas.
+          Has completado{" "}
+          <strong>
+            {horasCompletas} {horasCompletas === 1 ? "hora" : "horas"} y {minutos} minutos
+          </strong>{" "}
+          de <strong>{objetivo} horas lúdicas</strong>.
         </p>
         <div className="barra-progreso">
-          <div className="progreso" style={{ width: `${progreso}%` }}>{progreso}%</div>
+          <div className="progreso" style={{ width: `${progreso}%` }}>
+            {progreso}%
+          </div>
         </div>
         {haCumplido && <p className="estado-aprobado">✅ Puedes generar tu constancia</p>}
       </div>
@@ -134,9 +144,10 @@ const ConstanciaSENA = () => {
           <h1 className="titulo">CONSTANCIA DE HORAS LÚDICAS</h1>
 
           <p className="texto">
-            El SENA certifica que el aprendiz <strong>{nombreCompleto}</strong>, identificado con el documento No.{" "}
-            <strong>{datos.IdentificacionUsuario}</strong>, ha cumplido satisfactoriamente con el total de{" "}
-            <strong>{objetivo} horas</strong> lúdicas requeridas durante su proceso de formación.
+            El SENA certifica que el aprendiz <strong>{nombreCompleto}</strong>, identificado con
+            el documento No. <strong>{datos.IdentificacionUsuario}</strong>, ha cumplido
+            satisfactoriamente con el total de <strong>{objetivo} horas</strong> lúdicas requeridas
+            durante su proceso de formación.
           </p>
 
           <p className="texto">
@@ -146,8 +157,8 @@ const ConstanciaSENA = () => {
           </p>
 
           <p className="texto">
-            Constancia generada el <strong>{new Date().toLocaleDateString()}</strong> con ID de verificación{" "}
-            <strong>{idCertificado}</strong>.
+            Constancia generada el <strong>{new Date().toLocaleDateString()}</strong> con ID de
+            verificación <strong>{idCertificado}</strong>.
           </p>
 
           <div className="qr-section">
@@ -178,7 +189,11 @@ const ConstanciaSENA = () => {
         <div className="mensaje-no-cumplido">
           <h2>😕 Aún no puedes generar tu constancia</h2>
           <p>
-            Actualmente has completado <strong>{totalHoras}</strong> de <strong>{objetivo}</strong> horas requeridas.
+            Actualmente has completado{" "}
+            <strong>
+              {horasCompletas} {horasCompletas === 1 ? "hora" : "horas"} y {minutos} minutos
+            </strong>{" "}
+            de <strong>{objetivo}</strong> horas requeridas.
           </p>
           <p>¡Sigue participando y pronto podrás descargar tu certificado! 💪</p>
         </div>

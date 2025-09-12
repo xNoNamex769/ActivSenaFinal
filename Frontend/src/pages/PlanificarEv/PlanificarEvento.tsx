@@ -140,7 +140,7 @@ const EventPlanner: React.FC = () => {
 
   return (
     <div className="planificar-evento-container">
-      <h1 className="planificar-evento-title"> Planificador de eventos</h1>
+      <h1 className="planificar-evento-title"> Planificador de eventoss</h1>
       <div className="planificar-evento-form">
         <input
           type="text"
@@ -192,16 +192,7 @@ const EventPlanner: React.FC = () => {
                   borderRadius: "10px",
                 }}
               />
-              <button
-                type="button"
-                style={{ marginTop: "8px" }}
-                onClick={() => {
-                  setEventImage(null);
-                  setPreviewImage(null);
-                }}
-              >
-                ❌ Quitar imagen
-              </button>
+              
             </>
           )}
         </div>
