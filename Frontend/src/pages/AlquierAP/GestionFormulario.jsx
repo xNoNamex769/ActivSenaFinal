@@ -59,9 +59,10 @@ const GestionCatalogo = () => {
         {elementos.map((el) => (
           <div key={el.IdAlquiler} className="item-catalogo">
             <img
-              src={`http://localhost:3001/uploads/${el.Imagen}`}
+              src={el.Imagen || el.ImagenUrl || "/img/no-image.png"} // ← Usa la URL de Cloudinary
               alt={el.NombreElemento}
               width="120"
+              onError={e => (e.currentTarget.src = "/img/no-image.png")}
             />
             <p><strong>{el.NombreElemento}</strong></p>
             <input type="file" onChange={(e) => handleImagenChange(e, el.IdAlquiler)} />

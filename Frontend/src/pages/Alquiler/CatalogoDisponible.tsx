@@ -5,8 +5,8 @@ import "./styles/Alquiler.css";
 interface AlquilerElemento {
   IdAlquiler: number;
   CantidadDisponible: number;
-  Nombre: string; //  Este campo lo renombré a "Nombre" según el backend
-  Imagen: string;
+  Nombre: string;
+  Imagen: string; // Debe ser la URL de Cloudinary
   IdElemento: number;
 }
 
@@ -44,17 +44,17 @@ const CatalogoDisponible = () => {
         {catalogo.map((el) => (
           <div key={el.IdElemento} className="card-elemento">
             <img
-              src={`http://localhost:3001/uploads/${el.Imagen}`}
+              src={el.Imagen} // ← Usa la URL de Cloudinary directamente
               alt={el.Nombre}
               className="img-elemento"
+              onError={(e) => (e.currentTarget.src = "/img/no-image.png")}
             />
             <h3>{el.Nombre}</h3>
-            <p><strong>Disponibles:</strong> {el.CantidadDisponible}</p>
+            <p>
+              <strong>Disponibles:</strong> {el.CantidadDisponible}
+            </p>
 
-            <button
-              onClick={() => setQrActivo(el)}
-              className="btn-ver-qr"
-            >
+            <button onClick={() => setQrActivo(el)} className="btn-ver-qr">
               Ver QR
             </button>
           </div>
@@ -65,13 +65,14 @@ const CatalogoDisponible = () => {
       {qrActivo && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={cerrarModal}>&times;</span>
-           <img
-  src={`http://localhost:3001/qrcodes/${qrActivo.IdElemento}.png`}
-  alt={`QR de ${qrActivo.Nombre}`}
-  className="qr-grande"
-/>
-
+            <span className="close" onClick={cerrarModal}>
+              &times;
+            </span>
+            <img
+              src={`http://localhost:3001/qrcodes/${qrActivo.IdElemento}.png`}
+              alt={`QR de ${qrActivo.Nombre}`}
+              className="qr-grande"
+            />
           </div>
         </div>
       )}
