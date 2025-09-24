@@ -40,7 +40,6 @@ export default function ChatAI() {
     const userMessage = { text: messageToSend, sender: USER };
     setMessages((prev) => [...prev, userMessage]);
 
-    // Evitarrrrr  duplicados zungaaa maicollll ajajjaaj en el historial
     setHistory((prev) =>
       prev.includes(messageToSend) ? prev : [...prev, messageToSend]
     );

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 // Componentes
 import MenuLateralAp from "../src/pages/DashBoard/DashBoardComponents/DashAp/MenuLateralAp";
 import NavbarAp from '../src/pages/DashBoard/DashBoardComponents/DashAp/NavbarAp';
-// import ActivBot from "../src/pages/DashBoard/DashBoardComponents/DashA/ActivBot";
+import ActivBot from "../src/pages/DashBoard/DashBoardComponents/DashA/ActivBot";
 
 // Páginas
 import Feedbacks from "../src/pages/Feedback/Feedbacks";
@@ -24,6 +24,8 @@ import EscanerQR from "../src/Components/QrGenerador.jsx/EscanerHtml5QR";
 import Constancia from "../src/pages/Constancia/components/ConstanciasList";
 import Aprendiz from "../src/pages/SolicitudApoyo/Aprendiz";
 import Noticias from "../src/pages/Noticias/Noticias";
+import ActivBotdf from "../src/pages/DialogFlow/Activbot";
+
 // Estilos
 import "../src/styles/BotHp.css";
 import "../src/styles/ColaViento.css";
@@ -114,7 +116,7 @@ export default function DashBoard() {
         {contenidoActual === "constancia" && <Constancia />}
         {contenidoActual === "alquilerap" && <AlquilerAP />}
         {contenidoActual === "combinar" && <Combinar />}
-        {contenidoActual === "chatai" && <ChatAI />}
+        {contenidoActual === "chatai" && <ActivBotdf />}
         {contenidoActual === "cartacontacto" && <CartaContacto />}
         {contenidoActual === "constanciacr" && <Constanciacr />}
         {contenidoActual === "perfil" && <HomeDash />}
@@ -128,7 +130,7 @@ export default function DashBoard() {
         )}
       </main>
 
-      {/* <ActivBot irAChatai={() => setContenidoActual("chatai")} /> */}
+      {<ActivBot irAChatai={() => setContenidoActual("chatai")} /> }
     </section>
   );
 }
