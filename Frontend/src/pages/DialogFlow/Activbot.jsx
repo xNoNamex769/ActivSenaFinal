@@ -18,11 +18,9 @@ const ChatBot = () => {
     try {
       const lowerInput = input.toLowerCase();
 
-      // 1️⃣ Actividades
       if (lowerInput.includes("actividad")) {
         const res = await axios.get("https://render-hhyo.onrender.com/api/actividad");
 
-        // Convertimos cada actividad en un objeto tipo "card"
         const cards = res.data.map((a) => ({
           NombreActi: a.NombreActi,
           FechaInicio: a.FechaInicio,
@@ -48,6 +46,8 @@ const ChatBot = () => {
           HoraInicio: e.HoraInicio,
           HoraFin: e.HoraFin,
           UbicacionEvento: e.UbicacionEvento,
+          ImagenEvento: e.PlanificacionEvento?.ImagenUrl,
+          
         }));
 
         setMessages(prev => [...prev, { from: "bot", type: "eventCards", cards }]);
@@ -105,6 +105,7 @@ const ChatBot = () => {
               <div className="cards-container">
                 {m.cards.map((c, index) => (
                   <div key={index} className="card">
+                    <img src={c.ImagenEvento} alt={c.NombreEvento} className="card-img"/>
                     <h4>{c.NombreEvento}</h4>
                     <p>📅 {c.FechaInicio} - {c.FechaFin}</p>
                     <p>⏰ {c.HoraInicio} - {c.HoraFin}</p>
