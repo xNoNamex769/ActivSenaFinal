@@ -68,16 +68,16 @@ const cerrarModal = () => {
 
   return (
     <div className="mis-eventos-container">
-      <h2 className="mis-eventos-title">📋 Mis eventos planificados</h2>
+      <h2 className="mis-eventos-title">Eventos planificados</h2>
       <table className="mis-eventos-tabla">
         <thead>
           <tr>
-            <th>Evento</th>
-            <th>Fecha</th>
-            <th>Lugar</th>
-            <th>Estado</th>
-            <th>Gestionado por</th>
-            <th>Imagen</th>
+            <th className="th-text">Evento</th>
+            <th className="th-text">Fecha</th>
+            <th className="th-text">Lugar</th>
+            <th className="th-text">Gestionado por</th>
+            <th className="th-text">Estado</th>
+            <th className="th-text">Imagen</th>
           </tr>
         </thead>
         <tbody>
@@ -87,26 +87,26 @@ const cerrarModal = () => {
               <td>{new Date(evento.FechaEvento).toLocaleDateString()}</td>
               <td>{evento.LugarDeEvento}</td>
               
-<td>
-  {evento.gestionEvento?.Aprobar === "Aprobado" ? (
-    <span className="estado-aprobado">✅ Aprobado</span>
-  ) : evento.gestionEvento?.Aprobar === "Pendiente" ? (
-    <span className="estado-pendiente">⏳ Pendiente</span>
-  ) : (
-    <button
-  className="btn-ver-rechazo"
-  onClick={() => abrirModal(evento.gestionEvento?.MotivoRechazo || "Motivo no especificado")}
->
-  ❌ Rechazado - Ver detalles
-</button>
-  )}
-</td>
+
 <td>
   {evento.gestionEvento?.gestionador
     ? `${evento.gestionEvento.gestionador.Nombre} ${evento.gestionEvento.gestionador.Apellido}`
     : "No asignado"}
 </td>
-
+            <td>
+              {evento.gestionEvento?.Aprobar === "Aprobado" ? (
+                <span className="estado-aprobado">Aprobado</span>
+              ) : evento.gestionEvento?.Aprobar === "Pendiente" ? (
+                <span className="estado-pendiente">Pendiente</span>
+              ) : (
+                <button
+              className="btn-ver-rechazo"
+              onClick={() => abrirModal(evento.gestionEvento?.MotivoRechazo || "Motivo no especificado")}
+            >
+              Rechazado-Ver detalles
+            </button>
+              )}
+            </td>
 
               <td>
                 {evento.ImagenEvento ? (
@@ -129,10 +129,12 @@ const cerrarModal = () => {
       <h3>📌 Motivo del Rechazo</h3>
       <p>{motivoActual}</p>
 
-      <button className="btn2apr" onClick={cerrarModal}>Cerrar</button>
-<button className="btn1apr" onClick={() => navigate("/planevento")}>
-  Planificar de nuevo
-</button>
+      <div className="modal-btnss">
+        <button className="btn2apr" onClick={cerrarModal}>Cerrar</button>
+        <button className="btn1apr" onClick={() => navigate("/planevento")}>
+          Planificar de nuevo
+        </button>
+      </div>
     </div>
   </div>
 )}

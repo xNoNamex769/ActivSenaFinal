@@ -4,7 +4,7 @@ import {
   FaListAlt,
   FaRegCalendarCheck,
   FaRunning,
-  FaCalendarAlt,
+  FaRegCalendarAlt,
   FaStopwatch,
   FaGamepad,
   FaQrcode,
@@ -14,7 +14,16 @@ import {
   FaChevronDown,
   FaChevronRight,
   FaTimes,
+  FaRegComments,
+  FaRegUserCircle
 } from "react-icons/fa";
+
+import { MdEventAvailable, MdOutlinePermContactCalendar  } from "react-icons/md";
+import { TfiWrite } from "react-icons/tfi";
+import { LiaPeopleCarrySolid, LiaPersonBoothSolid } from "react-icons/lia";
+import { VscFeedback } from "react-icons/vsc";
+import { PiPersonSimpleThrowLight } from "react-icons/pi";
+import { MdQrCode2 } from "react-icons/md";
 
 import logo from "../../../../../public/img/logodef.png";
 import avatar from "../img/avatar.png";
@@ -82,16 +91,16 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
           {openSection.participacion && (
             <>
               <button onClick={() => setContenidoActual("actividades")} className="opciondash">
-                <FaListAlt className="iconodash" /> Actividades
+                <PiPersonSimpleThrowLight className="iconodash" /> Actividades
               </button>
               <button onClick={() => setContenidoActual("aplicacion")} className="opciondash">
-                <FaRegCalendarCheck className="iconodash" /> Eventos
+                <MdEventAvailable className="iconodash" /> Eventos
               </button>
               <button onClick={() => setContenidoActual("ludicas")} className="opciondash">
                 <FaRunning className="iconodash" /> Lúdicas
               </button>
               <button onClick={() => setContenidoActual("calendarioactividades")} className="opciondash">
-                <FaCalendarAlt className="iconodash" /> Calendario
+                <FaRegCalendarAlt className="iconodash" /> Calendario
               </button>
               <button onClick={() => setContenidoActual("horasl")} className="opciondash">
                 <FaStopwatch className="iconodash" /> Horas Lúdicas
@@ -107,10 +116,10 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
           {openSection.gestion && (
             <>
               <button onClick={() => setContenidoActual("alquilerap")} className="opciondash">
-                <FaGamepad className="iconodash" /> Préstamos
+                <LiaPersonBoothSolid className="iconodash" /> Préstamos
               </button>
               <button onClick={() => setContenidoActual("escanerqr")} className="opciondash">
-                <FaQrcode className="iconodash" /> Escanear QR
+                <MdQrCode2 className="iconodash" /> Escanear QR
               </button>
               <button onClick={() => setContenidoActual("constanciacr")} className="opciondash">
                 <FaUserGraduate className="iconodash" /> Constancia
@@ -129,10 +138,10 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
           {openSection.otros && (
             <>
               <button onClick={() => setContenidoActual("combinar")} className="opciondash">
-                <FaDiscourse className="iconodash" /> Feedback
+                <FaRegComments className="iconodash" /> Feedback
               </button>
               <button onClick={() => setContenidoActual("cartacontacto")} className="opciondash">
-                <FaAddressBook className="iconodash" /> Contactos
+                <FaRegUserCircle className="iconodash" /> Contactos
               </button>
               {/* <button onClick={() => setContenidoActual("noticias")} className="opciondash">
                 <FaAddressBook className="iconodash" /> Noticias
