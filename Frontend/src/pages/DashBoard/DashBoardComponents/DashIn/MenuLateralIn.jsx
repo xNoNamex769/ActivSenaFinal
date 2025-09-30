@@ -11,17 +11,12 @@ import {
   FaChevronDown,
   FaChevronRight,
   FaClipboardList,
-<<<<<<< HEAD
   FaRegCaretSquareRight,
-=======
   FaRegCalendarAlt,
-  FaRegEdit,
-  FaRegIdCard,
-  FaRegUserCircle,
-  FaRegComments,
-  FaCheckDouble,
-  FaRegNewspaper
->>>>>>> 29cecb6ff0c685f83e709b765c9de37b8f19c5af
+  FaRegEdit ,
+  FaCheckDouble ,
+  FaRegNewspaper ,
+  FaRegUserCircle ,
 } from "react-icons/fa";
 
 import { MdEventAvailable, MdOutlinePermContactCalendar  } from "react-icons/md";

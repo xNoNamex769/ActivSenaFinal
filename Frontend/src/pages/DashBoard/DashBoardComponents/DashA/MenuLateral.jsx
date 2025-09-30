@@ -15,11 +15,8 @@ import {
   FaBoxOpen,
   FaChevronDown,
   FaChevronRight,
-<<<<<<< HEAD
   FaRegCaretSquareRight,
-=======
-  FaRegUserCircle
->>>>>>> 29cecb6ff0c685f83e709b765c9de37b8f19c5af
+  FaRegUserCircle ,
 } from "react-icons/fa";
 
 import { PiPersonSimpleThrowLight, PiCodeBlockFill, PiBoxArrowUpThin } from "react-icons/pi";

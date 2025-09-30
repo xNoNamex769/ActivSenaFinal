@@ -77,7 +77,7 @@ const PlanificacionesEventos: React.FC = () => {
   };
 
   // Cargar eventos
-  const fetchEventos = async () => {
+  const fetchEventos = async () => {  
     try {
       const res = await axios.get("https://render-hhyo.onrender.com/api/planificacionevento");
       setEventos(res.data);

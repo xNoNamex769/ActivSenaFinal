@@ -14,12 +14,9 @@ import {
   FaChevronDown,
   FaChevronRight,
   FaTimes,
-<<<<<<< HEAD
   FaRegCaretSquareRight ,
-=======
-  FaRegComments,
-  FaRegUserCircle
->>>>>>> 29cecb6ff0c685f83e709b765c9de37b8f19c5af
+  FaRegComments ,
+  FaRegUserCircle ,
 } from "react-icons/fa";
 
 import { MdEventAvailable, MdOutlinePermContactCalendar  } from "react-icons/md";
