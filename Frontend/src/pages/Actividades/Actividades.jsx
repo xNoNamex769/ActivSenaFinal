@@ -61,7 +61,7 @@ export default function Actividades({ setContenidoActual }) {
   useEffect(() => {
     const fetchActividades = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/api/actividad");
+        const res = await axios.get("https://render-hhyo.onrender.com/api/actividad");
         setActividades(res.data);
       } catch (error) {
         console.error("Error al obtener actividades:", error);
@@ -77,7 +77,7 @@ export default function Actividades({ setContenidoActual }) {
     setCalificacion(0);
     try {
       const res = await axios.get(
-        `http://localhost:3001/api/feedback/actividad/${actividad.IdActividad}`
+        `https://render-hhyo.onrender.com/api/feedback/actividad/${actividad.IdActividad}`
       );
       setFeedbacksActividad(res.data);
     } catch (error) {
@@ -97,7 +97,7 @@ export default function Actividades({ setContenidoActual }) {
       return;
     }
     try {
-      await axios.post("http://localhost:3001/api/feedback", {
+      await axios.post("https://render-hhyo.onrender.com/api/feedback", {
         IdActividad: actividadSeleccionada.IdActividad,
         IdUsuario: idUsuarioLogueado,
         ComentarioFeedback: feedback,

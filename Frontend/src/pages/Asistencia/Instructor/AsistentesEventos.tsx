@@ -23,7 +23,7 @@ const AsistentesEvento: React.FC<Props> = ({ idEvento }) => {
     const obtenerAsistentes = async () => {
       try {
         const response = await axios.get<Asistente[]>(
-          `http://localhost:3001/api/relusuarioevento/asistentes/${idEvento}`
+          `https://render-hhyo.onrender.com/api/relusuarioevento/asistentes/${idEvento}`
         );
         console.log("Respuesta del backend:", response.data);
         setAsistentes(response.data);

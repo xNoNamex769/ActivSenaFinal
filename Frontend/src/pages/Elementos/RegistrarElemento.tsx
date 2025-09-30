@@ -24,7 +24,7 @@ export default function SubirElemento() {
     formData.append('imagen', imagen);
 
     try {
-    const response = await axios.post('http://localhost:3001/api/alquilerelementos/catalogo', formData, {
+    const response = await axios.post('https://render-hhyo.onrender.com/api/alquilerelementos/catalogo', formData, {
 
         headers: {
           'Content-Type': 'multipart/form-data',

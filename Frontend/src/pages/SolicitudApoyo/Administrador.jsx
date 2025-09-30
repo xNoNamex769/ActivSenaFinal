@@ -19,7 +19,7 @@ const Administrador = () => {
   const [busqueda, setBusqueda] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/solicitudapoyo')
+    axios.get('https://render-hhyo.onrender.com/api/solicitudapoyo')
       .then((res) => setSolicitudes(res.data))
       .catch((err) => console.error('Error al obtener solicitudes:', err));
   }, []);
@@ -52,7 +52,7 @@ const Administrador = () => {
 
   const cargarHistorial = async (idSolicitud) => {
     try {
-      const res = await axios.get(`http://localhost:3001/api/historial/solicitud/${idSolicitud}`);
+      const res = await axios.get(`https://render-hhyo.onrender.com/api/historial/solicitud/${idSolicitud}`);
       setHistoriales((prev) => ({ ...prev, [idSolicitud]: res.data }));
       setHistorialVisible((prev) => ({ ...prev, [idSolicitud]: !prev[idSolicitud] }));
     } catch (err) {

@@ -30,7 +30,7 @@ useEffect(() => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:3001/api/ludica/admin/resumen-ludicas");
+      const res = await axios.get("https://render-hhyo.onrender.com/api/ludica/admin/resumen-ludicas");
       setEventos(res.data);
     } catch (err) {
       setError((err as Error).message);

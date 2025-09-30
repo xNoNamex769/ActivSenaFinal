@@ -7,7 +7,7 @@ const GraficoPromediosAyuda = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/feedback/estadisticas/promedio-tipo-ayuda")
+      .get("https://render-hhyo.onrender.com/api/feedback/estadisticas/promedio-tipo-ayuda")
       .then((res) => setData(res.data))
       .catch((err) => console.error("Error al cargar estadísticas:", err));
   }, []);

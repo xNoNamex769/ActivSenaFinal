@@ -55,7 +55,7 @@ export default function Feedbacks() {
   useEffect(() => {
     const fetchActividades = async () => {
       try {
-        const res = await axios.get<Actividad[]>("http://localhost:3001/api/actividad");
+        const res = await axios.get<Actividad[]>("https://render-hhyo.onrender.com/api/actividad");
         const filtradas = res.data.filter((a) => a.Imagen); // solo con imagen
         setActividades(filtradas);
 
@@ -79,7 +79,7 @@ export default function Feedbacks() {
   // Traer feedbacks de una actividad
   const obtenerFeedbacks = async (idActividad: number) => {
     try {
-      const res = await axios.get(`http://localhost:3001/api/feedback/actividad/${idActividad}`);
+      const res = await axios.get(`https://render-hhyo.onrender.com/api/feedback/actividad/${idActividad}`);
       setFeedbacks(res.data);
     } catch (err) {
       console.error("Error al obtener feedbacks:", err);
@@ -119,7 +119,7 @@ export default function Feedbacks() {
       return;
     }
     try {
-      await axios.post("http://localhost:3001/api/feedback", {
+      await axios.post("https://render-hhyo.onrender.com/api/feedback", {
         IdActividad: actividadActual.IdActividad,
         IdUsuario: usuario,
         ComentarioFeedback: feedback,

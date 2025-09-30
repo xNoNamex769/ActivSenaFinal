@@ -60,7 +60,7 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
 
   const obtenerNoticiasSindesena = async () => {
     try {
-      const res = await fetch("http://localhost:3001/api/actividad/noticias");
+      const res = await fetch("https://render-hhyo.onrender.com/api/actividad/noticias");
       const data = await res.json();
       const soloSindesena = data.filter((n) => n.TipoLudica === "Noticia");
       setNoticiasSindesena(soloSindesena);
@@ -74,7 +74,7 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
   };
 
   useEffect(() => {
-    const socket = io("http://localhost:3001");
+    const socket = io("https://render-hhyo.onrender.com");
 
     socket.on("connect", () => {
       console.log("Conectado al socket:", socket.id);

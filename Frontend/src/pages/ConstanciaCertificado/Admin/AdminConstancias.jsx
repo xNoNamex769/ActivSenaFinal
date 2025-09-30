@@ -10,7 +10,7 @@ const AdminConstancias = () => {
     const cargarConstancias = async () => {
       try {
         const token = localStorage.getItem("token");
-        const { data } = await axios.get("http://localhost:3001/api/constancia/admin/todas", {
+        const { data } = await axios.get("https://render-hhyo.onrender.com/api/constancia/admin/todas", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setConstancias(data);
@@ -26,7 +26,7 @@ const AdminConstancias = () => {
     try {
       const token = localStorage.getItem("token");
       const { data } = await axios.put(
-        `http://localhost:3001/api/constancia/aprobar/${id}`,
+        `https://render-hhyo.onrender.com/api/constancia/aprobar/${id}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },

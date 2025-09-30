@@ -11,7 +11,7 @@ const HistorialAsistencia = () => {
     const obtenerHistorial = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/api/asistencia/historial/${IdUsuario}`,
+          `https://render-hhyo.onrender.com/api/asistencia/historial/${IdUsuario}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

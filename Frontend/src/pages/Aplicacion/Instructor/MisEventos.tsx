@@ -52,7 +52,7 @@ export default function MisEventos() {
       setUsuarioId(decoded.IdUsuario);
 
       axios
-        .get("http://localhost:3001/api/evento/evento/mis-eventos", {
+        .get("https://render-hhyo.onrender.com/api/evento/evento/mis-eventos", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setEventos(res.data))
@@ -63,7 +63,7 @@ export default function MisEventos() {
   const obtenerAsistencias = async (IdEvento: number): Promise<AsistenciaItem[]> => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(`http://localhost:3001/api/asistencia/evento/${IdEvento}`, {
+      const res = await axios.get(`https://render-hhyo.onrender.com/api/asistencia/evento/${IdEvento}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setAsistencias((prev) => ({ ...prev, [IdEvento]: res.data }));
@@ -76,7 +76,7 @@ export default function MisEventos() {
 
   const compararYNotificar = async (IdEvento: number) => {
     const token = localStorage.getItem("token");
-    const response = await axios.get<AsistenciaItem[]>(`http://localhost:3001/api/relusuarioevento/asistentes/${IdEvento}`, {
+    const response = await axios.get<AsistenciaItem[]>(`https://render-hhyo.onrender.com/api/relusuarioevento/asistentes/${IdEvento}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const confirmados: AsistenciaItem[] = response.data;
@@ -176,11 +176,11 @@ console.log("Payload para confirmaron y asistieron:", {
 console.log('idsConfirmaronPeroNoAsistieron:', idsConfirmaronPeroNoAsistieron);
 console.log('idsNoConfirmaronPeroAsistieron:', idsNoConfirmaronPeroAsistieron);
 
-await axios.post("http://localhost:3001/api/notificaciones", payloadConfirmadosYAsistieron);
+await axios.post("https://render-hhyo.onrender.com/api/notificaciones", payloadConfirmadosYAsistieron);
 
         // Envío de notificaciones
         if (idsConfirmaronYAsistieron.length > 0) {
-        await axios.post("http://localhost:3001/api/notificaciones", {
+        await axios.post("https://render-hhyo.onrender.com/api/notificaciones", {
           Titulo: "Asistencia confirmada",
           Mensaje: "Gracias por asistir al evento. Valoramos tu compromiso y participación. 🌟",
           TipoNotificacion: "Evento",
@@ -192,7 +192,7 @@ await axios.post("http://localhost:3001/api/notificaciones", payloadConfirmadosY
         });
       }
 if (idsConfirmaronPeroNoAsistieron.length > 0) {
-        await axios.post("http://localhost:3001/api/notificaciones", {
+        await axios.post("https://render-hhyo.onrender.com/api/notificaciones", {
           Titulo: "Asistencia no realizada",
           Mensaje: "Confirmaste tu asistencia, pero no te presentaste. Esto afecta tu participación y compromiso. ⚠️",
           TipoNotificacion: "Evento",
@@ -203,7 +203,7 @@ if (idsConfirmaronPeroNoAsistieron.length > 0) {
           imagenUrl: null,
         });}
 if (idsNoConfirmaronPeroAsistieron.length > 0) {
-        await axios.post("http://localhost:3001/api/notificaciones", {
+        await axios.post("https://render-hhyo.onrender.com/api/notificaciones", {
           Titulo: "Asistencia inesperada",
           Mensaje: "Gracias por asistir al evento. Sin embargo, no habías confirmado tu asistencia. Por favor recuerda hacerlo para próximos eventos. 📌",
           TipoNotificacion: "Evento",

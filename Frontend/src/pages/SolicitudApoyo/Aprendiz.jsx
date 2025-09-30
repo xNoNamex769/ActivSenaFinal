@@ -27,7 +27,7 @@ const Aprendiz = () => {
   useEffect(() => {
     if (!IdAprendiz) return;
 
-    axios.get(`http://localhost:3001/api/solicitudapoyo`)
+    axios.get(`https://render-hhyo.onrender.com/api/solicitudapoyo`)
       .then((res) => {
        const solicitudesActivas = res.data
   .filter((s) => s.IdUsuario === IdAprendiz && s.Estado !== "cancelada")
@@ -42,12 +42,12 @@ const solicitudDelUsuario = solicitudesActivas[0]; // solo la más reciente
           setDescripcion(solicitudDelUsuario.Descripcion);
 
           // Cargar historial
-          axios.get(`http://localhost:3001/api/historial/solicitud/${solicitudDelUsuario.IdSolicitud}`)
+          axios.get(`https://render-hhyo.onrender.com/api/historial/solicitud/${solicitudDelUsuario.IdSolicitud}`)
             .then((resHistorial) => setHistorial(resHistorial.data))
             .catch((err) => console.error("Error al cargar historial:", err));
 
           // Cargar feedback
-          axios.get(`http://localhost:3001/api/feedback/solicitud/${solicitudDelUsuario.IdSolicitud}`)
+          axios.get(`https://render-hhyo.onrender.com/api/feedback/solicitud/${solicitudDelUsuario.IdSolicitud}`)
             .then((resFeedback) => {
               if (resFeedback.data) setFeedback(resFeedback.data);
             })
@@ -67,14 +67,14 @@ const solicitudDelUsuario = solicitudesActivas[0]; // solo la más reciente
     };
 
     if (editando && solicitud) {
-      axios.put(`http://localhost:3001/api/solicitudapoyo/${solicitud.IdSolicitud}`, datosSolicitud)
+      axios.put(`https://render-hhyo.onrender.com/api/solicitudapoyo/${solicitud.IdSolicitud}`, datosSolicitud)
         .then((res) => {
           setSolicitud(res.data);
           setEditando(false);
         })
         .catch((err) => console.error("Error al editar solicitud:", err));
     } else {
-      axios.post('http://localhost:3001/api/solicitudapoyo', datosSolicitud)
+      axios.post('https://render-hhyo.onrender.com/api/solicitudapoyo', datosSolicitud)
         .then((res) => {
           setSolicitud(res.data);
           //Llamamos a la función de notificación
@@ -89,7 +89,7 @@ const solicitudDelUsuario = solicitudesActivas[0]; // solo la más reciente
 
     if (historial.length > 0) {
       if (window.confirm("Tu solicitud ya tiene historial. ¿Deseas cancelarla?")) {
-        axios.put(`http://localhost:3001/api/solicitudapoyo/${solicitud.IdSolicitud}`, {
+        axios.put(`https://render-hhyo.onrender.com/api/solicitudapoyo/${solicitud.IdSolicitud}`, {
           ...solicitud,
           Estado: "cancelada"
         }).then(() => {
@@ -102,7 +102,7 @@ const solicitudDelUsuario = solicitudesActivas[0]; // solo la más reciente
       }
     } else {
       if (window.confirm("¿Estás seguro de eliminar tu solicitud?")) {
-        axios.delete(`http://localhost:3001/api/solicitudapoyo/${solicitud.IdSolicitud}`)
+        axios.delete(`https://render-hhyo.onrender.com/api/solicitudapoyo/${solicitud.IdSolicitud}`)
           .then(() => {
             setSolicitud(null);
             setHistorial([]);
@@ -131,14 +131,14 @@ const solicitudDelUsuario = solicitudesActivas[0]; // solo la más reciente
       Calificacion: calificacion
     };
 
-    axios.post(`http://localhost:3001/api/feedback/solicitud`, datos)
+    axios.post(`https://render-hhyo.onrender.com/api/feedback/solicitud`, datos)
       .then(() => {
         alert("¡Gracias por tu opinión!");
         setMostrarFeedback(false);
         setComentarioFeedback('');
         setCalificacion(5);
 
-        return axios.get(`http://localhost:3001/api/feedback/solicitud/${solicitud.IdSolicitud}`);
+        return axios.get(`https://render-hhyo.onrender.com/api/feedback/solicitud/${solicitud.IdSolicitud}`);
       })
       .then(res => {
         setFeedback(res.data);
@@ -148,7 +148,7 @@ const solicitudDelUsuario = solicitudesActivas[0]; // solo la más reciente
 const notificarEncargados = async (tipoAyuda, solicitudId) => {
   try {
     // 1. Buscar encargados según el tipo de ayuda
-    const res = await axios.get(`http://localhost:3001/api/solicitudapoyo/encargados/${tipoAyuda}`);
+    const res = await axios.get(`https://render-hhyo.onrender.com/api/solicitudapoyo/encargados/${tipoAyuda}`);
     const encargados = res.data;
 
     if (encargados.length === 0) {
@@ -158,7 +158,7 @@ const notificarEncargados = async (tipoAyuda, solicitudId) => {
 
     // 2. Por cada encargado, enviar notificación (esto se puede ajustar)
     for (const encargado of encargados) {
-      await axios.post('http://localhost:3001/api/notificaciones', {
+      await axios.post('https://render-hhyo.onrender.com/api/notificaciones', {
         IdUsuario: encargado.usuario.IdUsuario,
         Titulo: `Nueva solicitud de ${tipoAyuda}`,
         Descripcion: `Un aprendiz ha solicitado ayuda en el área de ${tipoAyuda}.`,

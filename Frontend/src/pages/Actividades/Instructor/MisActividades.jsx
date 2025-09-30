@@ -14,7 +14,7 @@ export default function MisActividades() {
       setUsuarioId(decoded.IdUsuario);
 
       axios
-        .get("http://localhost:3001/api/actividad")
+        .get("https://render-hhyo.onrender.com/api/actividad")
         .then((res) => {
  const actividadesUsuario = res.data.filter(
   (a) =>
@@ -33,7 +33,7 @@ setActividades(actividadesUsuario);
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        `http://localhost:3001/api/asistencia/actividad/${idActividad}`,
+        `https://render-hhyo.onrender.com/api/asistencia/actividad/${idActividad}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

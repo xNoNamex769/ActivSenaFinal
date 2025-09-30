@@ -12,7 +12,7 @@ const ListaLudicas = () => {
   const [animando, setAnimando] = useState({});
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/ludica')
+    axios.get('https://render-hhyo.onrender.com/api/ludica')
       .then(res => setLudicas(res.data))
       .catch(err => console.error("❌ Error cargando lúdicas:", err));
   }, []);
@@ -24,10 +24,10 @@ const ListaLudicas = () => {
         const misReacciones = {};
 
         for (const ludica of ludicas) {
-          const res = await axios.get(`http://localhost:3001/api/reacciones/${ludica.IdActividad}`);
+          const res = await axios.get(`https://render-hhyo.onrender.com/api/reacciones/${ludica.IdActividad}`);
           nuevasReacciones[ludica.IdActividad] = res.data.likes;
 
-          const miRes = await axios.get(`http://localhost:3001/api/reacciones/usuario/${ludica.IdActividad}`, {
+          const miRes = await axios.get(`https://render-hhyo.onrender.com/api/reacciones/usuario/${ludica.IdActividad}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
@@ -52,7 +52,7 @@ const ListaLudicas = () => {
     try {
       setAnimando(prev => ({ ...prev, [IdActividad]: true }));
 
-      await axios.post(`http://localhost:3001/api/reacciones`, {
+      await axios.post(`https://render-hhyo.onrender.com/api/reacciones`, {
         IdEvento: IdActividad,
         Tipo: 'like'
       }, {

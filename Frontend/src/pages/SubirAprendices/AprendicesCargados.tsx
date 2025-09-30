@@ -20,7 +20,7 @@ const [aprendices, setAprendices] = useState<AprendizConUsuario[]>([]);
 useEffect(() => {
   const fetchAprendices = async () => {
     const res = await // Esto es correcto SI tienes el backend en otro puerto (ej. 3001)
-axios.get("http://localhost:3001/api/aprendices/listar")
+axios.get("https://render-hhyo.onrender.com/api/aprendices/listar")
 
     console.log(res.data); 
    setAprendices(res.data); // ✅ Ya que el backend responde con un array directamente

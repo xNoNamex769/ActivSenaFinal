@@ -24,7 +24,7 @@ const HorasLudicas = () => {
     const cargarDatos = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3001/api/asistencia/usuario/${id}`
+          `https://render-hhyo.onrender.com/api/asistencia/usuario/${id}`
         );
 
         const asistenciasValidas = data.filter(

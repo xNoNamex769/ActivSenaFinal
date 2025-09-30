@@ -10,7 +10,7 @@ const CodigosQRActividad = ({ actividadId }: { actividadId: number }) => {
   useEffect(() => {
     const obtenerQRs = async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/api/actividad/${actividadId}`);
+        const res = await axios.get(`https://render-hhyo.onrender.com/api/actividad/${actividadId}`);
         const actividad = res.data;
         setQrEntrada(actividad.CodigoQR || null);
         setQrSalida(actividad.CodigoQRSalida || null);

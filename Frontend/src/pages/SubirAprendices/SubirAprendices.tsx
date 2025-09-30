@@ -25,7 +25,7 @@ export default function SubirAprendices() {
     formData.append("archivo", archivo);
 
     try {
-      const res =await axios.post('http://localhost:3001/api/aprendices/subir-excel', formData, {
+      const res =await axios.post('https://render-hhyo.onrender.com/api/aprendices/subir-excel', formData, {
   headers: { "Content-Type": "multipart/form-data" },
 });
 

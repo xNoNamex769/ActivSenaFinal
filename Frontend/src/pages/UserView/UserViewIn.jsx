@@ -34,7 +34,7 @@ export default function InstructorView({ setContenidoActual, actualizarPerfil })
       const payload = JSON.parse(atob(token.split(".")[1]));
       const id = payload.IdUsuario;
 
-      const res = await axios.get(`http://localhost:3001/api/usuario/${id}`, {
+      const res = await axios.get(`https://render-hhyo.onrender.com/api/usuario/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

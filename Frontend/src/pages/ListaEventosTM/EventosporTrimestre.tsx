@@ -19,7 +19,7 @@ const token = localStorage.getItem("token");
   const fetchEventos = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3001/api/planificacionevento/trimestre/${anio}/${trimestre}`,{
+        `https://render-hhyo.onrender.com/api/planificacionevento/trimestre/${anio}/${trimestre}`,{
             headers: { Authorization: `Bearer ${token}` }
         }
       );

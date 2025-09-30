@@ -18,7 +18,7 @@
       }
 
       if (actividad && tipo) {
-       const url = `http://localhost:3001/api/asistencia/${tipo}`;
+       const url = `https://render-hhyo.onrender.com/api/asistencia/${tipo}`;
 
 
         axios

@@ -29,7 +29,7 @@ const Instructor = () => {
       setLoading(true);
       setError(null);
 
-      const resSolicitudes = await axios.get(`http://localhost:3001/api/solicitudapoyo`, {
+      const resSolicitudes = await axios.get(`https://render-hhyo.onrender.com/api/solicitudapoyo`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -38,7 +38,7 @@ const Instructor = () => {
 
       const encargadosPorTipo = await Promise.all(
         tiposUnicos.map(tipo =>
-          axios.get(`http://localhost:3001/api/solicitudapoyo/encargados/${tipo}`, {
+          axios.get(`https://render-hhyo.onrender.com/api/solicitudapoyo/encargados/${tipo}`, {
             headers: { Authorization: `Bearer ${token}` }
           }).then(res => ({ tipo, encargados: res.data }))
             .catch(err => {
@@ -78,7 +78,7 @@ const Instructor = () => {
     }
 
     setLoading(true);
-    axios.get(`http://localhost:3001/api/usuario/${id}`, {
+    axios.get(`https://render-hhyo.onrender.com/api/usuario/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => {
@@ -104,7 +104,7 @@ const Instructor = () => {
 
     setGuardando(true);
     axios.put(
-      `http://localhost:3001/api/usuario/${instructor.IdUsuario}`,
+      `https://render-hhyo.onrender.com/api/usuario/${instructor.IdUsuario}`,
       { Telefono: telefono },
       {
         headers: { Authorization: `Bearer ${token}` }
@@ -130,13 +130,13 @@ const Instructor = () => {
       const nuevoEstado = solicitud.estado ?? solicitud.Estado;
 
       setGuardando(true);
-      await axios.put(`http://localhost:3001/api/solicitudapoyo/${solicitud.IdSolicitud}`, {
+      await axios.put(`https://render-hhyo.onrender.com/api/solicitudapoyo/${solicitud.IdSolicitud}`, {
         Estado: nuevoEstado
       }, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
-      await axios.post(`http://localhost:3001/api/historial`, {
+      await axios.post(`https://render-hhyo.onrender.com/api/historial`, {
         IdSolicitud: solicitud.IdSolicitud,
         EstadoNuevo: nuevoEstado,
         Comentario: solicitud.comentario || '',

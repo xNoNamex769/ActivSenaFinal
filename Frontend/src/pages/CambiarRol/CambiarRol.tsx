@@ -21,7 +21,7 @@ const CambiarRol = () => {
   const obtenerUsuarios = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:3001/api/usuario", {
+      const res = await axios.get("https://render-hhyo.onrender.com/api/usuario", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsuarios(res.data);
@@ -34,7 +34,7 @@ const CambiarRol = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:3001/api/usuario/cambiar-rol/${idUsuario}`,
+        `https://render-hhyo.onrender.com/api/usuario/cambiar-rol/${idUsuario}`,
         { IdRol: nuevoRolId },
         { headers: { Authorization: `Bearer ${token}` } }
       );

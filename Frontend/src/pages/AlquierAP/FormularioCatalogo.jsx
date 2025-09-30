@@ -3,7 +3,7 @@ import axios from "axios";
 import io from "socket.io-client";
 import "./style/FormularioCatalogo.css";
 
-const socket = io("http://localhost:3001"); // ⚠️ Cambia la IP si usas otra
+const socket = io("https://render-hhyo.onrender.com"); // ⚠️ Cambia la IP si usas otra
 
 const FormularioCatalogo = () => {
   const [nombre, setNombre] = useState("");
@@ -24,7 +24,7 @@ const FormularioCatalogo = () => {
     formData.append("imagen", imagen);
 
     try {
-      await axios.post("http://localhost:3001/api/alquilerelementos/catalogo", formData, {
+      await axios.post("https://render-hhyo.onrender.com/api/alquilerelementos/catalogo", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

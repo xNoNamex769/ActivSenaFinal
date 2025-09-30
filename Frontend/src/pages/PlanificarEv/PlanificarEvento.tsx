@@ -28,7 +28,7 @@ const EventPlanner: React.FC = () => {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/api/actividad");
+        const res = await axios.get("https://render-hhyo.onrender.com/api/actividad");
         console.log("🎯 Actividades cargadas:", res.data);
         setAvailableActivities(res.data);
       } catch (error) {
@@ -95,7 +95,7 @@ const EventPlanner: React.FC = () => {
 
       // Crear planificación de evento
       const res = await axios.post(
-        "http://localhost:3001/api/planificacionevento",
+        "https://render-hhyo.onrender.com/api/planificacionevento",
         formData,
         {
           headers: {
@@ -109,7 +109,7 @@ const EventPlanner: React.FC = () => {
 
       // Asociar actividades
       await axios.post(
-        "http://localhost:3001/api/eventoactividad/asociar",
+        "https://render-hhyo.onrender.com/api/eventoactividad/asociar",
         {
           IdPlanificarE,
           actividades: selectedActivities,

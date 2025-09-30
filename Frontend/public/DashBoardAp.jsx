@@ -66,7 +66,7 @@ export default function DashBoard() {
       if (usuario) {
         const fetchUsuario = async () => {
           try {
-            const res = await fetch(`http://localhost:3001/api/usuario/${IdUsuario}`, {
+            const res = await fetch(`https://render-hhyo.onrender.com/api/usuario/${IdUsuario}`, {
               headers: { Authorization: `Bearer ${token}` },
             });
             const data = await res.json();

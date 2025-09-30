@@ -25,7 +25,7 @@ const VerContactosInstructores = () => {
   useEffect(() => {
     const fetchPerfiles = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/api/perfil-instructor");
+        const res = await axios.get("https://render-hhyo.onrender.com/api/perfil-instructor");
         setPerfiles(res.data);
       } catch (error) {
         console.error("❌ Error al cargar perfiles:", error);

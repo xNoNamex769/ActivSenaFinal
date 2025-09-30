@@ -6,7 +6,7 @@ const PanelFeedbacks = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/feedback")
+      .get("https://render-hhyo.onrender.com/api/feedback")
       .then((res) => setFeedbacks(res.data))
       .catch((err) => console.error("Error al cargar feedbacks:", err));
   }, []);

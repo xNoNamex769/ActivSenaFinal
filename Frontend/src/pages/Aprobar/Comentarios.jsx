@@ -21,7 +21,7 @@ export default function ComentarFeedback() {
     if (nuevoComentario.trim() === "") return;
 
     try {
-      const response = await axios.post("http://localhost:3001/api/comentario/comentario", {
+      const response = await axios.post("https://render-hhyo.onrender.com/api/comentario/comentario", {
         comentario: nuevoComentario,
         IdUsuario: 1,
         IdEvento: 2,

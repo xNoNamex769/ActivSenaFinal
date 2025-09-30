@@ -6,7 +6,7 @@ import { db } from './config/db';
 import fs from 'fs';
 import path from 'path';
 
-const PORT = 3001;
+const PORT = 3002;
 
 // 1️⃣ Crear servidor HTTP
 const httpServer = http.createServer(app);

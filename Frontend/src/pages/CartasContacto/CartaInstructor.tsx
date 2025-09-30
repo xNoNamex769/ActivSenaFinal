@@ -44,7 +44,7 @@ const PerfilInstructorForm = () => {
     const fetchPerfilExistente = async () => {
       if (!id) return;
       try {
-        const res = await axios.get(`http://localhost:3001/api/perfil-instructor/${id}`);
+        const res = await axios.get(`https://render-hhyo.onrender.com/api/perfil-instructor/${id}`);
         if (res.data) {
          const imagenEsBase64 = res.data.imagen?.startsWith("data:image");
 setFormData({
@@ -61,7 +61,7 @@ setFormData({
 
     const fetchInstructores = async () => {
       try {
-      const res = await axios.get(`http://localhost:3001/api/perfil-instructor`);
+      const res = await axios.get(`https://render-hhyo.onrender.com/api/perfil-instructor`);
 const instructoresConImagenUrl = res.data.map((inst: Instructor) => ({
   ...inst,
   imagen: inst.imagen?.startsWith("data:image")
@@ -124,11 +124,11 @@ setInstructores(instructoresConImagenUrl);
     if (!usuarioId) return;
 
     try {
-      await axios.get(`http://localhost:3001/api/perfil-instructor/${usuarioId}`);
-      await axios.put(`http://localhost:3001/api/perfil-instructor/${usuarioId}`, formData);
+      await axios.get(`https://render-hhyo.onrender.com/api/perfil-instructor/${usuarioId}`);
+      await axios.put(`https://render-hhyo.onrender.com/api/perfil-instructor/${usuarioId}`, formData);
       setMensaje('✅ Perfil actualizado correctamente');
     } catch {
-      await axios.post(`http://localhost:3001/api/perfil-instructor`, {
+      await axios.post(`https://render-hhyo.onrender.com/api/perfil-instructor`, {
         UsuarioId: usuarioId,
         ...formData,
       });
@@ -136,7 +136,7 @@ setInstructores(instructoresConImagenUrl);
     }
 
     // Refrescar lista de instructores
-    const res = await axios.get(`http://localhost:3001/api/perfil-instructor`);
+    const res = await axios.get(`https://render-hhyo.onrender.com/api/perfil-instructor`);
     setInstructores(res.data);
   };
 

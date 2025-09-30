@@ -54,7 +54,7 @@ export default function UserViewAp({ setContenidoActual }) {
           }
         }
 
-        const res = await axios.get(`http://localhost:3001/api/usuario/${id}`, {
+        const res = await axios.get(`https://render-hhyo.onrender.com/api/usuario/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 

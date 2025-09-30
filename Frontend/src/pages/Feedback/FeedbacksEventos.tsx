@@ -41,13 +41,13 @@ export default function FeedbackEventos({ idEventoSeleccionado }: { idEventoSele
       if (!idEventoSeleccionado) return;
 
       try {
-        const eventoRes = await axios.get(`http://localhost:3001/api/evento/${idEventoSeleccionado}`);
+        const eventoRes = await axios.get(`https://render-hhyo.onrender.com/api/evento/${idEventoSeleccionado}`);
         setEvento(eventoRes.data);
         console.log(" Planificador completo:", eventoRes.data.PlanificacionEvento?.usuario);
 console.log(" Imagen perfil:", eventoRes.data.PlanificacionEvento?.usuario?.perfilInstructor?.imagen);
 
    console.log("🖼 Imagen recibida:", eventoRes.data.PlanificacionEvento?.ImagenEvento);
-        const feedbackRes = await axios.get(`http://localhost:3001/api/feedback/evento/${idEventoSeleccionado}`);
+        const feedbackRes = await axios.get(`https://render-hhyo.onrender.com/api/feedback/evento/${idEventoSeleccionado}`);
         setFeedbacks(feedbackRes.data);
       } catch (err) {
         console.error("Error al obtener evento o feedbacks:", err);
@@ -71,7 +71,7 @@ console.log(" Imagen perfil:", eventoRes.data.PlanificacionEvento?.usuario?.perf
 
     try {
       await axios.post(
-        "http://localhost:3001/api/feedback/evento",
+        "https://render-hhyo.onrender.com/api/feedback/evento",
         {
           IdEvento: evento.IdEvento,
           ComentarioFeedback: feedback,
@@ -87,7 +87,7 @@ console.log(" Imagen perfil:", eventoRes.data.PlanificacionEvento?.usuario?.perf
       setFeedback("");
       setCalificacion(0);
 
-      const updatedFeedbacks = await axios.get(`http://localhost:3001/api/feedback/evento/${evento.IdEvento}`);
+      const updatedFeedbacks = await axios.get(`https://render-hhyo.onrender.com/api/feedback/evento/${evento.IdEvento}`);
       setFeedbacks(updatedFeedbacks.data);
     } catch (err) {
       console.error("Error al enviar feedback:", err);

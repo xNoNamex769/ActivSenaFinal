@@ -11,11 +11,14 @@ import {
   FaChevronDown,
   FaChevronRight,
   FaClipboardList,
+  FaRegCaretSquareRight,
 } from "react-icons/fa";
 
 import logo from "../img/logo.png";
 import avatar from "../img/avatar.png";
 import "../DashA/style/MenuLateral.css";
+import { useAuth } from "../../../../Context/AuthContext";
+
 
 export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
   const [mostrarMenu, setMostrarMenu] = useState(false);
@@ -25,6 +28,8 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
     aprendices: true,
     feedback: true,
   });
+
+  const { logout } = useAuth(); // ✅ usamos logout
 
   const toggleDropdown = () => setMostrarMenu((prev) => !prev);
   const toggleSection = (section) => {
@@ -162,7 +167,9 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
         </div>
 
         {/* Logo */}
-        <img src={logo} alt="Logo" />
+        <button className="btn-cerrar-sesion" onClick={logout}>
+                  <FaRegCaretSquareRight   className="icono-cerrar" /> Cerrar Sesión
+        </button>
       </nav>
     </aside>
   );

@@ -16,7 +16,7 @@ const CatalogoDisponible = () => {
   useEffect(() => {
     const fetchCatalogo = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/alquiler/catalogo");
+        const response = await axios.get("https://render-hhyo.onrender.com/api/alquiler/catalogo");
         const data: Elemento[] = response.data;
         setCatalogo(data);
       } catch (error) {
@@ -46,7 +46,7 @@ const CatalogoDisponible = () => {
             <p><strong>Disponibles:</strong> {el.CantidadDisponible}</p>
 
             <img
-              src={`http://localhost:3001/api/qrcode/${el.IdElemento}`}
+              src={`https://render-hhyo.onrender.com/api/qrcode/${el.IdElemento}`}
               alt={`QR de ${el.NombreElemento}`}
               className="qr-img"
             />

@@ -24,7 +24,7 @@ const NoticiasDestacadas: React.FC = () => {
   useEffect(() => {
     const fetchNoticias = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/api/actividad/noticias");
+        const res = await axios.get("https://render-hhyo.onrender.com/api/actividad/noticias");
         setNoticias(res.data);
       } catch (error) {
         console.error("❌ Error al cargar noticias:", error);

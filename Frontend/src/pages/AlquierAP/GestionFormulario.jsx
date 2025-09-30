@@ -7,7 +7,7 @@ const GestionCatalogo = () => {
   const [mensaje, setMensaje] = useState("");
 
   const cargarElementos = async () => {
-    const res = await axios.get("http://localhost:3001/api/alquilerelementos/catalogo");
+    const res = await axios.get("https://render-hhyo.onrender.com/api/alquilerelementos/catalogo");
     setElementos(res.data);
   };
 
@@ -26,7 +26,7 @@ const GestionCatalogo = () => {
     formData.append("imagen", imagenNueva[id]);
 
     try {
-      await axios.put(`http://localhost:3001/api/alquilerelementos/catalogo/${id}/imagen`, formData, {
+      await axios.put(`https://render-hhyo.onrender.com/api/alquilerelementos/catalogo/${id}/imagen`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setMensaje("Imagen actualizada correctamente");
@@ -41,7 +41,7 @@ const GestionCatalogo = () => {
     if (!window.confirm("¿Estás seguro de eliminar este elemento?")) return;
 
     try {
-      await axios.delete(`http://localhost:3001/api/alquilerelementos/catalogo/${id}`);
+      await axios.delete(`https://render-hhyo.onrender.com/api/alquilerelementos/catalogo/${id}`);
       setMensaje("Elemento eliminado correctamente");
       cargarElementos();
     } catch (error) {

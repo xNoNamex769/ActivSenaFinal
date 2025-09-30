@@ -69,14 +69,14 @@ const ConstanciaSENA = () => {
           const config = { headers: { Authorization: `Bearer ${token}` } };
 
           const usuarioRes = await axios.get(
-            `http://localhost:3001/api/usuario/${id}`,
+            `https://render-hhyo.onrender.com/api/usuario/${id}`,
             config
           );
           setDatos(usuarioRes.data);
           localStorage.setItem("cache_usuario", JSON.stringify(usuarioRes.data));
 
           const asistenciasRes = await axios.get(
-            `http://localhost:3001/api/asistencia/usuario/${id}`,
+            `https://render-hhyo.onrender.com/api/asistencia/usuario/${id}`,
             config
           );
           const total = asistenciasRes.data
@@ -89,7 +89,7 @@ const ConstanciaSENA = () => {
           );
 
           const constanciaRes = await axios.get(
-            `http://localhost:3001/api/constancia/usuario/${id}`,
+            `https://render-hhyo.onrender.com/api/constancia/usuario/${id}`,
             config
           );
           setEstadoConstancia(constanciaRes.data?.ConstanciaEstado);

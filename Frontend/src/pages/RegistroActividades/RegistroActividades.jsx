@@ -34,7 +34,7 @@ const ActivityRegistration = () => {
   const [eventos, setEventos] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/evento")
+    axios.get("https://render-hhyo.onrender.com/api/evento")
       .then(res => setEventos(res.data))
       .catch(err => console.error("Error cargando eventos", err));
   }, []);
@@ -129,7 +129,7 @@ if (fechaSeleccionada < hoySinHora) {
         formData.append("IdEvento", activityData.IdEvento);
       }
 
-      await axios.post("http://localhost:3001/api/actividad", formData, {
+      await axios.post("https://render-hhyo.onrender.com/api/actividad", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

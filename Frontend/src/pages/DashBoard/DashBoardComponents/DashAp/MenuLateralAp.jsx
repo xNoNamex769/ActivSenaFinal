@@ -14,6 +14,7 @@ import {
   FaChevronDown,
   FaChevronRight,
   FaTimes,
+  FaRegCaretSquareRight ,
 } from "react-icons/fa";
 
 import logo from "../../../../../public/img/logodef.png";
@@ -141,7 +142,9 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
           )}
         </div>
       </nav>
-      <img src={logo} alt="Logo" className="logo-dashboard-general" />
+      <button className="btn-cerrar-sesion" onClick={logout}>
+          <FaRegCaretSquareRight   className="icono-cerrar" /> Cerrar Sesión
+      </button>
     </aside>
   );
 }

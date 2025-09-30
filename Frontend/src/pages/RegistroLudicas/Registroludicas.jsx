@@ -75,7 +75,7 @@ const RegistroLudica = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3001/api/ludica", formData, {
+      const response = await axios.post("https://render-hhyo.onrender.com/api/ludica", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

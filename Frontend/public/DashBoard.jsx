@@ -54,7 +54,7 @@ export default function DashBoard() {
   // 📦 Fetch resumen IA cuando se selecciona el contenido
   useEffect(() => {
     if (contenidoActual === "resumenia") {
-      fetch("http://localhost:3001/api/resumenia/resumen", {
+      fetch("https://render-hhyo.onrender.com/api/resumenia/resumen", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ IdActividad: 5, IdEvento: 3 }), // ajusta según tu caso

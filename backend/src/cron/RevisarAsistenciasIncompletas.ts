@@ -38,7 +38,6 @@ export const revisarAsistenciasIncompletas = () => {
         });
       }
 
-      console.log(`📌 Asistencias incompletas revisadas y notificados: ${idsNotificados.length}`);
     } catch (error) {
       console.error("❌ Error al revisar asistencias incompletas:", error);
     }

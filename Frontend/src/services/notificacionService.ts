@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/api/notificaciones"; // Ajustar la  IP local
+const API_URL = "https://render-hhyo.onrender.com/api/notificaciones"; // Ajustar la  IP local
 
 export const getNotificacionesPorUsuario = async (idUsuario: number) => {
   const res = await axios.get(`${API_URL}/${idUsuario}`, {

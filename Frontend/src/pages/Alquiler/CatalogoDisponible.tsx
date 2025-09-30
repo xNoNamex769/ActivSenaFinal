@@ -18,7 +18,7 @@ const CatalogoDisponible = () => {
   useEffect(() => {
     const fetchCatalogo = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/elemento");
+        const response = await axios.get("https://render-hhyo.onrender.com/api/elemento");
         setCatalogo(response.data);
       } catch (error) {
         console.error("Error al cargar catálogo:", error);

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './style/Escaner.css';
 
+
 const QRScannerHtml5 = () => {
   const qrCodeRegionId = 'reader';
   const [mensaje, setMensaje] = useState('');
@@ -25,7 +26,7 @@ const QRScannerHtml5 = () => {
       if (tipo === "alquiler") {
         // 🟢 Registro de alquiler
         const response = await axios.post(
-          "http://localhost:3001/api/alquilerelementos/desde-qr",
+          "https://render-hhyo.onrender.com/api/alquilerelementos/desde-qr",
           {
             IdElemento: payload.IdElemento,
             nombreElemento: payload.nombreElemento,
@@ -60,7 +61,7 @@ const QRScannerHtml5 = () => {
       } else if (tipo === "evento") {
         // 🔵 Registro de asistencia a evento
         const response = await axios.post(
-          "http://localhost:3001/api/asistencia/evento/qr",
+          "https://render-hhyo.onrender.com/api/asistencia/evento/qr",
           payload,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -82,7 +83,7 @@ const QRScannerHtml5 = () => {
       } else {
         // 🟡 Asistencia regular
         const response = await axios.post(
-          "http://localhost:3001/api/asistencia/qr",
+          "https://render-hhyo.onrender.com/api/asistencia/qr",
           payload,
           { headers: { Authorization: `Bearer ${token}` } }
         );

@@ -15,7 +15,7 @@ export default function MisActividadesYLudicas() {
     const decoded = JSON.parse(atob(token.split(".")[1]));
     setUsuarioId(decoded.IdUsuario);
 
-    axios.get("http://localhost:3001/api/actividad").then((res) => {
+    axios.get("https://render-hhyo.onrender.com/api/actividad").then((res) => {
       const todas = res.data;
 
       const actividadesFiltradas = todas.filter(
@@ -42,7 +42,7 @@ export default function MisActividadesYLudicas() {
     if (!token) return;
     try {
       const res = await axios.get(
-        `http://localhost:3001/api/asistencia/actividad/${idActividad}`,
+        `https://render-hhyo.onrender.com/api/asistencia/actividad/${idActividad}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

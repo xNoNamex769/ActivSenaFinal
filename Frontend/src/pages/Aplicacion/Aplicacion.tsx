@@ -66,12 +66,12 @@ const Aplicacion = () => {
 
   const cargarEventosYReacciones = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/api/evento/publicos");
+      const res = await axios.get("https://render-hhyo.onrender.com/api/evento/publicos");
       setEventosPublicos(res.data);
 
       const reaccionesPorEvento = await Promise.all(
         res.data.map((evento: EventoConDatos) =>
-          axios.get(`http://localhost:3001/api/reacciones/evento/${evento.IdEvento}`)
+          axios.get(`https://render-hhyo.onrender.com/api/reacciones/evento/${evento.IdEvento}`)
         )
       );
 
@@ -94,7 +94,7 @@ const Aplicacion = () => {
 
   const cargarFeedbacksEvento = async (idEvento: number) => {
     try {
-      const res = await axios.get(`http://localhost:3001/api/feedback/evento/${idEvento}`);
+      const res = await axios.get(`https://render-hhyo.onrender.com/api/feedback/evento/${idEvento}`);
       setFeedbacksModal(res.data);
     } catch (err) {
       console.error("❌ Error al cargar feedbacks del modal:", err);
@@ -103,7 +103,7 @@ const Aplicacion = () => {
 
   const cargarDetallesReacciones = async (idEvento: number) => {
     try {
-      const res = await axios.get(`http://localhost:3001/api/reacciones/evento/${idEvento}/detalles`);
+      const res = await axios.get(`https://render-hhyo.onrender.com/api/reacciones/evento/${idEvento}/detalles`);
       const data = res.data.map((r: any) => ({
         IdUsuario: r.usuario.IdUsuario,
         Nombre: r.usuario.Nombre,
@@ -122,7 +122,7 @@ const Aplicacion = () => {
       if (!token) return;
 
       await axios.post(
-        "http://localhost:3001/api/reacciones",
+        "https://render-hhyo.onrender.com/api/reacciones",
         { IdEvento: idEvento, Tipo: tipo },
         { headers: { Authorization: `Bearer ${token}` } }
       );
