@@ -11,8 +11,24 @@ import {
   FaChevronDown,
   FaChevronRight,
   FaClipboardList,
+<<<<<<< HEAD
   FaRegCaretSquareRight,
+=======
+  FaRegCalendarAlt,
+  FaRegEdit,
+  FaRegIdCard,
+  FaRegUserCircle,
+  FaRegComments,
+  FaCheckDouble,
+  FaRegNewspaper
+>>>>>>> 29cecb6ff0c685f83e709b765c9de37b8f19c5af
 } from "react-icons/fa";
+
+import { MdEventAvailable, MdOutlinePermContactCalendar  } from "react-icons/md";
+import { TfiWrite } from "react-icons/tfi";
+import { LiaPeopleCarrySolid } from "react-icons/lia";
+import { VscFeedback } from "react-icons/vsc";
+import { PiPersonSimpleThrowLight } from "react-icons/pi";
 
 import logo from "../img/logo.png";
 import avatar from "../img/avatar.png";
@@ -80,13 +96,13 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
           {openSection.eventos && (
             <>
               <button onClick={() => setContenidoActual("actividades")} className="opciondash">
-                <FaCheckSquare className="iconodash" /> Actividades
+                <PiPersonSimpleThrowLight className="iconodash" /> Actividades
               </button>
               <button onClick={() => setContenidoActual("aplicacion")} className="opciondash">
-                <FaCalendarAlt className="iconodash" /> Eventos
+                <MdEventAvailable className="iconodash" /> Eventos
               </button>
               <button onClick={() => setContenidoActual("calendarioactividades")} className="opciondash">
-                <FaCalendarAlt className="iconodash" /> Calendario
+                <FaRegCalendarAlt className="iconodash" /> Calendario
               </button>
              
             </>
@@ -101,22 +117,22 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
           {openSection.gestionEventos && (
             <>
               <button onClick={() => setContenidoActual("planevento")} className="opciondash">
-                <FaCalendarAlt className="iconodash" /> Planificar Evento
+                <TfiWrite className="iconodash" /> Planificar Evento
               </button>
               <button onClick={() => setContenidoActual("registroactividades")} className="opciondash">
-                <FaCheckSquare className="iconodash" /> Registro Actividades
+                <FaRegEdit className="iconodash" /> Registro Actividades
               </button>
                 <button onClick={() => setContenidoActual("registroLudicas")} className="opciondash">
-                <FaCheckSquare className="iconodash" /> Registro Ludicas
+                <FaRegEdit className="iconodash" /> Registro Ludicas
               </button>
             
               
               
                <button onClick={() => setContenidoActual("misludicas")} className="opciondash">
-                <FaThumbsUp className="iconodash" /> Mis ludicas
+                <MdOutlinePermContactCalendar className="iconodash" /> Mis ludicas
               </button>
                <button onClick={() => setContenidoActual("miseventos")} className="opciondash">
-                <FaThumbsUp className="iconodash" /> Mis eventos
+                <LiaPeopleCarrySolid className="iconodash" /> Mis eventos
               </button>
                  <button onClick={() => setContenidoActual("panelfeedback")} className="opciondash">
                 <FaThumbsUp className="iconodash" /> Mis feedback
@@ -136,10 +152,10 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
           {openSection.aprendices && (
             <>
             <button onClick={() => setContenidoActual("aprobadoseventos")} className="opciondash">
-                <FaThumbsUp className="iconodash" /> Eventos Aprobados
+                <FaCheckDouble className="iconodash" /> Eventos Aprobados
               </button>
            <button onClick={() => setContenidoActual("asistenciaseventos")} className="opciondash">
-                <FaThumbsUp className="iconodash" /> Asistencia eventos
+                <FaRegNewspaper className="iconodash" /> Asistencia eventos
               </button>
       
               {/* <button onClick={() => setContenidoActual("solicitudapoyoinstructor")} className="opciondash">
@@ -157,10 +173,10 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
           {openSection.feedback && (
             <>
               <button onClick={() => setContenidoActual("comprobar")} className="opciondash">
-                <FaCommentDots className="iconodash" /> Feedback
+                <VscFeedback className="iconodash" /> Feedback
               </button>
               <button onClick={() => setContenidoActual("cartacontacto")} className="opciondash">
-                <FaAddressBook className="iconodash" /> Contactos
+                <FaRegUserCircle className="iconodash" /> Contactos
               </button>
             </>
           )}
