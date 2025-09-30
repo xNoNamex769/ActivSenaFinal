@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import "./styles/HeroHomeSection.css";
 import { Link } from 'react-router-dom';
+import img from "./img/portada6.jpeg"
 
 export default function HeroHomeSection() {
   let images = [
-    "url(../../../../public/img/portada5.jpeg)",
-    "url(../../../../public/img/portada6.jpeg)",
-    "url(../../../../public/img/portada4.jpeg)",
+    "url(./img/portada1.jpg)",
+    "url(./img/portada3.jpg)",
+    "url(./img/portada6.jpeg)",
   ];
   
 
