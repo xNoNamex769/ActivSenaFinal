@@ -191,6 +191,12 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
                <button onClick={() => setContenidoActual("planificareventosadmin")} className="opciondash">
                 <MdAppRegistration className="iconodash" /> AprobarEventos
               </button>
+              <button onClick={() => setContenidoActual("registrarfuncionarios")} className="opciondash">
+                <MdAppRegistration className="iconodash" /> Registrar
+              </button>
+              <button onClick={() => setContenidoActual("subiraprendiz")} className="opciondash">
+                <MdAppRegistration className="iconodash" /> Subir Aprendiz
+              </button>
                  {/* <button onClick={() => setContenidoActual("adminludicas")} className="opciondash">
                 <FaChartBar className="iconodash" /> Ludicas Aprendices
               </button> */}
